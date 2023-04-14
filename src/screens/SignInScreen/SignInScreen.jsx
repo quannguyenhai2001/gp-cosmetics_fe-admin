@@ -95,7 +95,6 @@ const SignInScreen = () => {
                     >
                         Đăng nhập
                     </Typography>
-                    <Typography>Chào mừng đến với MonstarLab</Typography>
                 </Stack>
 
                 <Formik
