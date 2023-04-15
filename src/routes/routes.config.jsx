@@ -1,5 +1,7 @@
 import BlankLayout from "layouts/BlankLayout/BlankLayout";
 import DefaultLayout from "layouts/DefaultLayout/DefaultLayout";
+import HomeScreen from "screens/HomeScreen/HomeScreen";
+import ProductsScreen from "screens/ProductsScreen/ProductsScreen";
 import SignInScreen from "screens/SignInScreen/SignInScreen";
 
 export const RouteConfigs = [
@@ -11,8 +13,15 @@ export const RouteConfigs = [
     },
     {
         path: "/dashboard",
-        element: SignInScreen,
+        element: HomeScreen,
         isPrivate: false,
         layout: DefaultLayout,
     },
+    {
+        path: "/dashboard/products",
+        element: ProductsScreen,
+        isPrivate: false,
+        layout: DefaultLayout,
+    },
+
 ]

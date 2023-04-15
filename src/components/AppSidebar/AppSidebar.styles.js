@@ -5,8 +5,8 @@ import { styled } from "@mui/material/styles";
 export const useStyles = makeStyles(theme => ({
     wrapAvatar: {
         "&.avatar-expanded": {
-            width: "100px",
-            height: "100px",
+            width: "90px",
+            height: "90px",
             transition: "all 0.3s ease-in-out",
             animation: "$fade-in-scale 0.75s 1 ease-in-out",
         },

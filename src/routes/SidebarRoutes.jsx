@@ -22,15 +22,15 @@ export const sidebarMenuItems = [
     {
         icon: <HomeIcon />,
         title: "Trang chủ",
-        to: "/not-found",
+        to: "/dashboard",
     },
     {
         icon: <PersonAddAlt1Icon />,
-        title: "Quản lý 1",
+        title: "Quản lý sản phẩm",
         items: [
             {
-                title: "muc 1",
-                to: "/a",
+                title: "Danh sách sản phẩm",
+                to: "/dashboard/products",
             },
             {
                 title: "muc 1",

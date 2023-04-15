@@ -246,7 +246,7 @@ const AppSidebar = () => {
                     className={`${classes.typoUsername} ${isExpand && "username-expanded"
                         }`}
                 >
-                    {userInfo.fullname}
+                    Nguyễn Hải Quân
                 </Typography>
             </Box>
             <Box flexGrow={1} className="wrap-menu-items">
