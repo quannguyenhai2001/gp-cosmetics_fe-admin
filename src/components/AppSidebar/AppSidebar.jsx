@@ -21,15 +21,18 @@ import {
     styled,
     tooltipClasses,
 } from "@mui/material";
-import { useNavigate, useLocation, Link } from "react-router-dom";
+import { useLocation, Link, useNavigate } from "react-router-dom";
+
+import AppModal from "components/Modal/Modal";
+
+
 
 import { sidebarMenuItems } from "routes/SidebarRoutes";
-
 
 import "./AppSidebar.styles.scss";
 import { useStyles, StyledBadge } from "./AppSidebar.styles";
 import { hasChildren } from "./helpers/AppSidebar.helpers";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 const MultiLevel = ({ item, isSidebarExpanded, isChildItem = false }) => {
     const classes = useStyles();
@@ -103,14 +106,14 @@ const MultiLevel = ({ item, isSidebarExpanded, isChildItem = false }) => {
     );
 };
 
-const SingleLevel = ({ item, isSidebarExpanded, setOpenCancelModal }) => {
+const SingleLevel = ({ item, isSidebarExpanded }) => {
     const classes = useStyles();
     const navigate = useNavigate();
     const location = useLocation();
     const redirectMenu = () => {
-        if (!item.to || item.to === location.pathname) {
-            setOpenCancelModal(true);
-        }
+        // if (!item.to || item.to === location.pathname) {
+        //     setOpenCancelModal(true);
+        // }
         navigate(item.to);
     };
 
@@ -170,16 +173,15 @@ const LightTooltip = styled(({ className, ...props }) => (
 const AppSidebar = () => {
     const classes = useStyles();
     const dispatch = useDispatch();
-    const userInfo = []
-    const [isExpand, setIsExpand] = useState(false);
 
+    const [isExpand, setIsExpand] = useState(true);
     const navigate = useNavigate();
+
     const location = useLocation();
 
 
     const handleCollapseSideBar = () => {
         setIsExpand(!isExpand);
-
     };
 
     const [openCancelModal, setOpenCancelModal] = useState(false);
@@ -187,16 +189,7 @@ const AppSidebar = () => {
         setOpenCancelModal(false);
     };
     const handleConfirmCancel = async () => {
-        // try {
-        //     dispatch(logout());
-        //     setOpenCancelModal(false);
-        // } catch (error) {
-        //     setOpenCancelModal(false);
-        //     toast({
-        //         severity: "warning",
-        //         message: "Lỗi!",
-        //     });
-        // }
+
     };
     return (
         <Box
@@ -218,9 +211,9 @@ const AppSidebar = () => {
                     sx={{ maxWidth: 180, marginBottom: 20, p: "0 5px" }}
                     bgcolor="signature"
                 >
-                    <Link >
-                        {/* <img src={logoImage} alt="Logo icon" width="100%" /> */}
-                    </Link>
+                    {/* <Link to={STAFF_PATHS.STAFF_LIST}>
+                        <img src={logoImage} alt="Logo icon" width="100%" />
+                    </Link> */}
                 </Box>
                 <Box>
                     <StyledBadge
@@ -233,8 +226,6 @@ const AppSidebar = () => {
                         <Avatar
                             className={`${classes.wrapAvatar} ${isExpand ? "avatar-expanded" : "avatar-collapsed"
                                 }`}
-                            alt={userInfo.fullname}
-                            src={userInfo.avatar_url}
                         />
                     </StyledBadge>
                 </Box>
@@ -289,7 +280,7 @@ const AppSidebar = () => {
                             <MenuItem
                                 key={item.title}
                                 item={item}
-                                setOpenCancelModal={setOpenCancelModal}
+                                // setOpenCancelModal={setOpenCancelModal}
                                 isExpand={isExpand}
                             />
                         </Box>
@@ -307,9 +298,16 @@ const AppSidebar = () => {
                 {isExpand ? <KeyboardArrowLeftIcon /> : <KeyboardArrowRightIcon />}
             </Button>
 
-
+            <AppModal
+                openModal={openCancelModal}
+                handleCloseModal={handleCloseModalCancel}
+                handleConfirmModal={handleConfirmCancel}
+                modalTitle="Đăng xuất"
+                modalConfirmMessage="Bạn có chắc chắn muốn đăng xuất không?"
+                modalIcon={<LogoutIcon />}
+            />
         </Box>
     );
 };
 
-export default AppSidebar;
+export default memo(AppSidebar);
