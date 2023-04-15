@@ -70,7 +70,8 @@ export const themeMainOptions = {
                 root: {
                     textTransform: "none",
                     fontWeight: 500,
-                    fontSize: 16,
+                    fontSize: 12,
+                    padding: "7px 0",
                     borderRadius: "7px",
                     background: "#D1D8EC",
                     backgroundColor: "#ebecf0",
