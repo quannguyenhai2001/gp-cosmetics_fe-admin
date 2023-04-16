@@ -32,7 +32,7 @@ import { sidebarMenuItems } from "routes/SidebarRoutes";
 import "./AppSidebar.styles.scss";
 import { useStyles, StyledBadge } from "./AppSidebar.styles";
 import { hasChildren } from "./helpers/AppSidebar.helpers";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const MultiLevel = ({ item, isSidebarExpanded, isChildItem = false }) => {
     const classes = useStyles();
@@ -178,6 +178,7 @@ const AppSidebar = () => {
     const navigate = useNavigate();
 
     const location = useLocation();
+    const userInfo = useSelector(state => state.user.userInfo);
 
 
     const handleCollapseSideBar = () => {
@@ -226,7 +227,10 @@ const AppSidebar = () => {
                         <Avatar
                             className={`${classes.wrapAvatar} ${isExpand ? "avatar-expanded" : "avatar-collapsed"
                                 }`}
+                            alt={userInfo.display_name}
+                            src={userInfo.avatar}
                         />
+                        {console.log(userInfo)}
                     </StyledBadge>
                 </Box>
                 <Typography
@@ -237,7 +241,7 @@ const AppSidebar = () => {
                     className={`${classes.typoUsername} ${isExpand && "username-expanded"
                         }`}
                 >
-                    Nguyễn Hải Quân
+                    {userInfo.display_name}
                 </Typography>
             </Box>
             <Box flexGrow={1} className="wrap-menu-items">

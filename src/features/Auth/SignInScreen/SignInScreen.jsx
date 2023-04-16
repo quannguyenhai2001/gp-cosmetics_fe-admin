@@ -15,17 +15,21 @@ import {
 } from "@mui/material";
 import { Stack } from "@mui/system";
 import { Form, Formik } from "formik";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import FormikTextField from "components/FormElements/FormikTextField/FormikTextField";
 import { initLoginFormValue } from "utils/FormValidate";
+import { useDispatch } from "react-redux";
+import { fetchAsyncSignIn } from "redux/slices/UserSlice";
 
 
 
 
 
 const SignInScreen = () => {
+    const dispatch = useDispatch()
 
+    const navigate = useNavigate()
 
     const [showPassword, setShowPassword] = useState(false);
     const handleClickShowPassword = () => setShowPassword(!showPassword);
@@ -33,22 +37,17 @@ const SignInScreen = () => {
     const theme = useTheme();
 
 
-    const loginHandler = ({ email, password }) => {
-        // const payload = {
-        //     email,
-        //     password,
-        //     grant_type: "password",
-        // };
-        // dispatch(postLogin(payload)).then(res => {
-        //     const { payload } = res;
-        //     const destinationPath =
-        //         payload.first_login_flag === FIRST_LOGIN_STATES.FALSE
-        //             ? AUTH_PATHS.CHANGE_PASSWORD
-        //             : STAFF_PATHS.STAFF_LIST;
-        //     dispatch(getAuthUser({ id: payload.user_id }));
-        //     history.push(destinationPath);
-        // });
-    };
+    const handleSubmit = async (value) => {
+        try {
+            await dispatch(fetchAsyncSignIn(value)).unwrap()
+            navigate("/dashboard")
+
+        }
+        catch (err) {
+
+
+        }
+    }
 
     return (
         <Grid
@@ -101,7 +100,7 @@ const SignInScreen = () => {
                     initialValues={initLoginFormValue}
                     // validationSchema={LoginFormSchema}
                     onSubmit={(values, { setFieldError }) => {
-                        loginHandler(values, setFieldError);
+                        handleSubmit(values, setFieldError);
                     }}
                 >
                     {({ values, setFieldValue, handleBlur, isValid, dirty, ...rest }) => (
@@ -113,9 +112,9 @@ const SignInScreen = () => {
                                     size="large"
                                     variant="outlined"
                                     id="email"
-                                    label="Email Address"
+                                    label="Email"
                                     name="email"
-                                    placeholder="Nhập Email"
+                                    placeholder="Examle@gmail.com"
                                     onBlur={e => {
                                         handleBlur(e);
                                         setFieldValue("email", values.email.trim(), true);
@@ -127,8 +126,7 @@ const SignInScreen = () => {
                                     size="large"
                                     variant="outlined"
                                     name="password"
-                                    label="Password"
-                                    placeholder="Nhập Password"
+                                    label="Mật khẩu"
                                     id="password"
                                     type={showPassword ? "text" : "password"}
                                     InputProps={{

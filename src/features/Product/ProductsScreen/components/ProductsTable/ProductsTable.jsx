@@ -32,6 +32,7 @@ const ProductsTable = ({
     products,
     setProducts,
     pageInfo,
+    setOpenDeleteProductModal
 }) => {
     const theme = useTheme();
     const classes = useStyles();
@@ -98,7 +99,7 @@ const ProductsTable = ({
         const newProducts = products.filter(product => {
             return product.isSelected
         });
-        if (newProducts.length > 1) {
+        if (newProducts.length > 0) {
             return true
         }
         return false
@@ -213,11 +214,14 @@ const ProductsTable = ({
                                         component="th"
                                         scope="row"
                                         size="medium"
+                                        sx={{ textDecoration: "underline" }}
                                     >
                                         <Link
                                             style={{
                                                 color: theme.palette.text.dark,
                                             }}
+                                            to={`/dashboard/products/${product.id}`}
+
                                         >
                                             {product.product_name}
                                         </Link>
@@ -260,6 +264,9 @@ const ProductsTable = ({
                                             <AppTooltip title="Chỉnh sửa">
                                                 <IconButton
                                                     disabled={isDisabledIcon(products)}
+                                                    onClick={() =>
+                                                        navigate(`/dashboard/edit-products/${product.id}`)
+                                                    }
                                                 >
                                                     <Edit />
                                                 </IconButton>
@@ -267,6 +274,7 @@ const ProductsTable = ({
                                             <AppTooltip title="Xóa">
                                                 <IconButton
                                                     disabled={isDisabledIcon(products)}
+                                                    onClick={() => setOpenDeleteProductModal(true)}
 
                                                 >
                                                     <Delete />

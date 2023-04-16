@@ -28,7 +28,9 @@ const DefaultLayout = ({ children }) => {
                         sx={{ flexGrow: 1 }}
                         width="100%"
                     >
-                        {children}
+                        <Box p={20} height="100%">
+                            {children}
+                        </Box>
                     </Box>
                 </Box>
             </Box>

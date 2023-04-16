@@ -94,7 +94,7 @@ const ProductsScreen = () => {
         return true
     }
     return (
-        <Box p={20} height="100%">
+        <Box >
             <Stack direction="column" spacing={20} height="100%">
                 <Stack direction="column" spacing={20}>
                     <Typography variant="h2" fontWeight="bold" fontSize="30px">
@@ -165,12 +165,6 @@ const ProductsScreen = () => {
                                                     variant="contained"
                                                     color="signature"
                                                     type="submit"
-
-                                                // disabled={isDisableSearchButton({
-                                                //     dirty,
-                                                //     isValid,
-                                                //     submitCount,
-                                                // })}
                                                 >
                                                     Tìm kiếm
                                                 </Button>
@@ -207,8 +201,10 @@ const ProductsScreen = () => {
                             startIcon={<AddCircleOutline />}
                             sx={{
                                 width: "120px",
-
                             }}
+                            onClick={() =>
+                                navigate("/dashboard/create-products")
+                            }
                             size="small"
                             variant="contained"
                             color="signature"
@@ -238,6 +234,7 @@ const ProductsScreen = () => {
                         products={products}
                         setProducts={setProducts}
                         pageInfo={pageInfo}
+                        setOpenDeleteProductModal={setOpenDeleteProductModal}
 
                     />
                 </Box>
