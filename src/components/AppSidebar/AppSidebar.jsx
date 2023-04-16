@@ -197,7 +197,7 @@ const AppSidebar = () => {
             flexDirection="column"
             className={`wrapper-sidebar ${isExpand ? "sidebar-expanded" : "sidebar-collapsed"
                 }`}
-            sx={{ paddingBottom: "65px" }}
+
             bgcolor="rgb(252 252 252)"
         >
             <Box

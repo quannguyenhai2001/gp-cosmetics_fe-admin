@@ -1,8 +1,12 @@
 import BlankLayout from "layouts/BlankLayout/BlankLayout";
 import DefaultLayout from "layouts/DefaultLayout/DefaultLayout";
-import HomeScreen from "screens/HomeScreen/HomeScreen";
-import ProductsScreen from "screens/ProductsScreen/ProductsScreen";
-import SignInScreen from "screens/SignInScreen/SignInScreen";
+
+
+
+import ProductsScreen from "features/Product/ProductsScreen/ProductsScreen";
+import SignInScreen from "features/Auth/SignInScreen/SignInScreen";
+import HomeScreen from "features/Home/HomeScreen/HomeScreen";
+import SizesScreen from "features/Size/SizesScreen/SizesScreen";
 
 export const RouteConfigs = [
     {
@@ -20,6 +24,12 @@ export const RouteConfigs = [
     {
         path: "/dashboard/products",
         element: ProductsScreen,
+        isPrivate: false,
+        layout: DefaultLayout,
+    },
+    {
+        path: "/dashboard/sizes",
+        element: SizesScreen,
         isPrivate: false,
         layout: DefaultLayout,
     },

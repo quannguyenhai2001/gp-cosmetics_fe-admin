@@ -32,15 +32,15 @@ const AppModal = ({
             <Box
                 className="modal-container"
                 sx={{
-                    minHeight: "270px",
-                    minWidth: "600px",
+                    minHeight: "220px",
+                    minWidth: "500px",
                     flexGrow: 1,
                     display: "flex",
                     flexDirection: "column",
                     justifyContent: "space-between",
                 }}
             >
-                <Box py={15} className="modal-title" fontWeight="bold">
+                <Box py={10} className="modal-title" fontWeight="bold">
                     {props.modalIcon}
                     <Typography variant="h6">{modalTitle}</Typography>
                 </Box>
@@ -63,14 +63,12 @@ const AppModal = ({
                     {hasCancelButton && (
                         <Button
                             className="cancel-btn"
-                            color="success"
-                            variant="outlined"
+                            size="small"
+                            variant="contained"
                             onClick={handleCloseModal}
                             sx={{
-                                minWidth: "170px",
-                                padding: "10px 0",
+                                minWidth: "120px",
                                 borderRadius: "30px",
-                                border: "2px solid #c8c8c8ab",
                             }}
                         >
                             <Typography color="text.dark" fontWeight="bold">
@@ -84,7 +82,7 @@ const AppModal = ({
                             className="accept-btn"
                             variant="contained"
                             sx={{
-                                minWidth: "170px",
+                                minWidth: "120px",
                                 borderRadius: "30px",
                             }}
                             onClick={handleConfirmModal}

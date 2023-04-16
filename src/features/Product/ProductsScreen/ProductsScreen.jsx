@@ -13,14 +13,15 @@ import qs from "query-string";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
 import AppPaginate from "components/AppPaginate/AppPaginate";
-import AppTooltip from "components/AppTooltip/AppTooltip";
+
 import FormikTextField from "components/FormElements/FormikTextField/FormikTextField";
-import { useStyles } from "./ProductsScreen.styles";
+
 import ProductsTable from "./components/ProductsTable/ProductsTable";
 import { fetchAsyncGetProducts } from "redux/slices/productSlice";
 import { initSearchProductsValue } from "utils/FormValidate";
 import removeEmptyValuesInObject from "utils/removeEmptyValuesInObject";
 import { Toast } from "utils/Toast";
+import DeleteProductModal from "./components/DeleteProductModal/DeleteProductModal";
 
 const initialPageInfo = {
     page: 1,
@@ -33,11 +34,14 @@ const ProductsScreen = () => {
     const [pageInfo, setPageInfo] = useState(initialPageInfo);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const [isActionButton, setIsActionButton] = useState(false)
+
+    const [openDeleteProductModal, setOpenDeleteProductModal] = useState(false);
+
     // Search and paginate
     const location = useLocation();
     const qsParsed = qs.parse(location.search);
     // load page - fill data in fields search
-
     useEffect(() => {
         initSearchProductsValue.product_name = qsParsed.product_name ?? "";
         initSearchProductsValue.manufacturer_name = qsParsed.manufacturer_name ?? "";
@@ -64,7 +68,7 @@ const ProductsScreen = () => {
                 Toast('warning', "Lỗi!");
             }
         })();
-    }, [location.search]);
+    }, [location.search, isActionButton]);
 
     const handleSearchInterviews = values => {
         const newInitSearchValues = removeEmptyValuesInObject(values);
@@ -84,7 +88,7 @@ const ProductsScreen = () => {
         const newProducts = products.filter(product => {
             return product.isSelected
         });
-        if (newProducts.length > 1) {
+        if (newProducts.length > 0) {
             return false
         }
         return true
@@ -200,7 +204,7 @@ const ProductsScreen = () => {
                         }}
                     >
                         <Button
-                            startIcon={<Delete />}
+                            startIcon={<AddCircleOutline />}
                             sx={{
                                 width: "120px",
 
@@ -223,7 +227,7 @@ const ProductsScreen = () => {
                             variant="contained"
                             color="error"
                             disabled={isDisabledButton(products)}
-
+                            onClick={() => setOpenDeleteProductModal(true)}
                         >
                             Xóa
                         </Button>
@@ -238,6 +242,12 @@ const ProductsScreen = () => {
                     />
                 </Box>
             </Stack>
+            <DeleteProductModal
+                products={products}
+                openDeleteProductModal={openDeleteProductModal}
+                setOpenDeleteProductModal={setOpenDeleteProductModal}
+                setIsActionButton={setIsActionButton}
+            />
         </Box>
     );
 };

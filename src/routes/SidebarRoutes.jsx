@@ -33,87 +33,30 @@ export const sidebarMenuItems = [
                 to: "/dashboard/products",
             },
             {
-                title: "muc 1",
-                to: "/a",
+                title: "Quản lý phân loại hàng",
+                to: "/dashboard/sizes",
+
             },
-            {
-                title: "muc 1",
-                to: "/a",
-            },
-            {
-                title: "muc 1",
-                to: "/not-found",
-            },
+
         ],
     },
     {
         icon: <Diversity3Icon />,
-        title: "Quản lý 2",
-        items: [
-            {
-                title: "muc 1",
-                to: "/a",
-            },
-            {
-                title: "muc 1",
-                to: "/not-found",
-            },
-        ],
+        title: "Quản lý danh mục",
+        to: "/dashboard",
     },
     {
         icon: <PermDataSettingIcon />,
-        title: "Quản lý 3",
-        items: [
-            {
-                title: "muc 1",
-                to: "/a",
-            },
-            {
-                title: "muc 1",
-                to: "/a",
-            },
-            {
-                title: "muc 1",
-                to: "/a",
-            },
-            {
-                title: "muc 1",
-                to: "/a",
-            },
-        ],
+        title: "Quản lý nhà cung cấp",
+        to: "/dashboard",
+
     },
     {
         icon: <SettingsSuggestIcon />,
-        title: "Quản lý 4",
-        items: [
-            {
-                title: "muc 1",
-                to: "/not-found",
-            },
-            {
-                title: "muc 1",
-                to: "/a",
-            },
-            {
-                title: "muc 1",
-                to: "/not-found",
-            },
-        ],
+        title: "Quản lý hóa đơn",
+        to: "/dashboard",
     },
-    {
-        icon: <SettingsAccessibilityIcon />,
-        title: "Quản lý 5",
-        items: [
-            {
-                title: "muc 1",
-                to: "/not-found",
-            },
-            {
-                title: "muc 1",
-                to: "/change-password",
-            },
-        ],
-    },
+
     {
         icon: <ExitToAppIcon />,
         title: "Thoát",

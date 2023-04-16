@@ -18,7 +18,17 @@ export const fetchAsyncGetProducts = createAsyncThunk(
         }
     }
 );
-
+export const fetchAsyncDeleteProduct = createAsyncThunk(
+    "product/fetchAsyncDeleteProduct",
+    async (data, { rejectWithValue }) => {
+        try {
+            const response = await CallApiByBody("products/delete-product.php", "delete", data)
+            return response.data
+        } catch (error) {
+            return rejectWithValue(error.response.data)
+        }
+    }
+);
 
 const productSlice = createSlice({
     name: 'products',

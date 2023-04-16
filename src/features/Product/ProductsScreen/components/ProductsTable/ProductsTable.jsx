@@ -98,7 +98,7 @@ const ProductsTable = ({
         const newProducts = products.filter(product => {
             return product.isSelected
         });
-        if (newProducts.length > 0) {
+        if (newProducts.length > 1) {
             return true
         }
         return false
