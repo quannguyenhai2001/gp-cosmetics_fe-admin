@@ -32,6 +32,7 @@ const ProductsTable = ({
     products,
     setProducts,
     pageInfo,
+    setOpenDeleteProductModal
 }) => {
     const theme = useTheme();
     const classes = useStyles();
@@ -46,22 +47,17 @@ const ProductsTable = ({
         },
         {
             id: "thumbnail_url",
-            label: "Ảnh",
-            minWidth: 120,
+            label: "Tên phân loại",
+            minWidth: 100,
         },
         {
             id: "manufacturer_name",
-            label: "Nhà cung cấp",
+            label: "Giá thêm",
             minWidth: 120,
         },
         {
             id: "price",
-            label: "Giá",
-            minWidth: 70,
-        },
-        {
-            id: "promotion",
-            label: "Giảm giá",
+            label: "Số lượng",
             minWidth: 70,
         },
         {
@@ -98,7 +94,7 @@ const ProductsTable = ({
         const newProducts = products.filter(product => {
             return product.isSelected
         });
-        if (newProducts.length > 1) {
+        if (newProducts.length > 0) {
             return true
         }
         return false
@@ -119,7 +115,7 @@ const ProductsTable = ({
                         borderRadius: "5px",
                         boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
                         minWidth: 600,
-                        minHeight: products.length >= 5 ? 450 : (products.length + 1) * 72.5,
+                        minHeight: products.length >= 5 ? 450 : (products.length + 1) * 65,
                     }}
                 >
                     <Table
@@ -213,39 +209,28 @@ const ProductsTable = ({
                                         component="th"
                                         scope="row"
                                         size="medium"
+                                        sx={{ textDecoration: "underline" }}
                                     >
                                         <Link
                                             style={{
                                                 color: theme.palette.text.dark,
                                             }}
+                                            to={`/dashboard/size/${product.id}`}
+
                                         >
-                                            {product.product_name}
+                                            {product.label}
                                         </Link>
                                     </TableCell>
                                     <TableCell align="center" size="small">
-                                        {product.thumbnail_url ? (<CardMedia className={classes.rootCardMedia}
-                                            component="img"
-                                            height="70"
-                                            image={product.thumbnail_url}
-                                            alt="green iguana"
-                                        />) : (
-                                            <CardMedia className={classes.rootCardMedia}
-                                                component="img"
-                                                height="70"
-                                                image='https://res.cloudinary.com/cosmeticv1/image/upload/v1653237466/cosmetic/products/Product17_2.webp'
-                                                alt="green iguana"
-                                            />
-                                        )}
+                                        {product.product_name}
+
                                     </TableCell>
 
                                     <TableCell align="center" size="small">
-                                        {product.manufacturer_name}
+                                        {product.additional_price}
                                     </TableCell>
                                     <TableCell align="center" size="small">
-                                        {product.price}
-                                    </TableCell>
-                                    <TableCell align="center" size="small">
-                                        {product.promotion}
+                                        {product.quantity}
                                     </TableCell>
                                     <TableCell align="center" size="small">
                                         {product.create_at}
@@ -260,6 +245,9 @@ const ProductsTable = ({
                                             <AppTooltip title="Chỉnh sửa">
                                                 <IconButton
                                                     disabled={isDisabledIcon(products)}
+                                                    onClick={() =>
+                                                        navigate(`/dashboard/edit-size/${product.id}`)
+                                                    }
                                                 >
                                                     <Edit />
                                                 </IconButton>
@@ -267,6 +255,7 @@ const ProductsTable = ({
                                             <AppTooltip title="Xóa">
                                                 <IconButton
                                                     disabled={isDisabledIcon(products)}
+                                                    onClick={() => setOpenDeleteProductModal(true)}
 
                                                 >
                                                     <Delete />

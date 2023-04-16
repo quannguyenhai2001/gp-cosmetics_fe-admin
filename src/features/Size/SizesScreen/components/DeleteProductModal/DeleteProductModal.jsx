@@ -9,9 +9,10 @@ import AppModal from "components/Modal/Modal";
 
 
 import { modalMessages } from "constants/modal-message";
-import { fetchAsyncDeleteProduct } from "redux/slices/productSlice";
+import { fetchAsyncDeleteProduct } from "redux/slices/ProductSlice";
 import { useDispatch } from "react-redux";
 import { Toast } from "utils/Toast";
+import { fetchAsyncDeleteSize } from "redux/slices/SizeSlice";
 
 const DeleteProductModal = ({
     products,
@@ -28,10 +29,10 @@ const DeleteProductModal = ({
     });
 
     const getLabelModal = () => {
-        if (selectedInterns.length === 1) {
-            return modalMessages.confirmDeleteProducts.replace(/{number}/, "");
+        if (selectedInterns.length < 2) {
+            return modalMessages.confirmDeleteSizes.replace(/{number}/, "");
         }
-        return modalMessages.confirmDeleteProducts.replace(
+        return modalMessages.confirmDeleteSizes.replace(
             /{number}/,
             selectedInterns.length
         );
@@ -45,10 +46,10 @@ const DeleteProductModal = ({
             const requestValues = {
                 ids: internsID
             }
-            await dispatch(fetchAsyncDeleteProduct(requestValues)).unwrap();
+            await dispatch(fetchAsyncDeleteSize(requestValues)).unwrap();
             setIsActionButton(value => !value)
             setOpenDeleteProductModal(false);
-            Toast('success', "Xóa sản phẩm thành công!");
+            Toast('success', "Xóa phân loại hàng thành công!");
         } catch (err) {
             setOpenDeleteProductModal(false);
             Toast('warning', "Lỗi!");
@@ -62,7 +63,7 @@ const DeleteProductModal = ({
                 aria-describedby="transition-modal-description"
                 openModal={openDeleteProductModal}
                 handleCloseModal={handleCloseModalDeleteIntern}
-                modalTitle="Xóa sản phẩm"
+                modalTitle="Xóa phân loại hàng"
                 modalConfirmMessage={getLabelModal()}
                 handleConfirmModal={handleConfirmModalDeleteIntern}
                 modalIcon={<ErrorOutlineIcon />}

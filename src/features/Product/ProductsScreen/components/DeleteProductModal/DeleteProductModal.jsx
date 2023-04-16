@@ -9,7 +9,7 @@ import AppModal from "components/Modal/Modal";
 
 
 import { modalMessages } from "constants/modal-message";
-import { fetchAsyncDeleteProduct } from "redux/slices/productSlice";
+import { fetchAsyncDeleteProduct } from "redux/slices/ProductSlice";
 import { useDispatch } from "react-redux";
 import { Toast } from "utils/Toast";
 
@@ -28,7 +28,7 @@ const DeleteProductModal = ({
     });
 
     const getLabelModal = () => {
-        if (selectedInterns.length === 1) {
+        if (selectedInterns.length < 2) {
             return modalMessages.confirmDeleteProducts.replace(/{number}/, "");
         }
         return modalMessages.confirmDeleteProducts.replace(

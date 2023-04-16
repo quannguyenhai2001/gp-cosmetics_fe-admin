@@ -17,7 +17,7 @@ import AppPaginate from "components/AppPaginate/AppPaginate";
 import FormikTextField from "components/FormElements/FormikTextField/FormikTextField";
 
 import ProductsTable from "./components/ProductsTable/ProductsTable";
-import { fetchAsyncGetProducts } from "redux/slices/productSlice";
+import { fetchAsyncGetProducts } from "redux/slices/ProductSlice";
 import { initSearchProductsValue } from "utils/FormValidate";
 import removeEmptyValuesInObject from "utils/removeEmptyValuesInObject";
 import { Toast } from "utils/Toast";
@@ -93,6 +93,12 @@ const ProductsScreen = () => {
         }
         return true
     }
+    const isDisableSearchButton = ({ dirty, submitCount }) => {
+        if ((!submitCount && dirty) || submitCount) {
+            return false;
+        }
+        return true;
+    };
     return (
         <Box >
             <Stack direction="column" spacing={20} height="100%">
@@ -110,6 +116,8 @@ const ProductsScreen = () => {
                             values,
                             setFieldValue,
                             handleBlur,
+                            dirty,
+                            submitCount
                         }) => {
                             return (
                                 <Form>
@@ -165,6 +173,7 @@ const ProductsScreen = () => {
                                                     variant="contained"
                                                     color="signature"
                                                     type="submit"
+                                                    disabled={isDisableSearchButton({ dirty, submitCount })}
                                                 >
                                                     Tìm kiếm
                                                 </Button>

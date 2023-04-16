@@ -17,11 +17,12 @@ import AppPaginate from "components/AppPaginate/AppPaginate";
 import FormikTextField from "components/FormElements/FormikTextField/FormikTextField";
 
 import ProductsTable from "./components/ProductsTable/ProductsTable";
-import { fetchAsyncGetProducts } from "redux/slices/productSlice";
+import { fetchAsyncGetProducts } from "redux/slices/ProductSlice";
 import { initSearchProductsValue } from "utils/FormValidate";
 import removeEmptyValuesInObject from "utils/removeEmptyValuesInObject";
 import { Toast } from "utils/Toast";
 import DeleteProductModal from "./components/DeleteProductModal/DeleteProductModal";
+import { fetchAsyncGetSizes } from "redux/slices/SizeSlice";
 
 const initialPageInfo = {
     page: 1,
@@ -52,7 +53,7 @@ const SizesScreen = () => {
         (async () => {
             try {
                 const res = await dispatch(
-                    fetchAsyncGetProducts({
+                    fetchAsyncGetSizes({
                         ...qsParsed,
                         use_page: 1,
                     })
@@ -73,13 +74,13 @@ const SizesScreen = () => {
     const handleSearchInterviews = values => {
         const newInitSearchValues = removeEmptyValuesInObject(values);
         navigate({
-            pathname: "/dashboard/products",
+            pathname: "/dashboard/sizes",
             search: qs.stringify(newInitSearchValues),
         });
     };
     const onPageChange = (_event, page) => {
         navigate({
-            pathname: "/dashboard/products",
+            pathname: "/dashboard/sizes",
             search: qs.stringify({ ...qsParsed, page }),
         });
     };
@@ -93,8 +94,14 @@ const SizesScreen = () => {
         }
         return true
     }
+    const isDisableSearchButton = ({ dirty, submitCount }) => {
+        if ((!submitCount && dirty) || submitCount) {
+            return false;
+        }
+        return true;
+    };
     return (
-        <Box p={20} height="100%">
+        <Box >
             <Stack direction="column" spacing={20} height="100%">
                 <Stack direction="column" spacing={20}>
                     <Typography variant="h2" fontWeight="bold" fontSize="30px">
@@ -110,6 +117,8 @@ const SizesScreen = () => {
                             values,
                             setFieldValue,
                             handleBlur,
+                            dirty,
+                            submitCount
                         }) => {
                             return (
                                 <Form>
@@ -119,14 +128,14 @@ const SizesScreen = () => {
                                                 <FormikTextField
                                                     size="small"
                                                     variant="outlined"
-                                                    id="product_name"
-                                                    name="product_name"
-                                                    label="Tên sản phẩm"
+                                                    id="size_name"
+                                                    name="size_name"
+                                                    label="Tên phân loại"
                                                     onBlur={e => {
                                                         handleBlur(e);
                                                         setFieldValue(
-                                                            "product_name",
-                                                            values.product_name.trim(),
+                                                            "size_name",
+                                                            values.size_name.trim(),
                                                             true
                                                         );
                                                     }}
@@ -134,27 +143,6 @@ const SizesScreen = () => {
                                                 />
                                             </Box>
                                         </Grid>
-                                        <Grid item xs={6} sm={4} md={2} mr={10} mt={10}>
-                                            <Box>
-                                                <FormikTextField
-                                                    size="small"
-                                                    variant="outlined"
-                                                    id="manufacturer_name"
-                                                    name="manufacturer_name"
-                                                    label="Tên nhà cung cấp"
-                                                    onBlur={e => {
-                                                        handleBlur(e);
-                                                        setFieldValue(
-                                                            "manufacturer_name",
-                                                            values.manufacturer_name.trim(),
-                                                            true
-                                                        );
-                                                    }}
-                                                    fullWidth
-                                                />
-                                            </Box>
-                                        </Grid>
-
 
                                         <Grid item xs={6} sm={4} md={2} mt={10}>
                                             <Box>
@@ -165,12 +153,7 @@ const SizesScreen = () => {
                                                     variant="contained"
                                                     color="signature"
                                                     type="submit"
-
-                                                // disabled={isDisableSearchButton({
-                                                //     dirty,
-                                                //     isValid,
-                                                //     submitCount,
-                                                // })}
+                                                    disabled={isDisableSearchButton({ dirty, submitCount })}
                                                 >
                                                     Tìm kiếm
                                                 </Button>
@@ -207,8 +190,10 @@ const SizesScreen = () => {
                             startIcon={<AddCircleOutline />}
                             sx={{
                                 width: "120px",
-
                             }}
+                            onClick={() =>
+                                navigate("/dashboard/create-size")
+                            }
                             size="small"
                             variant="contained"
                             color="signature"
@@ -238,17 +223,18 @@ const SizesScreen = () => {
                         products={products}
                         setProducts={setProducts}
                         pageInfo={pageInfo}
+                        setOpenDeleteProductModal={setOpenDeleteProductModal}
 
                     />
                 </Box>
-            </Stack>
+            </Stack >
             <DeleteProductModal
                 products={products}
                 openDeleteProductModal={openDeleteProductModal}
                 setOpenDeleteProductModal={setOpenDeleteProductModal}
                 setIsActionButton={setIsActionButton}
             />
-        </Box>
+        </Box >
     );
 };
 
