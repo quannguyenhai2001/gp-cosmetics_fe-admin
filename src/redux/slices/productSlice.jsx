@@ -8,7 +8,7 @@ const initialState = {
 };
 
 export const fetchAsyncGetProducts = createAsyncThunk(
-    "product/fetchAsyncGetProducts",
+    "products/fetchAsyncGetProducts",
     async (data, { rejectWithValue }) => {
         try {
             const response = await CallApiByParams("products/get-all-products.php", "get", data)
@@ -19,7 +19,7 @@ export const fetchAsyncGetProducts = createAsyncThunk(
     }
 );
 export const fetchAsyncDeleteProduct = createAsyncThunk(
-    "product/fetchAsyncDeleteProduct",
+    "products/fetchAsyncDeleteProduct",
     async (data, { rejectWithValue }) => {
         try {
             const response = await CallApiByBody("products/delete-product.php", "delete", data)

@@ -53,7 +53,7 @@ export const sidebarMenuItems = [
     {
         icon: <PermDataSettingIcon />,
         title: "Quản lý nhà cung cấp",
-        to: "/3",
+        to: "/dashboard/manufacturers",
 
     },
     {

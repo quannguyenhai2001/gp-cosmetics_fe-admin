@@ -15,6 +15,7 @@ import EditSizeScreen from "features/Size/EditSizeScreen/EditSizeScreen";
 import CreateSizeScreen from "features/Size/CreateSizeScreen/CreateSizeScreen";
 import UsersScreen from "features/User/UsersScreen/UsersScreen";
 import UserDetailScreen from "features/User/UserDetailScreen/UserDetailScreen";
+import ManufacturersScreen from "features/Manufacturer/ManufacturersScreen/ManufacturersScreen";
 
 export const RouteConfigs = [
     {
@@ -86,6 +87,12 @@ export const RouteConfigs = [
     {
         path: "/dashboard/create-size",
         element: CreateSizeScreen,
+        isPrivate: true,
+        layout: DefaultLayout,
+    },
+    {
+        path: "/dashboard/manufacturers",
+        element: ManufacturersScreen,
         isPrivate: true,
         layout: DefaultLayout,
     },
