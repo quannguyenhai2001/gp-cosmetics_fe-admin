@@ -14,6 +14,7 @@ import SizeDetailScreen from "features/Size/SizeDetailScreen/SizeDetailScreen";
 import EditSizeScreen from "features/Size/EditSizeScreen/EditSizeScreen";
 import CreateSizeScreen from "features/Size/CreateSizeScreen/CreateSizeScreen";
 import UsersScreen from "features/User/UsersScreen/UsersScreen";
+import UserDetailScreen from "features/User/UserDetailScreen/UserDetailScreen";
 
 export const RouteConfigs = [
     {
@@ -31,6 +32,12 @@ export const RouteConfigs = [
     {
         path: "/dashboard/users",
         element: UsersScreen,
+        isPrivate: true,
+        layout: DefaultLayout,
+    },
+    {
+        path: "/dashboard/users/:id",
+        element: UserDetailScreen,
         isPrivate: true,
         layout: DefaultLayout,
     },

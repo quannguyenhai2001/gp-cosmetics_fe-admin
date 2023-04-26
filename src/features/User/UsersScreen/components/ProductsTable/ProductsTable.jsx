@@ -227,7 +227,7 @@ const ProductsTable = ({
                                             style={{
                                                 color: theme.palette.text.dark,
                                             }}
-                                            to={`/dashboard/size/${product.id}`}
+                                            to={`/dashboard/users/${product.id}`}
 
                                         >
                                             {product.display_name}

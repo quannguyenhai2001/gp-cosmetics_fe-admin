@@ -42,10 +42,21 @@ export const fetchAsyncGetAllUsers = createAsyncThunk(
     }
 );
 export const fetchAsyncDeleteUsers = createAsyncThunk(
-    "product/fetchAsyncDeleteUsers",
+    "auth/fetchAsyncDeleteUsers",
     async (data, { rejectWithValue }) => {
         try {
             const response = await CallApiByBody("auth/delete-user.php", "delete", data)
+            return response.data
+        } catch (error) {
+            return rejectWithValue(error.response.data)
+        }
+    }
+);
+export const fetchAsyncGetUserDetail = createAsyncThunk(
+    "auth/fetchAsyncGetUserDetail",
+    async (data, { rejectWithValue }) => {
+        try {
+            const response = await CallApiByParams("auth/get-user-detail.php", "get", { user_id: 42 })
             return response.data
         } catch (error) {
             return rejectWithValue(error.response.data)
