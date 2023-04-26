@@ -41,15 +41,16 @@ const ProductsTable = ({
     const tableHeadContents = [
         { id: "checkAll", minWidth: 80 },
         {
-            id: "product_name",
-            label: "Tên sản phẩm",
-            minWidth: 100,
-        },
-        {
             id: "thumbnail_url",
             label: "Tên phân loại",
             minWidth: 100,
         },
+        {
+            id: "product_name",
+            label: "Tên sản phẩm",
+            minWidth: 100,
+        },
+
         {
             id: "manufacturer_name",
             label: "Giá thêm",

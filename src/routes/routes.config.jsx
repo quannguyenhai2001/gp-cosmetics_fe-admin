@@ -13,6 +13,7 @@ import EditProductScreen from "features/Product/EditProductScreen/EditProductScr
 import SizeDetailScreen from "features/Size/SizeDetailScreen/SizeDetailScreen";
 import EditSizeScreen from "features/Size/EditSizeScreen/EditSizeScreen";
 import CreateSizeScreen from "features/Size/CreateSizeScreen/CreateSizeScreen";
+import UsersScreen from "features/User/UsersScreen/UsersScreen";
 
 export const RouteConfigs = [
     {
@@ -24,6 +25,12 @@ export const RouteConfigs = [
     {
         path: "/dashboard",
         element: HomeScreen,
+        isPrivate: true,
+        layout: DefaultLayout,
+    },
+    {
+        path: "/dashboard/users",
+        element: UsersScreen,
         isPrivate: true,
         layout: DefaultLayout,
     },

@@ -1,4 +1,4 @@
-import instanceApi, { CallApiByBody } from "api/configApi";
+import instanceApi, { CallApiByBody, CallApiByParams } from "api/configApi";
 
 const { createSlice, createAsyncThunk } = require("@reduxjs/toolkit");
 
@@ -30,7 +30,17 @@ export const fetchAsyncGetUser = createAsyncThunk(
         }
     }
 );
-
+export const fetchAsyncGetAllUsers = createAsyncThunk(
+    "auth/fetchAsyncGetAllUsers",
+    async (data, { rejectWithValue }) => {
+        try {
+            const response = await CallApiByParams("auth/get-all-users.php", "get", data)
+            return response.data;
+        } catch (error) {
+            throw rejectWithValue(error.response.data);
+        }
+    }
+);
 const userSlice = createSlice({
     name: 'user',
     initialState,

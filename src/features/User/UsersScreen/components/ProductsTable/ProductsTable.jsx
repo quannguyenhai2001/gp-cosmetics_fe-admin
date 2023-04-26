@@ -26,8 +26,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 import AppTooltip from "components/AppTooltip/AppTooltip";
 
-import { useStyles } from "../../ProductsScreen.styles";
-import convertToVND from "utils/ConvertToVND";
+import { useStyles } from "../../SizesScreen.styles";
 
 const ProductsTable = ({
     products,
@@ -43,29 +42,35 @@ const ProductsTable = ({
         { id: "checkAll", minWidth: 80 },
         {
             id: "product_name",
-            label: "Tên sản phẩm",
+            label: "Tên người dùng",
             minWidth: 100,
         },
         {
             id: "thumbnail_url",
             label: "Ảnh",
-            minWidth: 120,
+            minWidth: 100,
         },
         {
             id: "manufacturer_name",
-            label: "Nhà cung cấp",
+            label: "Email",
             minWidth: 120,
         },
         {
             id: "price",
-            label: "Giá",
+            label: "Đía chỉ",
             minWidth: 70,
         },
         {
-            id: "promotion",
-            label: "Giảm giá",
+            id: "price",
+            label: "Tuổi",
             minWidth: 70,
         },
+        {
+            id: "price",
+            label: "Số điện thoại",
+            minWidth: 70,
+        },
+
         {
             id: "create_at",
             label: "Ngày tạo",
@@ -121,7 +126,7 @@ const ProductsTable = ({
                         borderRadius: "5px",
                         boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
                         minWidth: 600,
-                        minHeight: products.length >= 5 ? 450 : (products.length + 1) * 72.5,
+                        minHeight: products.length >= 5 ? 450 : (products.length + 1) * 65,
                     }}
                 >
                     <Table
@@ -221,17 +226,17 @@ const ProductsTable = ({
                                             style={{
                                                 color: theme.palette.text.dark,
                                             }}
-                                            to={`/dashboard/products/${product.id}`}
+                                            to={`/dashboard/size/${product.id}`}
 
                                         >
-                                            {product.product_name}
+                                            {product.display_name}
                                         </Link>
                                     </TableCell>
                                     <TableCell align="center" size="small">
-                                        {product.thumbnail_url ? (<CardMedia className={classes.rootCardMedia}
+                                        {product.avatar ? (<CardMedia className={classes.rootCardMedia}
                                             component="img"
                                             height="70"
-                                            image={product.thumbnail_url}
+                                            image={product.avatar}
                                             alt="green iguana"
                                         />) : (
                                             <CardMedia className={classes.rootCardMedia}
@@ -244,13 +249,16 @@ const ProductsTable = ({
                                     </TableCell>
 
                                     <TableCell align="center" size="small">
-                                        {product.manufacturer_name}
+                                        {product.email}
                                     </TableCell>
                                     <TableCell align="center" size="small">
-                                        {convertToVND(product.price)}
+                                        {product.address}
                                     </TableCell>
                                     <TableCell align="center" size="small">
-                                        {product.promotion * 100}%
+                                        {product.age}
+                                    </TableCell>
+                                    <TableCell align="center" size="small">
+                                        {product.phone_number}
                                     </TableCell>
                                     <TableCell align="center" size="small">
                                         {product.create_at}
@@ -266,7 +274,7 @@ const ProductsTable = ({
                                                 <IconButton
                                                     disabled={isDisabledIcon(products)}
                                                     onClick={() =>
-                                                        navigate(`/dashboard/edit-products/${product.id}`)
+                                                        navigate(`/dashboard/edit-size/${product.id}`)
                                                     }
                                                 >
                                                     <Edit />

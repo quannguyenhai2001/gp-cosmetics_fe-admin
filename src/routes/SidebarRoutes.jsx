@@ -25,6 +25,11 @@ export const sidebarMenuItems = [
         to: "/dashboard",
     },
     {
+        icon: <AccountCircleIcon />,
+        title: "Quản lý người dùng",
+        to: "/dashboard/users",
+    },
+    {
         icon: <PersonAddAlt1Icon />,
         title: "Quản lý sản phẩm",
         items: [
@@ -43,20 +48,24 @@ export const sidebarMenuItems = [
     {
         icon: <Diversity3Icon />,
         title: "Quản lý danh mục",
-        to: "/dashboard",
+        to: "/2",
     },
     {
         icon: <PermDataSettingIcon />,
         title: "Quản lý nhà cung cấp",
-        to: "/dashboard",
+        to: "/3",
 
     },
     {
         icon: <SettingsSuggestIcon />,
         title: "Quản lý hóa đơn",
-        to: "/dashboard",
+        to: "/4",
     },
-
+    {
+        icon: <SettingsSuggestIcon />,
+        title: "Quản lý đánh giá",
+        to: "/4",
+    },
     {
         icon: <ExitToAppIcon />,
         title: "Thoát",

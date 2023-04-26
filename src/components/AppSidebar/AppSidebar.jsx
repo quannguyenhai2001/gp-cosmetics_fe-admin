@@ -22,6 +22,7 @@ import {
     tooltipClasses,
 } from "@mui/material";
 import { useLocation, Link, useNavigate } from "react-router-dom";
+import logo from 'assets/images/logo/logo_web.png';
 
 import AppModal from "components/Modal/Modal";
 
@@ -65,7 +66,7 @@ const MultiLevel = ({ item, isSidebarExpanded, isChildItem = false }) => {
         <>
             <ListItemButton
                 onClick={handleClick}
-                selected={parentSelected}
+                // selected={parentSelected}
                 className={`${parentSelected && classes.sbParentSelected}`}
             >
                 <ListItemIcon
@@ -120,7 +121,7 @@ const SingleLevel = ({ item, isSidebarExpanded }) => {
     return (
         <ListItemButton
             onClick={redirectMenu}
-            selected={item.to === location.pathname}
+            // selected={item.to === location.pathname}
             className={`${item.to === location.pathname && classes.sbParentSelected}`}
         >
             <ListItemIcon
@@ -209,12 +210,10 @@ const AppSidebar = () => {
                 alignItems="center"
             >
                 <Box
-                    sx={{ maxWidth: 180, marginBottom: 20, p: "0 5px" }}
+                    sx={{ maxWidth: 140, marginBottom: 20, p: "0 5px" }}
                     bgcolor="signature"
                 >
-                    {/* <Link to={STAFF_PATHS.STAFF_LIST}>
-                        <img src={logoImage} alt="Logo icon" width="100%" />
-                    </Link> */}
+                    <img style={{ width: "100%" }} src={logo} alt="green iguana" />
                 </Box>
                 <Box>
                     <StyledBadge
@@ -230,7 +229,6 @@ const AppSidebar = () => {
                             alt={userInfo.display_name}
                             src={userInfo.avatar}
                         />
-                        {console.log(userInfo)}
                     </StyledBadge>
                 </Box>
                 <Typography
