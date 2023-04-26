@@ -17,12 +17,10 @@ import AppPaginate from "components/AppPaginate/AppPaginate";
 import FormikTextField from "components/FormElements/FormikTextField/FormikTextField";
 
 import ProductsTable from "./components/ProductsTable/ProductsTable";
-import { fetchAsyncGetProducts } from "redux/slices/ProductSlice";
 import { initSearchProductsValue } from "utils/FormValidate";
 import removeEmptyValuesInObject from "utils/removeEmptyValuesInObject";
 import { Toast } from "utils/Toast";
 import DeleteProductModal from "./components/DeleteProductModal/DeleteProductModal";
-import { fetchAsyncGetSizes } from "redux/slices/SizeSlice";
 import { fetchAsyncGetAllUsers } from "redux/slices/UserSlice";
 
 const initialPageInfo = {
@@ -37,17 +35,13 @@ const UsersScreen = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [isActionButton, setIsActionButton] = useState(false)
-
     const [openDeleteProductModal, setOpenDeleteProductModal] = useState(false);
-
+    const [userDeleteID, setUserDeleteID] = useState("")
     // Search and paginate
     const location = useLocation();
     const qsParsed = qs.parse(location.search);
     // load page - fill data in fields search
-    useEffect(() => {
-        initSearchProductsValue.product_name = qsParsed.product_name ?? "";
-        initSearchProductsValue.manufacturer_name = qsParsed.manufacturer_name ?? "";
-    }, []);
+
 
     // call API
     useEffect(() => {
@@ -101,6 +95,7 @@ const UsersScreen = () => {
         }
         return true;
     };
+
     return (
         <Box >
             <Stack direction="column" spacing={20} height="100%">
@@ -110,61 +105,7 @@ const UsersScreen = () => {
                     </Typography>
                 </Stack>
                 <Box>
-                    <Formik
-                        initialValues={initSearchProductsValue}
-                        onSubmit={handleSearchInterviews}
-                    >
-                        {({
-                            values,
-                            setFieldValue,
-                            handleBlur,
-                            dirty,
-                            submitCount
-                        }) => {
-                            return (
-                                <Form>
-                                    <Grid container sx={{ display: "flex", alignItems: "center" }}>
-                                        <Grid item xs={6} sm={4} md={2} mr={10} mt={10}>
-                                            <Box>
-                                                <FormikTextField
-                                                    size="small"
-                                                    variant="outlined"
-                                                    id="size_name"
-                                                    name="size_name"
-                                                    label="Tên người dùng"
-                                                    onBlur={e => {
-                                                        handleBlur(e);
-                                                        setFieldValue(
-                                                            "size_name",
-                                                            values.size_name.trim(),
-                                                            true
-                                                        );
-                                                    }}
-                                                    fullWidth
-                                                />
-                                            </Box>
-                                        </Grid>
 
-                                        <Grid item xs={6} sm={4} md={2} mt={10}>
-                                            <Box>
-                                                <Button
-                                                    sx={{ width: "120px" }}
-                                                    startIcon={<Search />}
-                                                    size="small"
-                                                    variant="contained"
-                                                    color="signature"
-                                                    type="submit"
-                                                    disabled={isDisableSearchButton({ dirty, submitCount })}
-                                                >
-                                                    Tìm kiếm
-                                                </Button>
-                                            </Box>
-                                        </Grid>
-                                    </Grid>
-                                </Form>
-                            );
-                        }}
-                    </Formik>
                 </Box>
                 <Stack
                     direction="row"
@@ -187,20 +128,7 @@ const UsersScreen = () => {
                             gap: "10px",
                         }}
                     >
-                        <Button
-                            startIcon={<AddCircleOutline />}
-                            sx={{
-                                width: "120px",
-                            }}
-                            onClick={() =>
-                                navigate("/dashboard/create-size")
-                            }
-                            size="small"
-                            variant="contained"
-                            color="signature"
-                        >
-                            Tạo mới
-                        </Button>
+
                         <Button
                             startIcon={<Delete />}
                             sx={{
@@ -224,6 +152,7 @@ const UsersScreen = () => {
                         products={products}
                         setProducts={setProducts}
                         pageInfo={pageInfo}
+                        setUserDeleteID={setUserDeleteID}
                         setOpenDeleteProductModal={setOpenDeleteProductModal}
 
                     />
@@ -231,6 +160,8 @@ const UsersScreen = () => {
             </Stack >
             <DeleteProductModal
                 products={products}
+                setUserDeleteID={setUserDeleteID}
+                userDeleteID={userDeleteID}
                 openDeleteProductModal={openDeleteProductModal}
                 setOpenDeleteProductModal={setOpenDeleteProductModal}
                 setIsActionButton={setIsActionButton}

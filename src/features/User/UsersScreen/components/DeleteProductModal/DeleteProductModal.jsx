@@ -9,16 +9,19 @@ import AppModal from "components/Modal/Modal";
 
 
 import { modalMessages } from "constants/modal-message";
-import { fetchAsyncDeleteProduct } from "redux/slices/ProductSlice";
 import { useDispatch } from "react-redux";
 import { Toast } from "utils/Toast";
 import { fetchAsyncDeleteSize } from "redux/slices/SizeSlice";
+import { fetchAsyncDeleteUsers } from "redux/slices/UserSlice";
 
 const DeleteProductModal = ({
     products,
     openDeleteProductModal,
     setOpenDeleteProductModal,
-    setIsActionButton
+    setIsActionButton,
+    setUserDeleteID,
+    userDeleteID
+
 }) => {
 
 
@@ -30,9 +33,9 @@ const DeleteProductModal = ({
 
     const getLabelModal = () => {
         if (selectedInterns.length < 2) {
-            return modalMessages.confirmDeleteSizes.replace(/{number}/, "");
+            return modalMessages.confirmDeleteUsers.replace(/{number}/, "");
         }
-        return modalMessages.confirmDeleteSizes.replace(
+        return modalMessages.confirmDeleteUsers.replace(
             /{number}/,
             selectedInterns.length
         );
@@ -43,13 +46,17 @@ const DeleteProductModal = ({
     const handleConfirmModalDeleteIntern = async () => {
         try {
             const internsID = selectedInterns.map(intern => intern.id);
-            const requestValues = {
+            const requestValues = userDeleteID ? {
+                ids: [userDeleteID]
+            } : {
                 ids: internsID
             }
-            await dispatch(fetchAsyncDeleteSize(requestValues)).unwrap();
+            console.log(requestValues)
+            await dispatch(fetchAsyncDeleteUsers(requestValues)).unwrap();
             setIsActionButton(value => !value)
             setOpenDeleteProductModal(false);
-            Toast('success', "Xóa phân loại hàng thành công!");
+            setUserDeleteID("")
+            Toast('success', "Xóa người dùng thành công!");
         } catch (err) {
             setOpenDeleteProductModal(false);
             Toast('warning', "Lỗi!");
@@ -63,7 +70,7 @@ const DeleteProductModal = ({
                 aria-describedby="transition-modal-description"
                 openModal={openDeleteProductModal}
                 handleCloseModal={handleCloseModalDeleteIntern}
-                modalTitle="Xóa phân loại hàng"
+                modalTitle="Xóa người dùng"
                 modalConfirmMessage={getLabelModal()}
                 handleConfirmModal={handleConfirmModalDeleteIntern}
                 modalIcon={<ErrorOutlineIcon />}

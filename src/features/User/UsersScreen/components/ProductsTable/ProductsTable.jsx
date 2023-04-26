@@ -26,12 +26,13 @@ import { Link, useNavigate } from "react-router-dom";
 
 import AppTooltip from "components/AppTooltip/AppTooltip";
 
-import { useStyles } from "../../SizesScreen.styles";
+import { useStyles } from "../../UsersScreen.styles";
 
 const ProductsTable = ({
     products,
     setProducts,
     pageInfo,
+    setUserDeleteID,
     setOpenDeleteProductModal
 }) => {
     const theme = useTheme();
@@ -61,12 +62,12 @@ const ProductsTable = ({
             minWidth: 70,
         },
         {
-            id: "price",
+            id: "1",
             label: "Tuổi",
             minWidth: 70,
         },
         {
-            id: "price",
+            id: "2",
             label: "Số điện thoại",
             minWidth: 70,
         },
@@ -270,20 +271,14 @@ const ProductsTable = ({
                                         sx={{ cursor: "pointer" }}
                                     >
                                         <Box display="flex" justifyContent="center">
-                                            <AppTooltip title="Chỉnh sửa">
-                                                <IconButton
-                                                    disabled={isDisabledIcon(products)}
-                                                    onClick={() =>
-                                                        navigate(`/dashboard/edit-size/${product.id}`)
-                                                    }
-                                                >
-                                                    <Edit />
-                                                </IconButton>
-                                            </AppTooltip>
+
                                             <AppTooltip title="Xóa">
                                                 <IconButton
                                                     disabled={isDisabledIcon(products)}
-                                                    onClick={() => setOpenDeleteProductModal(true)}
+                                                    onClick={() => {
+                                                        setOpenDeleteProductModal(true)
+                                                        setUserDeleteID(product.id)
+                                                    }}
 
                                                 >
                                                     <Delete />

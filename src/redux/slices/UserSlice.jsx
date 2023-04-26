@@ -41,6 +41,17 @@ export const fetchAsyncGetAllUsers = createAsyncThunk(
         }
     }
 );
+export const fetchAsyncDeleteUsers = createAsyncThunk(
+    "product/fetchAsyncDeleteUsers",
+    async (data, { rejectWithValue }) => {
+        try {
+            const response = await CallApiByBody("auth/delete-user.php", "delete", data)
+            return response.data
+        } catch (error) {
+            return rejectWithValue(error.response.data)
+        }
+    }
+);
 const userSlice = createSlice({
     name: 'user',
     initialState,

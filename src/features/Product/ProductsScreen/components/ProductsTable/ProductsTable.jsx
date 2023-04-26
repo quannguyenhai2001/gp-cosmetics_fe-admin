@@ -276,7 +276,6 @@ const ProductsTable = ({
                                                 <IconButton
                                                     disabled={isDisabledIcon(products)}
                                                     onClick={() => setOpenDeleteProductModal(true)}
-
                                                 >
                                                     <Delete />
                                                 </IconButton>
