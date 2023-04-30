@@ -7,6 +7,17 @@ const initialState = {
 
 };
 
+export const fetchAsyncGetCategory = createAsyncThunk(
+    "categories/fetchAsyncGetCategory",
+    async (data, { rejectWithValue }) => {
+        try {
+            const response = await CallApiByParams("categories/get-category.php", "get", data)
+            return response.data
+        } catch (error) {
+            return rejectWithValue(error.response.data)
+        }
+    }
+);
 export const fetchAsyncGetAllCategories = createAsyncThunk(
     "categories/fetchAsyncGetAllCategories",
     async (data, { rejectWithValue }) => {
@@ -34,6 +45,17 @@ export const fetchAsyncCreateCategory = createAsyncThunk(
     async (data, { rejectWithValue }) => {
         try {
             const response = await CallApiByBody("categories/create-category.php", "post", data)
+            return response.data
+        } catch (error) {
+            return rejectWithValue(error.response.data)
+        }
+    }
+);
+export const fetchAsyncUpdateCategory = createAsyncThunk(
+    "categories/fetchAsyncUpdateCategory",
+    async (data, { rejectWithValue }) => {
+        try {
+            const response = await CallApiByBody("categories/update-category.php", "put", data)
             return response.data
         } catch (error) {
             return rejectWithValue(error.response.data)

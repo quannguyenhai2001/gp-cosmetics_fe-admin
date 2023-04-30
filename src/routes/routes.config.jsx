@@ -18,6 +18,7 @@ import UserDetailScreen from "features/User/UserDetailScreen/UserDetailScreen";
 import ManufacturersScreen from "features/Manufacturer/ManufacturersScreen/ManufacturersScreen";
 import CategoriesScreen from "features/Category/CategoriesScreen/CategoriesScreen";
 import CreateCategoryScreen from "features/Category/CreateCategoryScreen/CreateCategoryScreen";
+import EditCategoryScreen from "features/Category/EditCategoryScreen/EditCategoryScreen";
 
 export const RouteConfigs = [
     {
@@ -107,6 +108,12 @@ export const RouteConfigs = [
     {
         path: "/dashboard/create-category",
         element: CreateCategoryScreen,
+        isPrivate: true,
+        layout: DefaultLayout,
+    },
+    {
+        path: "/dashboard/category/:id",
+        element: EditCategoryScreen,
         isPrivate: true,
         layout: DefaultLayout,
     },

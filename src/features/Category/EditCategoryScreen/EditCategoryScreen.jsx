@@ -6,25 +6,41 @@ import React from 'react';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { fetchAsyncCreateCategory, fetchAsyncGetAllCategories } from 'redux/slices/CategorySlice';
-import { initCreateCategories } from 'utils/FormValidate';
+import { useNavigate, useParams } from 'react-router-dom';
+import { fetchAsyncCreateCategory, fetchAsyncGetAllCategories, fetchAsyncGetCategory, fetchAsyncUpdateCategory } from 'redux/slices/CategorySlice';
+import { initCreateCategories, initUpdateCategories } from 'utils/FormValidate';
 import { Toast } from 'utils/Toast';
 
-const CreateCategoryScreen = () => {
+const EditCategoryScreen = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate()
-
-    const [fatherCategoriesOptions, setFatherCategoriesOptions] = useState([])
+    const { id } = useParams()
+    const [fatherCategoriesOptions, setFatherCategoriesOptions] = useState([[
+        {
+            value: 0,
+            label: "",
+        },
+    ]])
+    const [categoryDetail, setCategoryDetail] = useState({})
     useEffect(() => {
         (async () => {
             try {
-                const res = await dispatch(
-                    fetchAsyncGetAllCategories({
-                        use_page: 0,
-                    })
-                ).unwrap();
-                const categoriesOptions = res.data.filter(category => Number(category.father_category_id) === 0)
+                const [categoryData, categoriesData] = await Promise.all([
+                    dispatch(
+                        fetchAsyncGetCategory({
+                            category_id: id
+                        })
+                    ).unwrap(),
+                    dispatch(
+                        fetchAsyncGetAllCategories({
+                            use_page: 0,
+                        })
+                    ).unwrap()
+                ])
+
+
+
+                const categoriesOptions = categoriesData.data.filter(category => Number(category.father_category_id) === 0)
                 const newCategoriesOptions = categoriesOptions.map(category => {
                     return {
                         label: category.name,
@@ -32,19 +48,20 @@ const CreateCategoryScreen = () => {
                     }
                 })
                 setFatherCategoriesOptions(newCategoriesOptions)
+                setCategoryDetail(categoryData.data)
             } catch (e) {
-
-
                 Toast('warning', "Lỗi!");
             }
         })();
-    }, []);
-
+    }, [dispatch, id]);
+    initUpdateCategories.category_name = categoryDetail?.name
+    initUpdateCategories.father_category_id = Number(categoryDetail?.father_category_id) && categoryDetail?.father_category_id
     const submitHandle = async (values) => {
         console.log(values)
         try {
-            await dispatch(fetchAsyncCreateCategory(values))
-            Toast('success', "Tạo danh mục thành công!");
+            const payload = { ...values, id: id }
+            await dispatch(fetchAsyncUpdateCategory(payload))
+            Toast('success', "Chỉnh sửa danh mục thành công!");
             navigate("/dashboard/categories")
 
         } catch (err) {
@@ -57,7 +74,7 @@ const CreateCategoryScreen = () => {
                 Tạo danh mục
             </Typography>
             <Formik
-                initialValues={initCreateCategories}
+                initialValues={initUpdateCategories}
                 onSubmit={(values, { setFieldError }) => {
                     submitHandle(values, setFieldError);
                 }}
@@ -143,6 +160,7 @@ const CreateCategoryScreen = () => {
                                 variant="contained"
                                 color="signature"
                                 type="submit"
+                                disabled={!dirty}
                             >
                                 Lưu
                             </Button>
@@ -154,4 +172,4 @@ const CreateCategoryScreen = () => {
     );
 };
 
-export default CreateCategoryScreen;
+export default EditCategoryScreen;

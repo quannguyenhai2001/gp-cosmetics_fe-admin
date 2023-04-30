@@ -17,3 +17,7 @@ export const initCreateCategories = {
     category_name: "",
     father_category_id: ""
 }
+export const initUpdateCategories = {
+    category_name: "",
+    father_category_id: ""
+}
