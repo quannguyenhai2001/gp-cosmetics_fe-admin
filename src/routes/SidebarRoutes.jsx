@@ -40,7 +40,6 @@ export const sidebarMenuItems = [
             {
                 title: "Quản lý phân loại hàng",
                 to: "/dashboard/sizes",
-
             },
 
         ],
@@ -64,7 +63,7 @@ export const sidebarMenuItems = [
     {
         icon: <SettingsSuggestIcon />,
         title: "Quản lý đánh giá",
-        to: "/4",
+        to: "/dashboard/ratings",
     },
     {
         icon: <ExitToAppIcon />,

@@ -1,6 +1,7 @@
 import categoryReducer from "redux/slices/CategorySlice";
 import manufacturerReducer from "redux/slices/ManufacturerSlice";
 import productReducer from "redux/slices/ProductSlice";
+import ratingReducer from "redux/slices/RatingSlice";
 import sizeReducer from "redux/slices/SizeSlice";
 import userReducer from "redux/slices/UserSlice";
 
@@ -11,7 +12,8 @@ const rootReducer = {
     products: productReducer,
     sizes: sizeReducer,
     manufacturers: manufacturerReducer,
-    categories: categoryReducer
+    categories: categoryReducer,
+    ratings: ratingReducer
 }
 const store = configureStore({
     reducer: rootReducer,
