@@ -48,7 +48,7 @@ export const sidebarMenuItems = [
     {
         icon: <Diversity3Icon />,
         title: "Quản lý danh mục",
-        to: "/2",
+        to: "/dashboard/categories",
     },
     {
         icon: <PermDataSettingIcon />,

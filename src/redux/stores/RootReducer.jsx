@@ -1,3 +1,4 @@
+import categoryReducer from "redux/slices/CategorySlice";
 import manufacturerReducer from "redux/slices/ManufacturerSlice";
 import productReducer from "redux/slices/ProductSlice";
 import sizeReducer from "redux/slices/SizeSlice";
@@ -9,7 +10,8 @@ const rootReducer = {
     user: userReducer,
     products: productReducer,
     sizes: sizeReducer,
-    manufacturers: manufacturerReducer
+    manufacturers: manufacturerReducer,
+    categories: categoryReducer
 }
 const store = configureStore({
     reducer: rootReducer,
