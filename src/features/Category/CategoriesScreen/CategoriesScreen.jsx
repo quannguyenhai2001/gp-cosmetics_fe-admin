@@ -32,6 +32,8 @@ const initialPageInfo = {
 
 const CategoriesScreen = () => {
     const [products, setProducts] = useState([]);
+    const [productsNoPagination, setProductsNoPagination] = useState([]);
+
     const [pageInfo, setPageInfo] = useState(initialPageInfo);
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -43,7 +45,21 @@ const CategoriesScreen = () => {
     const qsParsed = qs.parse(location.search);
     // load page - fill data in fields search
 
-
+    useEffect(() => {
+        (async () => {
+            try {
+                const res = await dispatch(
+                    fetchAsyncGetAllCategories({
+                        use_page: 0,
+                    })
+                ).unwrap();
+                setProductsNoPagination(res.data)
+            } catch (e) {
+                setProducts([]);
+                Toast('warning', "Lỗi!");
+            }
+        })();
+    }, []);
     // call API
     useEffect(() => {
         (async () => {
@@ -102,7 +118,7 @@ const CategoriesScreen = () => {
             <Stack direction="column" spacing={20} height="100%">
                 <Stack direction="column" spacing={20}>
                     <Typography variant="h2" fontWeight="bold" fontSize="30px">
-                        Danh sách nhà cung cấp
+                        Danh sách danh mục
                     </Typography>
                 </Stack>
                 <Box>
@@ -129,7 +145,20 @@ const CategoriesScreen = () => {
                             gap: "10px",
                         }}
                     >
-
+                        <Button
+                            startIcon={<AddCircleOutline />}
+                            sx={{
+                                width: "120px",
+                            }}
+                            onClick={() =>
+                                navigate("/dashboard/create-category")
+                            }
+                            size="small"
+                            variant="contained"
+                            color="signature"
+                        >
+                            Tạo mới
+                        </Button>
                         <Button
                             startIcon={<Delete />}
                             sx={{
@@ -155,6 +184,7 @@ const CategoriesScreen = () => {
                         pageInfo={pageInfo}
                         setUserDeleteID={setUserDeleteID}
                         setOpenDeleteProductModal={setOpenDeleteProductModal}
+                        productsNoPagination={productsNoPagination}
 
                     />
                 </Box>

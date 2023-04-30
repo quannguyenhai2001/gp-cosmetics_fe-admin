@@ -12,3 +12,8 @@ export const initSearchProductsValue = {
 export const initSearchSizesValue = {
     size_name: "",
 }
+
+export const initCreateCategories = {
+    category_name: "",
+    father_category_id: ""
+}

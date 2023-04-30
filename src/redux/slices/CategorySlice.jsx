@@ -19,7 +19,7 @@ export const fetchAsyncGetAllCategories = createAsyncThunk(
     }
 );
 export const fetchAsyncDeleteCategories = createAsyncThunk(
-    "auth/fetchAsyncDeleteCategories",
+    "categories/fetchAsyncDeleteCategories",
     async (data, { rejectWithValue }) => {
         try {
             const response = await CallApiByBody("categories/delete-category.php", "delete", data)
@@ -29,7 +29,17 @@ export const fetchAsyncDeleteCategories = createAsyncThunk(
         }
     }
 );
-
+export const fetchAsyncCreateCategory = createAsyncThunk(
+    "categories/fetchAsyncCreateCategory",
+    async (data, { rejectWithValue }) => {
+        try {
+            const response = await CallApiByBody("categories/create-category.php", "post", data)
+            return response.data
+        } catch (error) {
+            return rejectWithValue(error.response.data)
+        }
+    }
+);
 const categorySlice = createSlice({
     name: 'categories',
     initialState,

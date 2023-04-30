@@ -31,6 +31,7 @@ import { useStyles } from "../../UsersScreen.styles";
 const ProductsTable = ({
     products,
     setProducts,
+    productsNoPagination,
     pageInfo,
     setUserDeleteID,
     setOpenDeleteProductModal
@@ -211,7 +212,7 @@ const ProductsTable = ({
                                                     color: theme.palette.text.dark,
                                                     textDecoration: 'underline'
                                                 }}
-                                                to={`/dashboard/products/`}
+                                                to={`/dashboard/products`}
 
                                             >
                                                 {product.name}
@@ -227,7 +228,7 @@ const ProductsTable = ({
                                         align="center" size="small"
                                     >
 
-                                        {!!Number(product.father_category_id) && (<>{products.find(value => value.id === product.father_category_id)?.name}</>)}
+                                        {Number(product.father_category_id) !== 0 && (<>{productsNoPagination.find(value => value.id === product.father_category_id)?.name}</>)}
 
                                     </TableCell>
 
@@ -242,7 +243,16 @@ const ProductsTable = ({
                                         sx={{ cursor: "pointer" }}
                                     >
                                         <Box display="flex" justifyContent="center">
-
+                                            <AppTooltip title="Chỉnh sửa">
+                                                <IconButton
+                                                    disabled={isDisabledIcon(products)}
+                                                    onClick={() =>
+                                                        navigate(`/dashboard/edit-products/${product.id}`)
+                                                    }
+                                                >
+                                                    <Edit />
+                                                </IconButton>
+                                            </AppTooltip>
                                             <AppTooltip title="Xóa">
                                                 <IconButton
                                                     disabled={isDisabledIcon(products)}
