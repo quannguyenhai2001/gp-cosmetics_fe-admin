@@ -1,3 +1,4 @@
+import billReducer from "redux/slices/BillSlice";
 import categoryReducer from "redux/slices/CategorySlice";
 import manufacturerReducer from "redux/slices/ManufacturerSlice";
 import productReducer from "redux/slices/ProductSlice";
@@ -13,7 +14,8 @@ const rootReducer = {
     sizes: sizeReducer,
     manufacturers: manufacturerReducer,
     categories: categoryReducer,
-    ratings: ratingReducer
+    ratings: ratingReducer,
+    bills: billReducer,
 }
 const store = configureStore({
     reducer: rootReducer,

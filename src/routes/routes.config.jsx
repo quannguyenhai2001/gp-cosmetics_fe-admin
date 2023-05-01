@@ -20,6 +20,7 @@ import CategoriesScreen from "features/Category/CategoriesScreen/CategoriesScree
 import CreateCategoryScreen from "features/Category/CreateCategoryScreen/CreateCategoryScreen";
 import EditCategoryScreen from "features/Category/EditCategoryScreen/EditCategoryScreen";
 import RatingsScreen from "features/Rating/RatingsScreen/RatingsScreen";
+import BillsScreen from "features/Bill/BillsScreen/BillsScreen";
 
 export const RouteConfigs = [
     {
@@ -121,6 +122,12 @@ export const RouteConfigs = [
     {
         path: "/dashboard/ratings",
         element: RatingsScreen,
+        isPrivate: true,
+        layout: DefaultLayout,
+    },
+    {
+        path: "/dashboard/bills",
+        element: BillsScreen,
         isPrivate: true,
         layout: DefaultLayout,
     },

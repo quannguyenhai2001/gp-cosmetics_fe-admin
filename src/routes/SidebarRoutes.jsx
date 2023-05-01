@@ -58,7 +58,7 @@ export const sidebarMenuItems = [
     {
         icon: <SettingsSuggestIcon />,
         title: "Quản lý hóa đơn",
-        to: "/4",
+        to: "/dashboard/bills",
     },
     {
         icon: <SettingsSuggestIcon />,
