@@ -39,17 +39,17 @@ export const fetchAsyncDeleteManufacturers = createAsyncThunk(
         }
     }
 );
-// export const fetchAsyncCreateCategory = createAsyncThunk(
-//     "categories/fetchAsyncCreateCategory",
-//     async (data, { rejectWithValue }) => {
-//         try {
-//             const response = await CallApiByBody("categories/create-category.php", "post", data)
-//             return response.data
-//         } catch (error) {
-//             return rejectWithValue(error.response.data)
-//         }
-//     }
-// );
+export const fetchAsyncCreateManufacturer = createAsyncThunk(
+    "manufacturers/fetchAsyncCreateManufacturer",
+    async (data, { rejectWithValue }) => {
+        try {
+            const response = await CallApiByBody("manufacturers/create-manufacturer.php", "post", data)
+            return response.data
+        } catch (error) {
+            return rejectWithValue(error.response.data)
+        }
+    }
+);
 export const fetchAsyncUpdateManufacturer = createAsyncThunk(
     "categories/fetchAsyncUpdateManufacturer",
     async (data, { rejectWithValue }) => {

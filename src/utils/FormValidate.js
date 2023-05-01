@@ -25,3 +25,7 @@ export const initUpdateManufacturers = {
     manufacturer_name: "",
     manufacturer_address: ""
 }
+export const initCreateManufacturers = {
+    manufacturer_name: "",
+    manufacturer_address: ""
+}

@@ -140,7 +140,7 @@ const ManufacturersScreen = () => {
                                 width: "120px",
                             }}
                             onClick={() =>
-                                navigate("/dashboard/create-products")
+                                navigate("/dashboard/create-manufacturer")
                             }
                             size="small"
                             variant="contained"

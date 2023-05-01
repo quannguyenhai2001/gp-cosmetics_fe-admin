@@ -23,6 +23,7 @@ import RatingsScreen from "features/Rating/RatingsScreen/RatingsScreen";
 import BillsScreen from "features/Bill/BillsScreen/BillsScreen";
 import ManufacturerDetailScreen from "features/Manufacturer/ManufacturerDetailScreen/ManufacturerDetailScreen";
 import EditManufacturer from "features/Manufacturer/EditManufacturer/EditManufacturer";
+import CreateManufacturer from "features/Manufacturer/CreateManufacturer/CreateManufacturer";
 
 export const RouteConfigs = [
     {
@@ -112,6 +113,12 @@ export const RouteConfigs = [
     {
         path: "/dashboard/edit-manufacturer/:id",
         element: EditManufacturer,
+        isPrivate: true,
+        layout: DefaultLayout,
+    },
+    {
+        path: "/dashboard/create-manufacturer",
+        element: CreateManufacturer,
         isPrivate: true,
         layout: DefaultLayout,
     },
