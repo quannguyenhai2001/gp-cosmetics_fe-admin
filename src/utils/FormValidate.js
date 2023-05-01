@@ -29,3 +29,22 @@ export const initCreateManufacturers = {
     manufacturer_name: "",
     manufacturer_address: ""
 }
+export const initCreateProducts = {
+    product_name: "",
+    product_price: "",
+    product_promotion: "",
+    thumbnail_url: "",
+    gallery_image_urls: "",
+    manufacturer_id: "",
+    category_id: "",
+    product_information: "",
+    sizes: [
+        {
+            id: 1,
+            size_name: "",
+            size_additional_price: "",
+            quantity: ""
+        }
+    ]
+
+}

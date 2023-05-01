@@ -251,7 +251,7 @@ const ProductsTable = ({
                                         {convertToVND(product.price)}
                                     </TableCell>
                                     <TableCell align="center" size="small">
-                                        {product.promotion * 100}%
+                                        {product.promotion}%
                                     </TableCell>
                                     <TableCell align="center" size="small">
                                         {product.create_at}
