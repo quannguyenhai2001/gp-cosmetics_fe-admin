@@ -71,7 +71,7 @@ const EditCategoryScreen = () => {
     return (
         <Container maxWidth="md">
             <Typography variant="h2" fontWeight="bold" fontSize="30px" mb={30}>
-                Tạo danh mục
+                Chỉnh sửa danh mục
             </Typography>
             <Formik
                 initialValues={initUpdateCategories}

@@ -8,7 +8,8 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { fetchAsyncCreateCategory, fetchAsyncGetAllCategories, fetchAsyncGetCategory, fetchAsyncUpdateCategory } from 'redux/slices/CategorySlice';
-import { fetchAsyncGetManufacturer } from 'redux/slices/ManufacturerSlice';
+import { fetchAsyncGetManufacturer, fetchAsyncUpdateManufacturer } from 'redux/slices/ManufacturerSlice';
+import { initUpdateManufacturers } from 'utils/FormValidate';
 import { initCreateCategories, initUpdateCategories } from 'utils/FormValidate';
 import { Toast } from 'utils/Toast';
 
@@ -31,15 +32,15 @@ const EditManufacturer = () => {
             }
         })();
     }, [dispatch, id]);
-    initUpdateCategories.manufacturer_name = categoryDetail?.name
-    initUpdateCategories.manufacturer_address = categoryDetail?.address
+    initUpdateManufacturers.manufacturer_name = categoryDetail?.name
+    initUpdateManufacturers.manufacturer_address = categoryDetail?.address
     const submitHandle = async (values) => {
         console.log(values)
         try {
             const payload = { ...values, id: id }
-            await dispatch(fetchAsyncUpdateCategory(payload))
-            Toast('success', "Chỉnh sửa danh mục thành công!");
-            navigate("/dashboard/categories")
+            await dispatch(fetchAsyncUpdateManufacturer(payload))
+            Toast('success', "Chỉnh sửa nhà cung cấp thành công!");
+            navigate("/dashboard/manufacturers")
 
         } catch (err) {
             Toast('warning', "Lỗi!");
@@ -48,10 +49,10 @@ const EditManufacturer = () => {
     return (
         <Container maxWidth="md">
             <Typography variant="h2" fontWeight="bold" fontSize="30px" mb={30}>
-                Tạo danh mục
+                Chỉnh sửa nhà cung cấp
             </Typography>
             <Formik
-                initialValues={initUpdateCategories}
+                initialValues={initUpdateManufacturers}
                 onSubmit={(values, { setFieldError }) => {
                     submitHandle(values, setFieldError);
                 }}
