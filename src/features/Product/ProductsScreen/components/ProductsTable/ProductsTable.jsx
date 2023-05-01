@@ -32,6 +32,7 @@ import convertToVND from "utils/ConvertToVND";
 const ProductsTable = ({
     products,
     setProducts,
+    setUserDeleteID,
     pageInfo,
     setOpenDeleteProductModal
 }) => {
@@ -275,7 +276,10 @@ const ProductsTable = ({
                                             <AppTooltip title="Xóa">
                                                 <IconButton
                                                     disabled={isDisabledIcon(products)}
-                                                    onClick={() => setOpenDeleteProductModal(true)}
+                                                    onClick={() => {
+                                                        setOpenDeleteProductModal(true)
+                                                        setUserDeleteID(product.id)
+                                                    }}
                                                 >
                                                     <Delete />
                                                 </IconButton>
