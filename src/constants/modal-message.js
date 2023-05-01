@@ -5,6 +5,6 @@ export const modalMessages = {
     confirmDeleteCategories: "Bạn có chắc chắn muốn xóa {number} danh mục này không?",
     confirmDeleteRatings: "Bạn có chắc chắn muốn xóa {number} đánh giá này không?",
     confirmChangeStatusBills: "Bạn có chắc chắn muốn chuyển trạng thái {number} hóa đơn này không?",
-
+    confirmDeleteManufacturers: "Bạn có chắc chắn muốn xóa {number} nhà cung cấp này không?",
 
 }

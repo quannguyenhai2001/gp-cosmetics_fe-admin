@@ -35,6 +35,8 @@ const ManufacturersScreen = () => {
     const [pageInfo, setPageInfo] = useState(initialPageInfo);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const [userDeleteID, setUserDeleteID] = useState("")
+
     const [isActionButton, setIsActionButton] = useState(false)
 
     const [openDeleteProductModal, setOpenDeleteProductModal] = useState(false);
@@ -169,6 +171,8 @@ const ManufacturersScreen = () => {
                         products={products}
                         setProducts={setProducts}
                         pageInfo={pageInfo}
+                        setUserDeleteID={setUserDeleteID}
+
                         setOpenDeleteProductModal={setOpenDeleteProductModal}
 
                     />
@@ -176,6 +180,8 @@ const ManufacturersScreen = () => {
             </Stack>
             <DeleteProductModal
                 products={products}
+                setUserDeleteID={setUserDeleteID}
+                userDeleteID={userDeleteID}
                 openDeleteProductModal={openDeleteProductModal}
                 setOpenDeleteProductModal={setOpenDeleteProductModal}
                 setIsActionButton={setIsActionButton}

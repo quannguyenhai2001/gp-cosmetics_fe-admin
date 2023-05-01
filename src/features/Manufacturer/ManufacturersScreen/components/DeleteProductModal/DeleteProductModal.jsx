@@ -12,12 +12,16 @@ import { modalMessages } from "constants/modal-message";
 import { fetchAsyncDeleteProduct } from "redux/slices/ProductSlice";
 import { useDispatch } from "react-redux";
 import { Toast } from "utils/Toast";
+import { fetchAsyncDeleteManufacturers } from "redux/slices/ManufacturerSlice";
 
 const DeleteProductModal = ({
     products,
     openDeleteProductModal,
     setOpenDeleteProductModal,
-    setIsActionButton
+    setIsActionButton,
+    setUserDeleteID,
+    userDeleteID
+
 }) => {
 
 
@@ -29,9 +33,9 @@ const DeleteProductModal = ({
 
     const getLabelModal = () => {
         if (selectedInterns.length < 2) {
-            return modalMessages.confirmDeleteProducts.replace(/{number}/, "");
+            return modalMessages.confirmDeleteManufacturers.replace(/{number}/, "");
         }
-        return modalMessages.confirmDeleteProducts.replace(
+        return modalMessages.confirmDeleteManufacturers.replace(
             /{number}/,
             selectedInterns.length
         );
@@ -42,13 +46,16 @@ const DeleteProductModal = ({
     const handleConfirmModalDeleteIntern = async () => {
         try {
             const internsID = selectedInterns.map(intern => intern.id);
-            const requestValues = {
+            const requestValues = userDeleteID ? {
+                ids: [userDeleteID]
+            } : {
                 ids: internsID
             }
-            await dispatch(fetchAsyncDeleteProduct(requestValues)).unwrap();
+            await dispatch(fetchAsyncDeleteManufacturers(requestValues)).unwrap();
             setIsActionButton(value => !value)
             setOpenDeleteProductModal(false);
-            Toast('success', "Xóa sản phẩm thành công!");
+            setUserDeleteID("")
+            Toast('success', "Xóa nhà cung cấp thành công!");
         } catch (err) {
             setOpenDeleteProductModal(false);
             Toast('warning', "Lỗi!");
