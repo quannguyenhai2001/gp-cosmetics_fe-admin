@@ -208,7 +208,7 @@ const ProductsTable = ({
                                             style={{
                                                 color: theme.palette.text.dark,
                                             }}
-                                            to={`/dashboard/products/${product.id}`}
+                                            to={`/dashboard/manufacturer/${product.id}`}
 
                                         >
                                             {product.name}

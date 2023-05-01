@@ -10,7 +10,7 @@ import { Toast } from 'utils/Toast';
 const UserDetailScreen = () => {
     const dispatch = useDispatch();
     const [userDetail, setUserDetail] = useState({})
-    const { id } = useParams
+    const { id } = useParams()
     useEffect(() => {
         (async () => {
             try {

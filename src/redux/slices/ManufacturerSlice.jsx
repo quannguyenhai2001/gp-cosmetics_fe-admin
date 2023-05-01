@@ -6,7 +6,17 @@ const { createSlice, createAsyncThunk } = require("@reduxjs/toolkit");
 const initialState = {
 
 };
-
+export const fetchAsyncGetManufacturer = createAsyncThunk(
+    "manufacturers/fetchAsyncGetManufacturer",
+    async (data, { rejectWithValue }) => {
+        try {
+            const response = await CallApiByParams("manufacturers/get-manufacturer.php", "get", data)
+            return response.data
+        } catch (error) {
+            return rejectWithValue(error.response.data)
+        }
+    }
+);
 export const fetchAsyncGetManufacturers = createAsyncThunk(
     "manufacturers/fetchAsyncGetManufacturers",
     async (data, { rejectWithValue }) => {

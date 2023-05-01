@@ -21,6 +21,8 @@ import CreateCategoryScreen from "features/Category/CreateCategoryScreen/CreateC
 import EditCategoryScreen from "features/Category/EditCategoryScreen/EditCategoryScreen";
 import RatingsScreen from "features/Rating/RatingsScreen/RatingsScreen";
 import BillsScreen from "features/Bill/BillsScreen/BillsScreen";
+import ManufacturerDetailScreen from "features/Manufacturer/ManufacturerDetailScreen/ManufacturerDetailScreen";
+import EditManufacturer from "features/Manufacturer/EditManufacturer/EditManufacturer";
 
 export const RouteConfigs = [
     {
@@ -98,6 +100,18 @@ export const RouteConfigs = [
     {
         path: "/dashboard/manufacturers",
         element: ManufacturersScreen,
+        isPrivate: true,
+        layout: DefaultLayout,
+    },
+    {
+        path: "/dashboard/manufacturer/:id",
+        element: ManufacturerDetailScreen,
+        isPrivate: true,
+        layout: DefaultLayout,
+    },
+    {
+        path: "/dashboard/edit-manufacturer/:id",
+        element: EditManufacturer,
         isPrivate: true,
         layout: DefaultLayout,
     },

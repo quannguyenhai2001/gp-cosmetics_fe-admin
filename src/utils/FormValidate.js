@@ -21,3 +21,7 @@ export const initUpdateCategories = {
     category_name: "",
     father_category_id: ""
 }
+export const initUpdateManufacturers = {
+    manufacturer_name: "",
+    manufacturer_address: ""
+}
