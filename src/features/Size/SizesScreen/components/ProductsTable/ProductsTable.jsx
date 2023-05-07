@@ -219,7 +219,7 @@ const ProductsTable = ({
                                             to={`/dashboard/size/${product.id}`}
 
                                         >
-                                            {product.label}
+                                            {product.name}
                                         </Link>
                                     </TableCell>
                                     <TableCell align="center" size="small">
