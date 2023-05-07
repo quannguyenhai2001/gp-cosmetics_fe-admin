@@ -68,6 +68,11 @@ const ProductsTable = ({
             minWidth: 70,
         },
         {
+            id: "122",
+            label: "Tổng số lượng",
+            minWidth: 70,
+        },
+        {
             id: "create_at",
             label: "Ngày tạo",
             minWidth: 70,
@@ -252,6 +257,9 @@ const ProductsTable = ({
                                     </TableCell>
                                     <TableCell align="center" size="small">
                                         {product.promotion}%
+                                    </TableCell>
+                                    <TableCell align="center" size="small">
+                                        {product.quantity ? product.quantity : 0}
                                     </TableCell>
                                     <TableCell align="center" size="small">
                                         {product.create_at}

@@ -17,6 +17,7 @@ import { initCreateManufacturers, initCreateProducts, initUpdateManufacturers } 
 import { initCreateCategories, initUpdateCategories } from 'utils/FormValidate';
 import { Toast } from 'utils/Toast';
 import "./CreateProductScreen.css"
+import { fetchAsyncCreateProduct } from 'redux/slices/ProductSlice';
 const CreateProductScreen = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate()
@@ -114,17 +115,22 @@ const CreateProductScreen = () => {
 
     const submitHandle = async (values) => {
         console.log(values)
-        // try {
-        //     const payload = { ...values }
-        //     await dispatch(fetchAsyncCreateManufacturer(payload))
-        //     Toast('success', "Tạo nhà cung cấp thành công!");
-        //     navigate("/dashboard/manufacturers")
+        try {
+            const payload = {
+                ...values,
+                productInformation,
+                ingredients,
+                usageInstructions
+            }
+            await dispatch(fetchAsyncCreateProduct(payload))
+            Toast('success', "Tạo sản phẩm thành công!");
+            // navigate("/dashboard/products")
 
-        // } catch (err) {
-        //     Toast('warning', "Lỗi!");
-        // }
+        } catch (err) {
+            Toast('warning', "Lỗi!");
+        }
     }
-    console.log(productInformation)
+
     return (
         <Container maxWidth="md">
             <Typography variant="h2" fontWeight="bold" fontSize="30px" mb={30}>
@@ -146,7 +152,7 @@ const CreateProductScreen = () => {
                     setFieldError,
                     ...rest
                 }) => (
-                    <Form>
+                    <Form >
                         <Stack direction="column" spacing={20} mb="30px" >
                             <Grid
                                 container

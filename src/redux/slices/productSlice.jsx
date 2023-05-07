@@ -1,4 +1,4 @@
-import { CallApiByBody, CallApiByParams } from "api/configApi";
+import instanceApi, { CallApiByBody, CallApiByParams } from "api/configApi";
 
 
 const { createSlice, createAsyncThunk } = require("@reduxjs/toolkit");
@@ -40,6 +40,18 @@ export const fetchAsyncDeleteProduct = createAsyncThunk(
     }
 );
 
+export const fetchAsyncCreateProduct = createAsyncThunk(
+    "products/fetchAsyncCreateProduct",
+    async (data, { rejectWithValue }) => {
+        try {
+            instanceApi.defaults.headers["Content-Type"] = "multipart/form-data";
+            const response = await CallApiByBody("products/create-product.php", "post", data)
+            return response.data;
+        } catch (error) {
+            throw rejectWithValue(error.response.data);
+        }
+    }
+);
 const productSlice = createSlice({
     name: 'products',
     initialState,

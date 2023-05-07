@@ -14,7 +14,7 @@ const DefaultLayout = ({ children }) => {
                 display="flex"
                 flexDirection="column"
                 minHeight="100vh"
-                sx={{ backgroundColor: "rgb(252 252 252)" }}
+                sx={{ backgroundColor: "#f1f4f9" }}
             >
                 <Box
                     component="main"
