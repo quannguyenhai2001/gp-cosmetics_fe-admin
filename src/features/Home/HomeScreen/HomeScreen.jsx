@@ -136,12 +136,12 @@ const HomeScreen = () => {
                             <Box display="flex" justifyContent="space-between" >
                                 <Box>
                                     <PersonAddIcon
-                                        sx={{ fontSize: "30px" }}
+                                        sx={{ fontSize: "30px", color: "white" }}
                                     />
                                     <Typography
                                         variant="h4"
                                         fontWeight="bold"
-
+                                        color="white"
                                     >
                                         {totalRecords.users.total_users}
                                     </Typography>
@@ -150,7 +150,7 @@ const HomeScreen = () => {
                                     <Box
                                         sx={{
                                             background: `radial-gradient(#26a69a 55%, transparent 56%),
-                                             conic-gradient(transparent 0deg ${totalRecords.users.new_users_last_month / totalRecords.users.total_users * 360}deg, #6870fa ${totalRecords.users.new_users_last_month / totalRecords.users.total_users * 360}deg 360deg), #4cceac`,
+                                             conic-gradient(transparent 0deg ${totalRecords.users.new_users_last_month / totalRecords.users.total_users * 360}deg, white ${totalRecords.users.new_users_last_month / totalRecords.users.total_users * 360}deg 360deg), #4cceac`,
                                             borderRadius: "50%",
                                             width: `${50}px`,
                                             height: `${50}px`,
@@ -159,12 +159,13 @@ const HomeScreen = () => {
                                 </Box>
                             </Box>
                             <Box display="flex" justifyContent="space-between" mt="2px">
-                                <Typography >
+                                <Typography fontWeight="bold"
+                                    color="white">
                                     Người dùng
                                 </Typography>
-                                <Typography sx={{ transform: "TranslateX(-6px)", fontStyle: "italic" }}
+                                <Typography sx={{ transform: "TranslateX(-6px)", fontStyle: "italic", color: "white" }}
                                 >
-                                    <Typography component="span" sx={{ display: "inline-block", transform: "TranslateY(-1.8px)" }} >&uarr;</Typography> {totalRecords.users.new_users_last_month / totalRecords.users.total_users * 100}%
+                                    <Typography color="white" component="span" sx={{ display: "inline-block", transform: "TranslateY(-1.8px)" }} >&uarr;</Typography> {totalRecords.users.new_users_last_month / totalRecords.users.total_users * 100}%
                                 </Typography>
                             </Box>
                         </Box>
@@ -182,11 +183,12 @@ const HomeScreen = () => {
                             <Box display="flex" justifyContent="space-between" >
                                 <Box>
                                     <PriceCheckIcon
-                                        sx={{ fontSize: "30px" }}
+                                        sx={{ fontSize: "30px", color: "white" }}
                                     />
                                     <Typography
                                         variant="h4"
                                         fontWeight="bold"
+                                        color="white"
 
                                     >
                                         {totalRecords.bills.total_orders}
@@ -196,7 +198,7 @@ const HomeScreen = () => {
                                     <Box
                                         sx={{
                                             background: `radial-gradient(#f35c86 55%, transparent 56%),
-                                             conic-gradient(transparent 0deg ${totalRecords.bills.total_orders_last_month / totalRecords.bills.total_orders * 360}deg, #6870fa ${totalRecords.bills.total_orders_last_month / totalRecords.bills.total_orders * 360}deg 360deg), #4cceac`,
+                                             conic-gradient(transparent 0deg ${totalRecords.bills.total_orders_last_month / totalRecords.bills.total_orders * 360}deg, white ${totalRecords.bills.total_orders_last_month / totalRecords.bills.total_orders * 360}deg 360deg), #4cceac`,
                                             borderRadius: "50%",
                                             width: `${50}px`,
                                             height: `${50}px`,
@@ -205,10 +207,11 @@ const HomeScreen = () => {
                                 </Box>
                             </Box>
                             <Box display="flex" justifyContent="space-between" mt="2px">
-                                <Typography >
+                                <Typography fontWeight="bold"
+                                    color="white">
                                     Đơn đặt
                                 </Typography>
-                                <Typography sx={{ transform: "TranslateX(-6px)", fontStyle: "italic" }}
+                                <Typography sx={{ transform: "TranslateX(-6px)", fontStyle: "italic", color: "white" }}
                                 >
                                     <Typography component="span" sx={{ display: "inline-block", transform: "TranslateY(-1.8px)" }} >&uarr;</Typography> {Math.floor((totalRecords.bills.total_orders_last_month / totalRecords.bills.total_orders) * 100)}%
                                 </Typography>
