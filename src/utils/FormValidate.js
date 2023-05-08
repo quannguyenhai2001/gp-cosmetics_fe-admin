@@ -30,14 +30,14 @@ export const initCreateManufacturers = {
     manufacturer_address: ""
 }
 export const initCreateProducts = {
-    product_name: "",
-    product_price: "",
-    product_promotion: "",
+    product_name: "1",
+    product_price: "1",
+    product_promotion: "1",
     thumbnail_url: "",
     gallery_image_urls: "",
-    manufacturer_id: "",
-    category_id: "",
-    product_information: "",
+    manufacturer_id: "1",
+    category_id: "1",
+
     sizes: [
         {
             id: 1,

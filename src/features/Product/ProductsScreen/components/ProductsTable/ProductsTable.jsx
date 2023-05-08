@@ -21,6 +21,7 @@ import {
     IconButton,
     TableContainer,
     CardMedia,
+    TableSortLabel,
 } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -28,18 +29,27 @@ import AppTooltip from "components/AppTooltip/AppTooltip";
 
 import { useStyles } from "../../ProductsScreen.styles";
 import convertToVND from "utils/ConvertToVND";
+import { useDispatch } from "react-redux";
+import { fetchAsyncGetProducts } from "redux/slices/ProductSlice";
+import { Toast } from "utils/Toast";
+const initialPageInfo = {
+    page: 1,
+    total: 0,
+    total_page: 1,
+};
 
 const ProductsTable = ({
     products,
     setProducts,
     setUserDeleteID,
     pageInfo,
+    setPageInfo,
     setOpenDeleteProductModal
 }) => {
     const theme = useTheme();
     const classes = useStyles();
     const navigate = useNavigate();
-
+    const dispatch = useDispatch();
     const tableHeadContents = [
         { id: "checkAll", minWidth: 80 },
         {
@@ -116,6 +126,32 @@ const ProductsTable = ({
         }
         return false
     }
+    const [order, setOrder] = React.useState('desc');
+    const createSortHandler = async () => {
+        try {
+            const res = await dispatch(
+                fetchAsyncGetProducts({
+                    soft_total_sold: order === "desc" ? "desc" : "asc"
+                })
+            ).unwrap();
+            setProducts(res.data)
+            setPageInfo(res.pageInfo)
+            if (res.data.length === 0) {
+                Toast('warning', "Không có kết quả!");
+            }
+            setOrder(order => {
+                return order === "desc" ? "asc" : "desc"
+            })
+        } catch (e) {
+            setProducts([]);
+            setPageInfo(initialPageInfo);
+            Toast('warning', "Lỗi!");
+        }
+
+        // const isAsc = orderBy === property && order === 'asc';
+        // setOrder(isAsc ? 'desc' : 'asc');
+        // setOrderBy(property);
+    }
     return (
         <Box>
             {!pageInfo.total ? (
@@ -178,7 +214,14 @@ const ProductsTable = ({
                                             }}
                                             rowSpan={2}
                                         >
-                                            {columnContent.label}
+                                            <TableSortLabel
+                                                hideSortIcon={columnContent.id !== "1223"}
+                                                direction={order}
+                                                onClick={createSortHandler}
+                                            >
+                                                {columnContent.label}
+                                            </TableSortLabel>
+
                                         </TableCell>
                                     )
                                 )}

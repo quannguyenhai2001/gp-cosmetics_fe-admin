@@ -245,7 +245,7 @@ const ProductsScreen = () => {
                         setProducts={setProducts}
                         pageInfo={pageInfo}
                         setUserDeleteID={setUserDeleteID}
-
+                        setPageInfo={setPageInfo}
                         setOpenDeleteProductModal={setOpenDeleteProductModal}
 
                     />

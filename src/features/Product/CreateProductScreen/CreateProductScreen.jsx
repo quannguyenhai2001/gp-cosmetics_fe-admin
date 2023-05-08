@@ -122,6 +122,7 @@ const CreateProductScreen = () => {
                 ingredients,
                 usageInstructions
             }
+            console.log(payload)
             await dispatch(fetchAsyncCreateProduct(payload))
             Toast('success', "Tạo sản phẩm thành công!");
             // navigate("/dashboard/products")

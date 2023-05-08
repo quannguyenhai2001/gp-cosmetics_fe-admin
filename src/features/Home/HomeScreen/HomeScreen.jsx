@@ -87,8 +87,10 @@ const HomeScreen = () => {
                         .filter(({ month, year }) => month === prevMonth && year === prevYear)
                         .reduce((prev, { revenue }) => prev + parseFloat(revenue), 0);
 
-                    if (prevRevenue) {
+                    if (prevRevenue && (Number(y - prevRevenue) >= 0)) {
                         return `<b>${x}</b><br/>Doanh thu: ${y} VNĐ<br/>Tăng so với tháng trước: ${y - prevRevenue} VNĐ`;
+                    } else if (prevRevenue && (Number(y - prevRevenue) < 0)) {
+                        return `<b>${x}</b><br/>Doanh thu: ${y} VNĐ<br/>Giảm so với tháng trước: ${y - prevRevenue} VNĐ`;
                     }
                     return `<b>${x}</b><br/>Doanh thu: ${y} VNĐ<br/>Tăng so với tháng trước: 0 VNĐ`;
 
@@ -106,7 +108,6 @@ const HomeScreen = () => {
     const exportCSV = () => {
         const fields = ['year', 'month', 'revenue'];
         const opts = { fields };
-        console.log(revenueStatic)
         const csvData = json2csv.parse(revenueStatic, opts);
         const csvBuffer = Buffer.from(csvData, 'utf-8');
         fileDownload(csvBuffer, 'revenue.csv');
@@ -150,7 +151,7 @@ const HomeScreen = () => {
                                     <Box
                                         sx={{
                                             background: `radial-gradient(#26a69a 55%, transparent 56%),
-                                             conic-gradient(transparent 0deg ${totalRecords.users.new_users_last_month / totalRecords.users.total_users * 360}deg, white ${totalRecords.users.new_users_last_month / totalRecords.users.total_users * 360}deg 360deg), #4cceac`,
+                                             conic-gradient(transparent 0deg ${totalRecords.users.new_users_last_month / totalRecords.users.total_users * 360}deg, white ${totalRecords.users.new_users_last_month / totalRecords.users.total_users * 360}deg 360deg), black`,
                                             borderRadius: "50%",
                                             width: `${50}px`,
                                             height: `${50}px`,
@@ -198,7 +199,7 @@ const HomeScreen = () => {
                                     <Box
                                         sx={{
                                             background: `radial-gradient(#f35c86 55%, transparent 56%),
-                                             conic-gradient(transparent 0deg ${totalRecords.bills.total_orders_last_month / totalRecords.bills.total_orders * 360}deg, white ${totalRecords.bills.total_orders_last_month / totalRecords.bills.total_orders * 360}deg 360deg), #4cceac`,
+                                             conic-gradient(transparent 0deg ${totalRecords.bills.total_orders_last_month / totalRecords.bills.total_orders * 360}deg, white ${totalRecords.bills.total_orders_last_month / totalRecords.bills.total_orders * 360}deg 360deg), black`,
                                             borderRadius: "50%",
                                             width: `${50}px`,
                                             height: `${50}px`,
