@@ -18,6 +18,17 @@ export const fetchAsyncGetSizes = createAsyncThunk(
         }
     }
 );
+export const fetchAsyncGetSize = createAsyncThunk(
+    "sizes/fetchAsyncGetSize",
+    async (data, { rejectWithValue }) => {
+        try {
+            const response = await CallApiByParams("sizes/get-size.php", "get", data)
+            return response.data
+        } catch (error) {
+            return rejectWithValue(error.response.data)
+        }
+    }
+);
 export const fetchAsyncDeleteSize = createAsyncThunk(
     "sizes/fetchAsyncDeleteSize",
     async (data, { rejectWithValue }) => {

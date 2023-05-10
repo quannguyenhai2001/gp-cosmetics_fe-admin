@@ -131,7 +131,8 @@ const ProductsTable = ({
         try {
             const res = await dispatch(
                 fetchAsyncGetProducts({
-                    soft_total_sold: order === "desc" ? "desc" : "asc"
+                    soft_total_sold: order === "desc" ? "desc" : "asc",
+                    use_page: 1,
                 })
             ).unwrap();
             setProducts(res.data)

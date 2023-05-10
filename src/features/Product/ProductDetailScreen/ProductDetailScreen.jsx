@@ -112,7 +112,7 @@ const ProductDetailScreen = () => {
                         </Grid>
                         <Grid item xs={4} sm={4} md={4} lg={4} xl={4}>
                             <Typography>
-                                {userDetail?.rating ? (<>{userDetail?.rating}/5</>) : (<>Không</>)}
+                                {userDetail?.rating ? (<>{userDetail?.rating.star_average}/5</>) : (<>Không</>)}
                             </Typography>
                         </Grid>
                     </Grid>
@@ -149,8 +149,54 @@ const ProductDetailScreen = () => {
                         </Grid>
                     </Grid>
 
-
-
+                    <Grid
+                        container
+                        sx={{
+                            display: "flex",
+                            alignItems: "center",
+                        }}
+                    >
+                        <Grid item xs={4} sm={4} md={4} lg={2} xl={4}>
+                            Thông tin sản phẩm :
+                        </Grid>
+                        <Grid item xs={4} sm={4} md={4} lg={4} xl={4}>
+                            <Typography>
+                                <Box dangerouslySetInnerHTML={{ __html: userDetail.product_information }}></Box>
+                            </Typography>
+                        </Grid>
+                    </Grid>
+                    <Grid
+                        container
+                        sx={{
+                            display: "flex",
+                            alignItems: "center",
+                        }}
+                    >
+                        <Grid item xs={4} sm={4} md={4} lg={2} xl={4}>
+                            Thành phần :
+                        </Grid>
+                        <Grid item xs={4} sm={4} md={4} lg={4} xl={4}>
+                            <Typography>
+                                <Box dangerouslySetInnerHTML={{ __html: userDetail.ingredients }}></Box>
+                            </Typography>
+                        </Grid>
+                    </Grid>
+                    <Grid
+                        container
+                        sx={{
+                            display: "flex",
+                            alignItems: "center",
+                        }}
+                    >
+                        <Grid item xs={4} sm={4} md={4} lg={2} xl={4}>
+                            Hướng đẫn sử dụng :
+                        </Grid>
+                        <Grid item xs={4} sm={4} md={4} lg={4} xl={4}>
+                            <Typography>
+                                <Box dangerouslySetInnerHTML={{ __html: userDetail.usage_instructions }}></Box>
+                            </Typography>
+                        </Grid>
+                    </Grid>
                 </Stack>
             ) : (<>Lỗi</>)}
         </Container >

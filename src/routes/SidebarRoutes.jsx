@@ -38,7 +38,7 @@ export const sidebarMenuItems = [
                 to: "/dashboard/products",
             },
             {
-                title: "Quản lý phân loại hàng",
+                title: "Danh sách phân loại hàng",
                 to: "/dashboard/sizes",
             },
 

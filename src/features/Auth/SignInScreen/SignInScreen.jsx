@@ -161,22 +161,12 @@ const SignInScreen = () => {
                                 </Button>
                             </Stack>
 
-                            <Divider
-                                sx={{
-                                    mt: 20,
-                                }}
-                            />
+
                         </Form>
                     )}
                 </Formik>
 
-                <Stack mt={20}>
-                    <Box>
-                        <Link color="primary">
-                            Quên mật khẩu
-                        </Link>
-                    </Box>
-                </Stack>
+
             </Grid>
         </Grid>
     );

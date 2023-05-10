@@ -247,7 +247,12 @@ const ProductsTable = ({
                                                 <IconButton
                                                     disabled={isDisabledIcon(products)}
                                                     onClick={() =>
-                                                        navigate(`/dashboard/edit-size/${product.id}`)
+                                                        navigate(`/dashboard/edit-size/${product.id}`, {
+
+                                                            state: {
+                                                                product_id: product.product_id
+                                                            }
+                                                        })
                                                     }
                                                 >
                                                     <Edit />
