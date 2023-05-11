@@ -5,9 +5,7 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { fetchAsyncGetManufacturer } from 'redux/slices/ManufacturerSlice';
 import { fetchAsyncGetProduct } from 'redux/slices/ProductSlice';
-import { fetchAsyncGetUserDetail } from 'redux/slices/UserSlice';
 import { Toast } from 'utils/Toast';
 
 const ProductDetailScreen = () => {

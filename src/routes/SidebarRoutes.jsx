@@ -1,19 +1,11 @@
 import React from "react";
 
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import ArticleIcon from "@mui/icons-material/Article";
-import AssessmentIcon from "@mui/icons-material/Assessment";
-import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
 import Diversity3Icon from "@mui/icons-material/Diversity3";
-import EngineeringIcon from "@mui/icons-material/Engineering";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
-import FactCheckIcon from "@mui/icons-material/FactCheck";
 import HomeIcon from "@mui/icons-material/Home";
-import ListAltIcon from "@mui/icons-material/ListAlt";
-import NewspaperIcon from "@mui/icons-material/Newspaper";
 import PermDataSettingIcon from "@mui/icons-material/PermDataSetting";
 import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
-import SettingsAccessibilityIcon from "@mui/icons-material/SettingsAccessibility";
 import SettingsSuggestIcon from "@mui/icons-material/SettingsSuggest";
 
 

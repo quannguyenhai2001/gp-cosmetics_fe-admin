@@ -1,4 +1,4 @@
-import { Autocomplete, Box, Button, Container, Grid, Stack, TextField, Typography } from '@mui/material';
+import { Box, Button, Container, Grid, Stack, Typography } from '@mui/material';
 import FormikCombobox from 'components/FormElements/FormikCombobox/FormikCombobox';
 import FormikTextField from 'components/FormElements/FormikTextField/FormikTextField';
 import { Form, Formik } from 'formik';
@@ -38,7 +38,7 @@ const CreateCategoryScreen = () => {
                 Toast('warning', "Lỗi!");
             }
         })();
-    }, []);
+    }, [dispatch]);
 
     const submitHandle = async (values) => {
         console.log(values)

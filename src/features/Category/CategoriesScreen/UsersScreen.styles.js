@@ -15,13 +15,7 @@ export const useStyles = makeStyles(() => ({
             marginTop: 0,
         },
     },
-    // totalPage: {
-    //   position: "absolute",
-    //   left: 0,
-    //   top: "50%",
 
-    //   transform: "translateY(-50%)",
-    // },
     helperText: {
         position: "absolute",
         top: 40,

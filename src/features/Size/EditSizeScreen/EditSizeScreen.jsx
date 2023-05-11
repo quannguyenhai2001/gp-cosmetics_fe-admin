@@ -1,24 +1,21 @@
 
-import { Autocomplete, Box, Button, Container, Grid, Stack, TextField, Typography } from '@mui/material';
-import FormikCombobox from 'components/FormElements/FormikCombobox/FormikCombobox';
+import { Box, Button, Container, Grid, Stack, Typography } from '@mui/material';
 import FormikTextField from 'components/FormElements/FormikTextField/FormikTextField';
 import { Form, Formik } from 'formik';
 import React from 'react';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { fetchAsyncCreateCategory, fetchAsyncGetAllCategories, fetchAsyncGetCategory, fetchAsyncUpdateCategory } from 'redux/slices/CategorySlice';
-import { fetchAsyncCreateManufacturer, fetchAsyncGetManufacturer, fetchAsyncUpdateManufacturer } from 'redux/slices/ManufacturerSlice';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { fetchAsyncCreateManufacturer } from 'redux/slices/ManufacturerSlice';
 import { fetchAsyncGetProduct } from 'redux/slices/ProductSlice';
-import { initCreateManufacturers, initUpdateManufacturers } from 'utils/FormValidate';
-import { initCreateCategories, initUpdateCategories } from 'utils/FormValidate';
+import { initCreateManufacturers } from 'utils/FormValidate';
 import { Toast } from 'utils/Toast';
 
 const EditSizeScreen = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate()
-    const { id } = useParams()
+
     const location = useLocation()
     const product_id = location.state.product_id;
     console.log(product_id)
@@ -37,7 +34,7 @@ const EditSizeScreen = () => {
                 Toast('warning', "Lỗi!");
             }
         })();
-    }, []);
+    }, [dispatch, product_id]);
     const submitHandle = async (values) => {
         console.log(values)
         try {

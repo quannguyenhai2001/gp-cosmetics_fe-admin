@@ -40,7 +40,17 @@ export const fetchAsyncDeleteSize = createAsyncThunk(
         }
     }
 );
-
+export const fetchAsyncCreateSize = createAsyncThunk(
+    "sizes/fetchAsyncCreateSize",
+    async (data, { rejectWithValue }) => {
+        try {
+            const response = await CallApiByBody("sizes/create-size.php", "post", data)
+            return response.data;
+        } catch (error) {
+            throw rejectWithValue(error.response.data);
+        }
+    }
+);
 const SizeSlice = createSlice({
     name: 'sizes',
     initialState,
@@ -52,6 +62,5 @@ const SizeSlice = createSlice({
     }
 })
 
-const { reducer: sizeReducer, actions } = SizeSlice
-export const { } = actions
+const { reducer: sizeReducer } = SizeSlice
 export default sizeReducer

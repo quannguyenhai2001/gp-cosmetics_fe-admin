@@ -9,7 +9,7 @@ import {
     Box,
     Button,
     Avatar,
-    Stack,
+
     Typography,
     List,
     ListItemButton,
@@ -21,7 +21,7 @@ import {
     styled,
     tooltipClasses,
 } from "@mui/material";
-import { useLocation, Link, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import logo from 'assets/images/logo/logo_web.png';
 
 import AppModal from "components/Modal/Modal";
@@ -60,7 +60,7 @@ const MultiLevel = ({ item, isSidebarExpanded, isChildItem = false }) => {
             item.items.length &&
             item.items.some(o => o.to?.includes(location.pathname))
         );
-    }, [location]);
+    }, [location, item]);
 
     return (
         <>

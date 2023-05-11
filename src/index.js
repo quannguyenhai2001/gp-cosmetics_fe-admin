@@ -4,7 +4,8 @@ import './index.css';
 import App from './App';
 import { Provider } from 'react-redux';
 import store from 'redux/stores/RootReducer';
-
+import EventEmitter from 'events';
+EventEmitter.defaultMaxListeners = 15;
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>

@@ -1,7 +1,6 @@
 import React, { memo } from "react";
 
-import CopyrightIcon from "@mui/icons-material/Copyright";
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 
 import AppSidebar from "components/AppSidebar/AppSidebar";
 
@@ -14,7 +13,7 @@ const DefaultLayout = ({ children }) => {
                 display="flex"
                 flexDirection="column"
                 minHeight="100vh"
-                sx={{ backgroundColor: "#f1f4f9" }}
+                sx={{ backgroundColor: "rgb(252 252 252)" }}
             >
                 <Box
                     component="main"

@@ -2,24 +2,19 @@ import React, { useState, useEffect } from "react";
 import {
     AddCircleOutline,
     Delete,
-    NoAccounts,
-    Search,
+
 } from "@mui/icons-material";
-import { Box, Button, Grid, Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import { Stack } from "@mui/system";
 
-import { Form, Formik } from "formik";
 import qs from "query-string";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
 import AppPaginate from "components/AppPaginate/AppPaginate";
 
-import FormikTextField from "components/FormElements/FormikTextField/FormikTextField";
 
 import ProductsTable from "./components/ProductsTable/ProductsTable";
-import { fetchAsyncGetProducts } from "redux/slices/ProductSlice";
 import { initSearchProductsValue } from "utils/FormValidate";
-import removeEmptyValuesInObject from "utils/removeEmptyValuesInObject";
 import { Toast } from "utils/Toast";
 import DeleteProductModal from "./components/DeleteProductModal/DeleteProductModal";
 import { fetchAsyncGetManufacturers } from "redux/slices/ManufacturerSlice";
@@ -71,15 +66,9 @@ const ManufacturersScreen = () => {
                 Toast('warning', "Lỗi!");
             }
         })();
-    }, [location.search, isActionButton]);
+    }, [location.search, isActionButton, dispatch, qsParsed]);
 
-    const handleSearchInterviews = values => {
-        const newInitSearchValues = removeEmptyValuesInObject(values);
-        navigate({
-            pathname: "/dashboard/products",
-            search: qs.stringify(newInitSearchValues),
-        });
-    };
+
     const onPageChange = (_event, page) => {
         navigate({
             pathname: "/dashboard/products",
@@ -96,12 +85,7 @@ const ManufacturersScreen = () => {
         }
         return true
     }
-    const isDisableSearchButton = ({ dirty, submitCount }) => {
-        if ((!submitCount && dirty) || submitCount) {
-            return false;
-        }
-        return true;
-    };
+
     return (
         <Box >
             <Stack direction="column" spacing={20} height="100%">

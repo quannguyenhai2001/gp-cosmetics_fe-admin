@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import {
     AddCircleOutline,
     Delete,
-    NoAccounts,
+
     Search,
 } from "@mui/icons-material";
 import { Box, Button, Grid, Typography } from "@mui/material";
@@ -10,14 +10,13 @@ import { Stack } from "@mui/system";
 
 import { Form, Formik } from "formik";
 import qs from "query-string";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
 import AppPaginate from "components/AppPaginate/AppPaginate";
 
 import FormikTextField from "components/FormElements/FormikTextField/FormikTextField";
 
 import ProductsTable from "./components/ProductsTable/ProductsTable";
-import { fetchAsyncGetProducts } from "redux/slices/ProductSlice";
 import { initSearchProductsValue } from "utils/FormValidate";
 import removeEmptyValuesInObject from "utils/removeEmptyValuesInObject";
 import { Toast } from "utils/Toast";
@@ -69,7 +68,7 @@ const SizesScreen = () => {
                 Toast('warning', "Lỗi!");
             }
         })();
-    }, [location.search, isActionButton]);
+    }, [location.search, isActionButton, dispatch, qsParsed]);
 
     const handleSearchInterviews = values => {
         const newInitSearchValues = removeEmptyValuesInObject(values);

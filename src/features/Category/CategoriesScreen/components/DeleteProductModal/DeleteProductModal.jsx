@@ -2,7 +2,6 @@ import React from "react";
 
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 import { Box } from "@mui/material";
-import { useNavigate, useLocation } from "react-router-dom";
 
 import AppModal from "components/Modal/Modal";
 

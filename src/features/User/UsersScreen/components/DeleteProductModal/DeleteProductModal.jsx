@@ -2,16 +2,13 @@ import React from "react";
 
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 import { Box } from "@mui/material";
-import { useNavigate, useLocation } from "react-router-dom";
 
 import AppModal from "components/Modal/Modal";
-// import { deleteInternships } from "features/internship/redux/internship.slice";
 
 
 import { modalMessages } from "constants/modal-message";
 import { useDispatch } from "react-redux";
 import { Toast } from "utils/Toast";
-import { fetchAsyncDeleteSize } from "redux/slices/SizeSlice";
 import { fetchAsyncDeleteUsers } from "redux/slices/UserSlice";
 
 const DeleteProductModal = ({

@@ -63,6 +63,5 @@ const productSlice = createSlice({
     }
 })
 
-const { reducer: productReducer, actions } = productSlice
-export const { } = actions
+const { reducer: productReducer } = productSlice
 export default productReducer

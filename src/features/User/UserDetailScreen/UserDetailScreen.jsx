@@ -25,7 +25,7 @@ const UserDetailScreen = () => {
                 Toast('warning', "Lỗi!");
             }
         })();
-    }, []);
+    }, [dispatch, id]);
     return (
         <Container maxWidth="md">
             <Typography variant="h2" fontWeight="bold" fontSize="30px" mb={30}>

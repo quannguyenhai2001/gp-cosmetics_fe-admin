@@ -1,13 +1,9 @@
 
-import { Box, Button, Container, Grid, Stack, Tooltip, Typography } from '@mui/material';
+import { Box, Button, Grid, Tooltip, Typography } from '@mui/material';
 import React, { useRef } from 'react';
-import PointOfSaleIcon from "@mui/icons-material/PointOfSale";
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { useParams } from 'react-router-dom';
-import { fetchAsyncGetManufacturer } from 'redux/slices/ManufacturerSlice';
-import { fetchAsyncGetProduct } from 'redux/slices/ProductSlice';
 import { fetchAsyncGetMonthlyRevenueList, fetchAsyncGetRecentTransactions, fetchAsyncGetTotalRecords } from 'redux/slices/StatisticalSlice';
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
@@ -15,11 +11,9 @@ import { Toast } from 'utils/Toast';
 import { cloneDeep } from 'lodash';
 import Header from 'components/Header/Header';
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
-import { Translate } from '@mui/icons-material';
 import PriceCheckIcon from '@mui/icons-material/PriceCheck';
 import convertToVND from 'utils/ConvertToVND';
 import json2csv from 'json2csv';
-import { Buffer } from 'buffer';
 import fileDownload from 'js-file-download';
 import DownloadIcon from '@mui/icons-material/Download';
 
@@ -101,7 +95,7 @@ const HomeScreen = () => {
                 Toast('warning', "Lỗi!");
             }
         })();
-    }, [dispatch]);
+    }, [dispatch, chartOptions]);
 
 
 
@@ -226,7 +220,7 @@ const HomeScreen = () => {
             }
 
             <Grid container sx={{ display: "flex", justifyContent: "space-between" }}>
-                <Grid item md={6.9} sx={{ backgroundColor: "white", borderRadius: "15px", }}>
+                <Grid item md={6.9} sx={{ backgroundColor: "#f1f4f9", borderRadius: "15px", }}>
                     <Box sx={{ padding: "1rem" }}>
                         <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                             <Box sx={{ mb: "1rem" }}>
@@ -263,9 +257,9 @@ const HomeScreen = () => {
 
                     </Box>
                 </Grid>
-                <Grid item md={5} sx={{ overflowY: "scroll", backgroundColor: "white", borderRadius: "15px", maxHeight: "300px" }}>
+                <Grid item md={5} sx={{ overflowY: "scroll", backgroundColor: "#f1f4f9", borderRadius: "15px", maxHeight: "300px" }}>
                     <Box>
-                        <Box sx={{ borderBottom: "1px solid gray", p: "1rem" }}>
+                        <Box sx={{ borderBottom: "2px solid gray", margin: "1rem", pb: "1rem" }}>
                             <Typography
                                 variant="h5"
                                 fontWeight="bold"
@@ -281,8 +275,9 @@ const HomeScreen = () => {
                                 display="flex"
                                 justifyContent="space-between"
                                 alignItems="center"
-                                borderBottom="1px solid gray"
-                                p="15px"
+                                borderBottom="2px solid gray"
+                                m="15px"
+                                pb="1rem"
                             >
                                 <Box>
                                     <Typography

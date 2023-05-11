@@ -5,13 +5,3 @@ export const BillStatusOptions = [
 ]
 
 
-// {
-//     BillStatusOptions.map(option => {
-//         if (option.value === "Chờ xác nhận") {
-//             return <MenuItem value={option.value} disabled>{option.label}</MenuItem>
-//         } else if (product.status === "Đang giao" && option.value === ") {
-//                                                                 return <MenuItem value={option.value} disabled>{option.label}</MenuItem>
-//     }
-//                                                             return <MenuItem value={option.value} >{option.label}</MenuItem>
-// })
-//                                                     }

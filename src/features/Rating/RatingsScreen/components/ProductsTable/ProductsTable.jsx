@@ -20,9 +20,8 @@ import {
     Checkbox,
     IconButton,
     TableContainer,
-    CardMedia,
+
 } from "@mui/material";
-import { Link, useNavigate } from "react-router-dom";
 
 import AppTooltip from "components/AppTooltip/AppTooltip";
 
@@ -38,7 +37,6 @@ const ProductsTable = ({
 }) => {
     const theme = useTheme();
     const classes = useStyles();
-    const navigate = useNavigate();
 
     const tableHeadContents = [
         { id: "checkAll", minWidth: 80 },

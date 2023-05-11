@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import {
     AddCircleOutline,
     Delete,
-    NoAccounts,
+
     Search,
 } from "@mui/icons-material";
 import { Box, Button, Grid, Typography } from "@mui/material";
@@ -10,7 +10,7 @@ import { Stack } from "@mui/system";
 
 import { Form, Formik } from "formik";
 import qs from "query-string";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
 import AppPaginate from "components/AppPaginate/AppPaginate";
 
@@ -69,7 +69,7 @@ const ProductsScreen = () => {
                 Toast('warning', "Lỗi!");
             }
         })();
-    }, [location.search, isActionButton]);
+    }, [location.search, isActionButton, dispatch, qsParsed]);
 
     const handleSearchInterviews = values => {
         const newInitSearchValues = removeEmptyValuesInObject(values);

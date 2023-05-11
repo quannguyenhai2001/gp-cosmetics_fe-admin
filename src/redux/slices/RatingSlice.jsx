@@ -1,4 +1,4 @@
-import instanceApi, { CallApiByBody, CallApiByParams } from "api/configApi";
+import { CallApiByBody, CallApiByParams } from "api/configApi";
 
 const { createSlice, createAsyncThunk } = require("@reduxjs/toolkit");
 

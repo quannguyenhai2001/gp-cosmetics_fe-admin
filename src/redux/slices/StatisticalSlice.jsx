@@ -1,4 +1,4 @@
-import { CallApiByBody, CallApiByParams } from "api/configApi";
+import { CallApiByParams } from "api/configApi";
 
 
 const { createSlice, createAsyncThunk } = require("@reduxjs/toolkit");
@@ -51,6 +51,6 @@ const StatisticalSlice = createSlice({
     }
 })
 
-const { reducer: StatisticalReducer, actions } = StatisticalSlice
-export const { } = actions
+const { reducer: StatisticalReducer } = StatisticalSlice
+
 export default StatisticalReducer

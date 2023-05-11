@@ -41,6 +41,5 @@ const SizeSlice = createSlice({
     }
 })
 
-const { reducer: billReducer, actions } = SizeSlice
-export const { } = actions
+const { reducer: billReducer } = SizeSlice
 export default billReducer

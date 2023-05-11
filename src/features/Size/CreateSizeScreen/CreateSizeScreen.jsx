@@ -2,34 +2,26 @@
 
 import { AddCircle } from '@mui/icons-material';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { Autocomplete, Box, Button, Container, FormControl, FormGroup, Grid, IconButton, Stack, TextField, Typography } from '@mui/material';
+import { Box, Button, Container, FormControl, FormGroup, Grid, IconButton, Stack, Typography } from '@mui/material';
 import FormikCombobox from 'components/FormElements/FormikCombobox/FormikCombobox';
 import FormikTextField from 'components/FormElements/FormikTextField/FormikTextField';
 import { FieldArray, Form, Formik } from 'formik';
 import React from 'react';
 import { useState } from 'react';
 import { useEffect } from 'react';
-import ReactQuill from 'react-quill';
 import { useDispatch } from 'react-redux';
-import { useNavigate, useParams } from 'react-router-dom';
-import { fetchAsyncCreateCategory, fetchAsyncGetAllCategories, fetchAsyncGetCategory, fetchAsyncUpdateCategory } from 'redux/slices/CategorySlice';
-import { fetchAsyncCreateManufacturer, fetchAsyncGetManufacturer, fetchAsyncGetManufacturers, fetchAsyncUpdateManufacturer } from 'redux/slices/ManufacturerSlice';
-import { initCreateManufacturers, initCreateProducts, initUpdateManufacturers } from 'utils/FormValidate';
-import { initCreateCategories, initUpdateCategories } from 'utils/FormValidate';
+import { useNavigate } from 'react-router-dom';
+import { initCreateSizes } from 'utils/FormValidate';
 import { Toast } from 'utils/Toast';
 import "./CreateProductScreen.css"
-import { fetchAsyncCreateProduct } from 'redux/slices/ProductSlice';
+import { fetchAsyncGetProducts } from 'redux/slices/ProductSlice';
+import { fetchAsyncCreateSize } from 'redux/slices/SizeSlice';
 const CreateSizeScreen = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate()
 
-    const [childCategoriesOptions, setChildCategoriesOptions] = useState([[
-        {
-            value: 0,
-            label: "",
-        },
-    ]])
-    const [manuOptions, setManuOptions] = useState([[
+
+    const [productOptions, setProductOptions] = useState([[
         {
             value: 0,
             label: "",
@@ -40,93 +32,40 @@ const CreateSizeScreen = () => {
     useEffect(() => {
         (async () => {
             try {
-                const [manuData, categoriesData] = await Promise.all([
+                const [productData] = await Promise.all([
                     await dispatch(
-                        fetchAsyncGetManufacturers({
-
-                            use_page: 0,
-                        })
+                        fetchAsyncGetProducts()
                     ).unwrap(),
-                    dispatch(
-                        fetchAsyncGetAllCategories({
-                            use_page: 0,
-                        })
-                    ).unwrap()
+
                 ])
-
-
-
-                const categoriesOptions = categoriesData.data.filter(category => Number(category.father_category_id) !== 0)
-                const newCategoriesOptions = categoriesOptions.map(category => {
+                const newManuOptions = productData.data.map(category => {
                     return {
-                        label: category.name,
+                        label: category.product_name,
                         value: category.id
                     }
                 })
-                setChildCategoriesOptions(newCategoriesOptions)
-
-                const newManuOptions = manuData.data.map(category => {
-                    return {
-                        label: category.name,
-                        value: category.id
-                    }
-                })
-                setManuOptions(newManuOptions)
+                setProductOptions(newManuOptions)
             } catch (e) {
                 Toast('warning', "Lỗi!");
             }
         })();
     }, [dispatch]);
-    const [thumbnail, setThumbnail] = React.useState("")
-    const [galleryImages, setGalleryImages] = React.useState([])
-    const [productInformation, setProductInformation] = React.useState("")
-    const [ingredients, setIngredients] = React.useState("")
-    const [usageInstructions, setUsageInstructions] = React.useState("")
 
-    async function getBase64(files, type) {
-        setGalleryImages([])
-        if (type === "multiple") {
-            delete files.length
-            for (const key in files) {
-                if (files.hasOwnProperty(key)) {
-                    let reader = new FileReader();
-                    reader.readAsDataURL(files[key]);
-                    reader.onload = function () {
-                        setGalleryImages(prevArray => [...prevArray, reader.result]);
-                    };
-                    reader.onerror = function (error) {
-                        console.log('Error: ', error);
-                    }
 
-                }
 
-            }
-        }
-        else {
-            let reader = new FileReader();
-            reader.readAsDataURL(files);
-            reader.onload = function () {
-                setThumbnail(reader.result);
-            };
-            reader.onerror = function (error) {
-                console.log('Error: ', error);
-            }
-        }
-    }
+
 
     const submitHandle = async (values) => {
         console.log(values)
         try {
             const payload = {
                 ...values,
-                productInformation,
-                ingredients,
-                usageInstructions
+
             }
-            console.log(payload)
-            await dispatch(fetchAsyncCreateProduct(payload))
-            Toast('success', "Tạo sản phẩm thành công!");
-            // navigate("/dashboard/products")
+
+            await dispatch(fetchAsyncCreateSize(payload))
+            Toast('success', "Tạo phân loại hàng thành công!");
+            navigate("/dashboard/sizes")
 
         } catch (err) {
             Toast('warning', "Lỗi!");
@@ -139,7 +78,7 @@ const CreateSizeScreen = () => {
                 Tạo phân loại hàng
             </Typography>
             <Formik
-                initialValues={initCreateProducts}
+                initialValues={initCreateSizes}
                 onSubmit={(values, { setFieldError }) => {
                     submitHandle(values, setFieldError);
                 }}
@@ -170,9 +109,9 @@ const CreateSizeScreen = () => {
                                     <FormikCombobox
                                         size="small"
                                         variant="outlined"
-                                        name="father_category_id"
+                                        name="product_id"
                                         placeholder="Sản phẩm"
-                                        // options={}
+                                        options={productOptions}
                                         fullWidth
                                         sxPropsLabel={{ fontWeight: "bold" }}
                                     />

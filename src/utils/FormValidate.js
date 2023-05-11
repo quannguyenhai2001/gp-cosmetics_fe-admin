@@ -1,4 +1,3 @@
-import * as Yup from 'yup';
 export const initLoginFormValue = {
     email: '',
     password: '',
@@ -38,6 +37,18 @@ export const initCreateProducts = {
     manufacturer_id: "",
     category_id: "",
 
+    sizes: [
+        {
+            id: 1,
+            size_name: "",
+            size_additional_price: "",
+            quantity: ""
+        }
+    ]
+
+}
+export const initCreateSizes = {
+    product_id: "",
     sizes: [
         {
             id: 1,

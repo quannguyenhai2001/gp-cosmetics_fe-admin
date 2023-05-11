@@ -4,7 +4,7 @@ import { useTheme } from "@emotion/react";
 import {
 
     Edit,
-    Delete,
+
 
 
     SearchOff,
@@ -17,14 +17,13 @@ import {
     TableRow,
     TableCell,
     TableBody,
-    Checkbox,
-    IconButton,
+
     TableContainer,
-    CardMedia,
+
     Select,
     MenuItem,
 } from "@mui/material";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import AppTooltip from "components/AppTooltip/AppTooltip";
 
@@ -45,7 +44,6 @@ const ProductsTable = ({
 }) => {
     const theme = useTheme();
     const classes = useStyles();
-    const navigate = useNavigate();
 
     const tableHeadContents = [
 

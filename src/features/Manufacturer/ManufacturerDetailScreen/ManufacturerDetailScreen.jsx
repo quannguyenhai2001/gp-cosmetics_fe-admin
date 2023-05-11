@@ -5,7 +5,6 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { fetchAsyncGetManufacturer } from 'redux/slices/ManufacturerSlice';
-import { fetchAsyncGetUserDetail } from 'redux/slices/UserSlice';
 import { Toast } from 'utils/Toast';
 
 const ManufacturerDetailScreen = () => {
@@ -26,7 +25,7 @@ const ManufacturerDetailScreen = () => {
                 Toast('warning', "Lỗi!");
             }
         })();
-    }, []);
+    }, [dispatch, id]);
     return (
         <Container maxWidth="md">
             <Typography variant="h2" fontWeight="bold" fontSize="30px" mb={30}>

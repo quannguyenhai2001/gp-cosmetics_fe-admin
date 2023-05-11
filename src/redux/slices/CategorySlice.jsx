@@ -73,6 +73,5 @@ const categorySlice = createSlice({
     }
 })
 
-const { reducer: categoryReducer, actions } = categorySlice
-export const { } = actions
+const { reducer: categoryReducer } = categorySlice
 export default categoryReducer

@@ -1,4 +1,4 @@
-import { Autocomplete, Box, Button, Container, Grid, Stack, TextField, Typography } from '@mui/material';
+import { Box, Button, Container, Grid, Stack, Typography } from '@mui/material';
 import FormikCombobox from 'components/FormElements/FormikCombobox/FormikCombobox';
 import FormikTextField from 'components/FormElements/FormikTextField/FormikTextField';
 import { Form, Formik } from 'formik';
@@ -7,8 +7,8 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import { fetchAsyncCreateCategory, fetchAsyncGetAllCategories, fetchAsyncGetCategory, fetchAsyncUpdateCategory } from 'redux/slices/CategorySlice';
-import { initCreateCategories, initUpdateCategories } from 'utils/FormValidate';
+import { fetchAsyncGetAllCategories, fetchAsyncGetCategory, fetchAsyncUpdateCategory } from 'redux/slices/CategorySlice';
+import { initUpdateCategories } from 'utils/FormValidate';
 import { Toast } from 'utils/Toast';
 
 const EditCategoryScreen = () => {

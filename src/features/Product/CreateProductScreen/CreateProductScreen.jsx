@@ -1,7 +1,7 @@
 
 import { AddCircle } from '@mui/icons-material';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { Autocomplete, Box, Button, Container, FormControl, FormGroup, Grid, IconButton, Stack, TextField, Typography } from '@mui/material';
+import { Box, Button, Container, FormControl, FormGroup, Grid, IconButton, Stack, Typography } from '@mui/material';
 import FormikCombobox from 'components/FormElements/FormikCombobox/FormikCombobox';
 import FormikTextField from 'components/FormElements/FormikTextField/FormikTextField';
 import { FieldArray, Form, Formik } from 'formik';
@@ -10,11 +10,10 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import ReactQuill from 'react-quill';
 import { useDispatch } from 'react-redux';
-import { useNavigate, useParams } from 'react-router-dom';
-import { fetchAsyncCreateCategory, fetchAsyncGetAllCategories, fetchAsyncGetCategory, fetchAsyncUpdateCategory } from 'redux/slices/CategorySlice';
-import { fetchAsyncCreateManufacturer, fetchAsyncGetManufacturer, fetchAsyncGetManufacturers, fetchAsyncUpdateManufacturer } from 'redux/slices/ManufacturerSlice';
-import { initCreateManufacturers, initCreateProducts, initUpdateManufacturers } from 'utils/FormValidate';
-import { initCreateCategories, initUpdateCategories } from 'utils/FormValidate';
+import { useNavigate } from 'react-router-dom';
+import { fetchAsyncGetAllCategories } from 'redux/slices/CategorySlice';
+import { fetchAsyncGetManufacturers } from 'redux/slices/ManufacturerSlice';
+import { initCreateProducts } from 'utils/FormValidate';
 import { Toast } from 'utils/Toast';
 import "./CreateProductScreen.css"
 import { fetchAsyncCreateProduct } from 'redux/slices/ProductSlice';

@@ -15,6 +15,7 @@
     "buffer": "^6.0.3",
     "csv-parser": "^3.0.0",
     "dayjs": "^1.11.7",
+    "events": "^3.3.0",
     "file-saver": "^2.0.5",
     "formik": "^2.2.9",
     "highcharts": "^11.0.0",

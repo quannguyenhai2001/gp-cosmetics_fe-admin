@@ -1,6 +1,6 @@
 import React, { memo } from "react";
 
-import { Modal, Backdrop, Typography, Button, Box, Fade } from "@mui/material";
+import { Modal, Backdrop, Typography, Button, Box } from "@mui/material";
 import "./Modal.styles.scss";
 
 const AppModal = ({
