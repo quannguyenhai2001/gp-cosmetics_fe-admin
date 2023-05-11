@@ -51,7 +51,7 @@ export const fetchAsyncCreateManufacturer = createAsyncThunk(
     }
 );
 export const fetchAsyncUpdateManufacturer = createAsyncThunk(
-    "categories/fetchAsyncUpdateManufacturer",
+    "manufacturers/fetchAsyncUpdateManufacturer",
     async (data, { rejectWithValue }) => {
         try {
             const response = await CallApiByBody("manufacturers/update-manufacturer.php", "put", data)

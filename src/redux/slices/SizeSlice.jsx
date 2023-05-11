@@ -51,6 +51,18 @@ export const fetchAsyncCreateSize = createAsyncThunk(
         }
     }
 );
+
+export const fetchAsyncUpdateSize = createAsyncThunk(
+    "sizes/fetchAsyncUpdateSize",
+    async (data, { rejectWithValue }) => {
+        try {
+            const response = await CallApiByBody("sizes/update-size.php", "put", data)
+            return response.data
+        } catch (error) {
+            return rejectWithValue(error.response.data)
+        }
+    }
+);
 const SizeSlice = createSlice({
     name: 'sizes',
     initialState,

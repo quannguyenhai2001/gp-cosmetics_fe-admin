@@ -95,7 +95,7 @@ const HomeScreen = () => {
                 Toast('warning', "Lỗi!");
             }
         })();
-    }, [dispatch, chartOptions]);
+    }, [dispatch]);
 
 
 

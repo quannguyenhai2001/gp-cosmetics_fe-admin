@@ -66,7 +66,7 @@ const ManufacturersScreen = () => {
                 Toast('warning', "Lỗi!");
             }
         })();
-    }, [location.search, isActionButton, dispatch, qsParsed]);
+    }, [location.search, isActionButton, dispatch]);
 
 
     const onPageChange = (_event, page) => {

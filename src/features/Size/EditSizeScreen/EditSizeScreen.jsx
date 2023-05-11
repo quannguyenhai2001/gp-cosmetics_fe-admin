@@ -6,20 +6,23 @@ import React from 'react';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { fetchAsyncCreateManufacturer } from 'redux/slices/ManufacturerSlice';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { fetchAsyncGetProduct } from 'redux/slices/ProductSlice';
-import { initCreateManufacturers } from 'utils/FormValidate';
+import { fetchAsyncGetSize, fetchAsyncUpdateSize } from 'redux/slices/SizeSlice';
+import { initEditSize } from 'utils/FormValidate';
 import { Toast } from 'utils/Toast';
 
 const EditSizeScreen = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate()
-
+    const { id } = useParams();
+    console.log(id)
     const location = useLocation()
     const product_id = location.state.product_id;
     console.log(product_id)
     const [userDetail, setUserDetail] = useState({})
+
+
     useEffect(() => {
         (async () => {
             try {
@@ -28,20 +31,30 @@ const EditSizeScreen = () => {
                         product_id: product_id
                     })
                 ).unwrap();
+                const res1 = await dispatch(
+                    fetchAsyncGetSize({
+                        size_id: id
+                    })
+                ).unwrap();
+                initEditSize.size_name = res1.data.size_name
+                initEditSize.size_additional_price = res1.data.additional_price
+                initEditSize.quantity = res1.data.quantity
+
+
                 setUserDetail(res.data)
             } catch (e) {
 
                 Toast('warning', "Lỗi!");
             }
         })();
-    }, [dispatch, product_id]);
+    }, [dispatch, product_id, id]);
     const submitHandle = async (values) => {
         console.log(values)
         try {
-            const payload = { ...values }
-            await dispatch(fetchAsyncCreateManufacturer(payload))
-            Toast('success', "Tạo nhà cung cấp thành công!");
-            navigate("/dashboard/manufacturers")
+            const payload = { ...values, id: id, product_id: product_id }
+            await dispatch(fetchAsyncUpdateSize(payload))
+            Toast('success', "Sửa phân loại hàng thành công!");
+            navigate("/dashboard/sizes")
 
         } catch (err) {
             Toast('warning', "Lỗi!");
@@ -154,27 +167,12 @@ const EditSizeScreen = () => {
                                 </Box>
                             </Grid>
                         </Grid>
-                        <Grid
-                            container
-                            sx={{
-                                display: "flex",
-                                alignItems: "center",
-                            }}
-                        >
-                            <Grid item xs={4} sm={4} md={4} lg={2} xl={4}>
-                                Bộ sưu tập ảnh :
-                            </Grid>
-                            <Grid item xs={8} sm={8} md={8} lg={8} xl={8}>
-                                <Box sx={{ height: 120, width: "100%", overflowX: "scroll", display: "flex" }}>
-                                    {JSON.parse(userDetail.gallery_image_urls).map((item, index) => <img key={index} style={{ height: "100%", marginRight: 10 }} src={item} alt="cat" />)}
-                                </Box>
-                            </Grid>
-                        </Grid>
+
                     </Stack>
                 ) : (<>Lỗi</>)}
             </Box>
             <Formik
-                initialValues={initCreateManufacturers}
+                initialValues={initEditSize}
                 onSubmit={(values, { setFieldError }) => {
                     submitHandle(values, setFieldError);
                 }}
@@ -208,14 +206,14 @@ const EditSizeScreen = () => {
                                     <FormikTextField
                                         size="small"
                                         variant="outlined"
-                                        id="manufacturer_name"
-                                        name="manufacturer_name"
+                                        id="size_name"
+                                        name="size_name"
                                         label="Tên phân loại hàng"
                                         onBlur={e => {
                                             handleBlur(e);
                                             setFieldValue(
-                                                "manufacturer_name",
-                                                values.manufacturer_name.trim(),
+                                                "size_name",
+                                                values.size_name.trim(),
                                                 true
                                             );
                                         }}
@@ -237,14 +235,14 @@ const EditSizeScreen = () => {
                                     <FormikTextField
                                         size="small"
                                         variant="outlined"
-                                        id="manufacturer_address"
-                                        name="manufacturer_address"
+                                        id="size_additional_price"
+                                        name="size_additional_price"
                                         label="Giá thêm"
                                         onBlur={e => {
                                             handleBlur(e);
                                             setFieldValue(
-                                                "manufacturer_address",
-                                                values.manufacturer_address.trim(),
+                                                "size_additional_price",
+                                                values.size_additional_price.trim(),
                                                 true
                                             );
                                         }}
@@ -266,14 +264,14 @@ const EditSizeScreen = () => {
                                     <FormikTextField
                                         size="small"
                                         variant="outlined"
-                                        id="manufacturer_address"
-                                        name="manufacturer_address"
+                                        id="quantity"
+                                        name="quantity"
                                         label="Số lượng"
                                         onBlur={e => {
                                             handleBlur(e);
                                             setFieldValue(
-                                                "manufacturer_address",
-                                                values.manufacturer_address.trim(),
+                                                "quantity",
+                                                values.quantity.trim(),
                                                 true
                                             );
                                         }}
@@ -287,8 +285,6 @@ const EditSizeScreen = () => {
                                 sx={{ minWidth: "100px" }}
                                 size="large"
                                 variant="contained"
-
-
                             >
                                 Hủy
                             </Button>

@@ -59,3 +59,11 @@ export const initCreateSizes = {
     ]
 
 }
+export const initEditSize = {
+
+    size_name: "",
+    size_additional_price: "",
+    quantity: ""
+
+
+}

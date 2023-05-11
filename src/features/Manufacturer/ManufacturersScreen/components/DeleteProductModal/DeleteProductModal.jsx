@@ -4,7 +4,6 @@ import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 import { Box } from "@mui/material";
 
 import AppModal from "components/Modal/Modal";
-// import { deleteInternships } from "features/internship/redux/internship.slice";
 
 
 import { modalMessages } from "constants/modal-message";

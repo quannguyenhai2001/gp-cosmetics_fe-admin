@@ -68,7 +68,7 @@ const SizesScreen = () => {
                 Toast('warning', "Lỗi!");
             }
         })();
-    }, [location.search, isActionButton, dispatch, qsParsed]);
+    }, [location.search, isActionButton, dispatch]);
 
     const handleSearchInterviews = values => {
         const newInitSearchValues = removeEmptyValuesInObject(values);

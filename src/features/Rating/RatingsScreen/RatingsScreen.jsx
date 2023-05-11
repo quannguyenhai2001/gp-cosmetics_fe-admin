@@ -54,7 +54,7 @@ const RatingsScreen = () => {
                 Toast('warning', "Lỗi!");
             }
         })();
-    }, []);
+    }, [dispatch]);
     // call API
     useEffect(() => {
         (async () => {
@@ -76,7 +76,7 @@ const RatingsScreen = () => {
                 Toast('warning', "Lỗi!");
             }
         })();
-    }, [location.search, isActionButton, dispatch, qsParsed]);
+    }, [location.search, isActionButton, dispatch]);
 
 
     const onPageChange = (_event, page) => {
