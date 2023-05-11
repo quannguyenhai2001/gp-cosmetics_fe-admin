@@ -23,7 +23,7 @@ import {
     Select,
     MenuItem,
 } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import AppTooltip from "components/AppTooltip/AppTooltip";
 
@@ -34,16 +34,16 @@ import { cloneDeep } from "lodash";
 
 const ProductsTable = ({
     products,
-    setProducts,
+
     setPayloadBills,
     payloadBills,
-    productsNoPagination,
+
     pageInfo,
-    setUserDeleteID,
-    setOpenDeleteProductModal
+
 }) => {
     const theme = useTheme();
     const classes = useStyles();
+    const navigate = useNavigate();
 
     const tableHeadContents = [
 
@@ -184,8 +184,14 @@ const ProductsTable = ({
                                                 color: theme.palette.text.dark,
                                                 textDecoration: 'underline'
                                             }}
-                                            to={`/dashboard/bill/${product.id}`}
+                                            to={`/dashboard/bills/${product.id}`}
+                                            onClick={() =>
+                                                navigate(`/dashboard/edit-size/${product.id}`, {
 
+                                                    state: {
+                                                        product_id: product.product_id
+                                                    }
+                                                })}
                                         >
                                             {product.id}
                                         </Link>
@@ -251,10 +257,11 @@ const ProductsTable = ({
                         </TableBody>
                     </Table>
                 </TableContainer>
-            )}
+            )
+            }
 
             <AppTooltip TooltipIcon={<Edit />} title="Edit" />
-        </Box>
+        </Box >
     );
 };
 

@@ -5,7 +5,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { fetchAsyncCreateManufacturer } from 'redux/slices/ManufacturerSlice';
-import { initCreateManufacturers } from 'utils/FormValidate';
+import { createManuSchema, initCreateManufacturers } from 'utils/FormValidate';
 import { Toast } from 'utils/Toast';
 
 const CreateManufacturer = () => {
@@ -31,6 +31,7 @@ const CreateManufacturer = () => {
             </Typography>
             <Formik
                 initialValues={initCreateManufacturers}
+                validationSchema={createManuSchema}
                 onSubmit={(values, { setFieldError }) => {
                     submitHandle(values, setFieldError);
                 }}
@@ -111,7 +112,7 @@ const CreateManufacturer = () => {
                                 sx={{ minWidth: "100px" }}
                                 size="large"
                                 variant="contained"
-
+                                onClick={() => navigate(-1)}
 
                             >
                                 Hủy
@@ -123,7 +124,7 @@ const CreateManufacturer = () => {
                                 variant="contained"
                                 color="signature"
                                 type="submit"
-                                disabled={!dirty}
+                                disabled={!dirty || !isValid}
                             >
                                 Lưu
                             </Button>

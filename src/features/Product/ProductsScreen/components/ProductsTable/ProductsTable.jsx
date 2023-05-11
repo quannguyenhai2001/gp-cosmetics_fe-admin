@@ -310,12 +310,7 @@ const ProductsTable = ({
                                             image={product.thumbnail_url}
                                             alt="green iguana"
                                         />) : (
-                                            <CardMedia className={classes.rootCardMedia}
-                                                component="img"
-                                                height="70"
-
-                                                alt="green iguana"
-                                            />
+                                            "Không"
                                         )}
                                     </TableCell>
 

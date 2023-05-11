@@ -96,6 +96,25 @@ export const createCateSchema = yup.object().shape({
 export const updateCateSchema = yup.object().shape({
     category_name: createCateNameValidateSchema({}),
 });
+
+export const createManuNameValidateSchema = () =>
+    yup
+        .string()
+        .required("Tên nhà cung cấp không được để trống");
+export const createManuAddressValidateSchema = () =>
+    yup
+        .string()
+        .required("Địa chỉ nhà cung cấp không được để trống");
+export const createManuSchema = yup.object().shape({
+    manufacturer_name: createManuNameValidateSchema({}),
+    manufacturer_address: createManuAddressValidateSchema({}),
+});
+
+export const updateManuSchema = yup.object().shape({
+    manufacturer_name: createManuNameValidateSchema({}),
+    manufacturer_address: createManuAddressValidateSchema({}),
+});
+
 export const initLoginFormValue = {
     email: '',
     password: '',

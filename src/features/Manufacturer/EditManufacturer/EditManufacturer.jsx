@@ -7,7 +7,7 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { fetchAsyncGetManufacturer, fetchAsyncUpdateManufacturer } from 'redux/slices/ManufacturerSlice';
-import { initUpdateManufacturers } from 'utils/FormValidate';
+import { initUpdateManufacturers, updateManuSchema } from 'utils/FormValidate';
 import { Toast } from 'utils/Toast';
 
 const EditManufacturer = () => {
@@ -50,6 +50,7 @@ const EditManufacturer = () => {
             </Typography>
             <Formik
                 initialValues={initUpdateManufacturers}
+                validationSchema={updateManuSchema}
                 onSubmit={(values, { setFieldError }) => {
                     submitHandle(values, setFieldError);
                 }}
@@ -131,7 +132,7 @@ const EditManufacturer = () => {
                                 size="large"
                                 variant="contained"
 
-
+                                onClick={() => navigate(-1)}
                             >
                                 Hủy
                             </Button>
@@ -142,7 +143,7 @@ const EditManufacturer = () => {
                                 variant="contained"
                                 color="signature"
                                 type="submit"
-                                disabled={!dirty}
+                                disabled={!dirty || !isValid}
                             >
                                 Lưu
                             </Button>

@@ -21,7 +21,7 @@ const SizeDetailScreen = () => {
                         size_id: id
                     })
                 ).unwrap();
-                console.log(res.data)
+
                 setUserDetail(res.data)
             } catch (e) {
                 Toast('warning', "Lỗi!");

@@ -24,6 +24,7 @@ import BillsScreen from "features/Bill/BillsScreen/BillsScreen";
 import ManufacturerDetailScreen from "features/Manufacturer/ManufacturerDetailScreen/ManufacturerDetailScreen";
 import EditManufacturer from "features/Manufacturer/EditManufacturer/EditManufacturer";
 import CreateManufacturer from "features/Manufacturer/CreateManufacturer/CreateManufacturer";
+import BillDetailScreen from "features/Bill/BillDetailScreen/BillDetailScreen";
 
 export const RouteConfigs = [
     {
@@ -149,6 +150,12 @@ export const RouteConfigs = [
     {
         path: "/dashboard/bills",
         element: BillsScreen,
+        isPrivate: true,
+        layout: DefaultLayout,
+    },
+    {
+        path: "/dashboard/bills/:id",
+        element: BillDetailScreen,
         isPrivate: true,
         layout: DefaultLayout,
     },

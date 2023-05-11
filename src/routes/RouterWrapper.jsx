@@ -22,10 +22,10 @@ function PrivateRouter() {
             />
         }
         else if (route.isPrivate && !jwtToken) {
-            return <Route key={index} path={route.path} element={<Navigate to="/sign-in" />} />
+            return <Route key={index} path={route.path} element={<Navigate to="/" />} />
         }
         else {
-            return <Route key={index} path={route.path} element={<Navigate to="/" />} />
+            return <Route key={index} path={route.path} element={<Navigate to="/dashboard" />} />
         }
 
     })
