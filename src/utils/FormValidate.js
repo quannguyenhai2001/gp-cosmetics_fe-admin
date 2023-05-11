@@ -47,6 +47,20 @@ export const initCreateProducts = {
     ]
 
 }
+export const initUpdateProducts = {
+    product_name: "",
+    product_price: "",
+    product_promotion: "",
+    thumbnail_url: "",
+    gallery_image_urls: "",
+    manufacturer_id: "",
+    category_id: "",
+
+    sizes: [
+
+    ]
+
+}
 export const initCreateSizes = {
     product_id: "",
     sizes: [

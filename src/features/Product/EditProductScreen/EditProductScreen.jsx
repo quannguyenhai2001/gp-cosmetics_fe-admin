@@ -14,13 +14,15 @@ import { useDispatch } from 'react-redux';
 
 import { fetchAsyncGetAllCategories } from 'redux/slices/CategorySlice';
 import { fetchAsyncGetManufacturers } from 'redux/slices/ManufacturerSlice';
-import { initCreateProducts } from 'utils/FormValidate';
+import { initUpdateProducts } from 'utils/FormValidate';
 import { Toast } from 'utils/Toast';
 import "./CreateProductScreen.css"
-import { fetchAsyncCreateProduct } from 'redux/slices/ProductSlice';
+import { fetchAsyncGetProduct, fetchAsyncUpdateProduct } from 'redux/slices/ProductSlice';
+import { useParams } from 'react-router-dom';
 const EditProductScreen = () => {
     const dispatch = useDispatch();
-
+    const { id } = useParams();
+    console.log(id)
     const [childCategoriesOptions, setChildCategoriesOptions] = useState([[
         {
             value: 0,
@@ -34,11 +36,16 @@ const EditProductScreen = () => {
         },
     ]])
 
+    const [thumbnail, setThumbnail] = React.useState("")
+    const [galleryImages, setGalleryImages] = React.useState([])
+    const [productInformation, setProductInformation] = React.useState("")
+    const [ingredients, setIngredients] = React.useState("")
+    const [usageInstructions, setUsageInstructions] = React.useState("")
 
     useEffect(() => {
         (async () => {
             try {
-                const [manuData, categoriesData] = await Promise.all([
+                const [manuData, categoriesData, productData] = await Promise.all([
                     await dispatch(
                         fetchAsyncGetManufacturers({
 
@@ -49,10 +56,33 @@ const EditProductScreen = () => {
                         fetchAsyncGetAllCategories({
                             use_page: 0,
                         })
+                    ).unwrap(),
+                    await dispatch(
+                        fetchAsyncGetProduct({
+                            product_id: id
+                        })
                     ).unwrap()
                 ])
 
-
+                initUpdateProducts.product_name = productData.data.product_name
+                initUpdateProducts.product_price = productData.data.price
+                initUpdateProducts.product_promotion = productData.data.promotion
+                initUpdateProducts.thumbnail_url = productData.data.thumbnail_url
+                initUpdateProducts.gallery_image_urls = productData.data.gallery_image_urls
+                initUpdateProducts.manufacturer_id = productData.data.manufacturer_id
+                initUpdateProducts.category_id = productData.data.category_id
+                setThumbnail(productData.data.thumbnail_url)
+                setGalleryImages(JSON.parse(productData.data.gallery_image_urls))
+                setProductInformation(productData.data.product_information)
+                setIngredients(productData.data.ingredients)
+                setUsageInstructions(productData.data.usage_instructions)
+                initUpdateProducts.sizes = productData.data.sizes || []
+                productData.data.sizes.forEach((size, index) => {
+                    initUpdateProducts.sizes[index].id = index + 1
+                    initUpdateProducts.sizes[index].size_name = size.name
+                    initUpdateProducts.sizes[index].size_additional_price = size.additional_price
+                    initUpdateProducts.sizes[index].quantity = size.quantity
+                })
 
                 const categoriesOptions = categoriesData.data.filter(category => Number(category.father_category_id) !== 0)
                 const newCategoriesOptions = categoriesOptions.map(category => {
@@ -72,18 +102,15 @@ const EditProductScreen = () => {
                 setManuOptions(newManuOptions)
             } catch (e) {
                 Toast('warning', "Lỗi!");
+                console.log(e)
             }
         })();
-    }, [dispatch]);
-    const [thumbnail, setThumbnail] = React.useState("")
-    const [galleryImages, setGalleryImages] = React.useState([])
-    const [productInformation, setProductInformation] = React.useState("")
-    const [ingredients, setIngredients] = React.useState("")
-    const [usageInstructions, setUsageInstructions] = React.useState("")
+    }, [dispatch, id]);
 
     async function getBase64(files, type) {
-        setGalleryImages([])
+
         if (type === "multiple") {
+            setGalleryImages([])
             delete files.length
             for (const key in files) {
                 if (files.hasOwnProperty(key)) {
@@ -95,9 +122,7 @@ const EditProductScreen = () => {
                     reader.onerror = function (error) {
                         console.log('Error: ', error);
                     }
-
                 }
-
             }
         }
         else {
@@ -117,13 +142,15 @@ const EditProductScreen = () => {
         try {
             const payload = {
                 ...values,
+                product_id: id,
                 productInformation,
                 ingredients,
                 usageInstructions
             }
-            console.log(payload)
-            await dispatch(fetchAsyncCreateProduct(payload))
-            Toast('success', "Tạo sản phẩm thành công!");
+            console.log(values)
+            await dispatch(fetchAsyncUpdateProduct(payload))
+
+            Toast('success', "Sửa sản phẩm thành công!");
             // navigate("/dashboard/products")
 
         } catch (err) {
@@ -134,10 +161,10 @@ const EditProductScreen = () => {
     return (
         <Container maxWidth="md">
             <Typography variant="h2" fontWeight="bold" fontSize="30px" mb={30}>
-                Tạo sản phẩm
+                Chỉnh sửa sản phẩm
             </Typography>
             <Formik
-                initialValues={initCreateProducts}
+                initialValues={initUpdateProducts}
                 onSubmit={(values, { setFieldError }) => {
                     submitHandle(values, setFieldError);
                 }}

@@ -28,10 +28,23 @@ export const fetchAsyncGetProducts = createAsyncThunk(
         }
     }
 );
+export const fetchAsyncUpdateProduct = createAsyncThunk(
+    "products/fetchAsyncUpdateProduct",
+    async (data, { rejectWithValue }) => {
+        try {
+            instanceApi.defaults.headers["Content-Type"] = "multipart/form-data";
+            const response = await CallApiByBody("products/update-product.php", "post", data)
+            return response.data
+        } catch (error) {
+            return rejectWithValue(error.response.data)
+        }
+    }
+);
 export const fetchAsyncDeleteProduct = createAsyncThunk(
     "products/fetchAsyncDeleteProduct",
     async (data, { rejectWithValue }) => {
         try {
+
             const response = await CallApiByBody("products/delete-product.php", "delete", data)
             return response.data
         } catch (error) {

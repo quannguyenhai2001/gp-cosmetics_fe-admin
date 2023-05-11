@@ -82,8 +82,9 @@ const CreateProductScreen = () => {
     const [usageInstructions, setUsageInstructions] = React.useState("")
 
     async function getBase64(files, type) {
-        setGalleryImages([])
+
         if (type === "multiple") {
+            setGalleryImages([])
             delete files.length
             for (const key in files) {
                 if (files.hasOwnProperty(key)) {

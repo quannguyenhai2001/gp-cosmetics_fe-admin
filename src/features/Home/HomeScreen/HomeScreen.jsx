@@ -16,7 +16,7 @@ import convertToVND from 'utils/ConvertToVND';
 import json2csv from 'json2csv';
 import fileDownload from 'js-file-download';
 import DownloadIcon from '@mui/icons-material/Download';
-
+import { Buffer } from 'buffer';
 const HomeScreen = () => {
     const dispatch = useDispatch();
     const [totalRecords, setTotalRecords] = useState({})
