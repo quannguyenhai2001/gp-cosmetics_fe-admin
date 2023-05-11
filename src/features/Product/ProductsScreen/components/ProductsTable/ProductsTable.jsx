@@ -85,7 +85,7 @@ const ProductsTable = ({
         {
             id: "1223",
             label: "Số lượng đã bán",
-            minWidth: 70,
+            minWidth: 150,
         },
         {
             id: "create_at",
@@ -149,9 +149,7 @@ const ProductsTable = ({
             Toast('warning', "Lỗi!");
         }
 
-        // const isAsc = orderBy === property && order === 'asc';
-        // setOrder(isAsc ? 'desc' : 'asc');
-        // setOrderBy(property);
+
     }
     return (
         <Box>
@@ -180,9 +178,9 @@ const ProductsTable = ({
                     >
                         <TableHead>
                             <TableRow>
-                                {tableHeadContents.map(columnContent =>
-                                    columnContent.id === "checkAll" ? (
-                                        <TableCell
+                                {tableHeadContents.map(columnContent => {
+                                    if (columnContent.id === "checkAll") {
+                                        return (<TableCell
                                             key={columnContent.id}
                                             align="center"
                                             sx={{
@@ -201,9 +199,10 @@ const ProductsTable = ({
                                                     checked={isCheckedAllProducts(products)}
                                                 />
                                             </AppTooltip>
-                                        </TableCell>
-                                    ) : (
-                                        <TableCell
+                                        </TableCell>)
+                                    }
+                                    else if (columnContent.id === "1223") {
+                                        return (<TableCell
                                             key={columnContent.id}
                                             align="center"
                                             sx={{
@@ -216,15 +215,37 @@ const ProductsTable = ({
                                             rowSpan={2}
                                         >
                                             <TableSortLabel
-                                                hideSortIcon={columnContent.id !== "1223"}
+
                                                 direction={order}
                                                 onClick={createSortHandler}
                                             >
                                                 {columnContent.label}
                                             </TableSortLabel>
 
-                                        </TableCell>
-                                    )
+                                        </TableCell>)
+                                    }
+                                    return (<TableCell
+                                        key={columnContent.id}
+                                        align="center"
+                                        sx={{
+                                            minWidth: columnContent.minWidth,
+                                            bgcolor: theme.palette.grey[400],
+                                            fontWeight: "bold",
+                                            borderTop: "none",
+                                            height: "60px",
+                                        }}
+                                        rowSpan={2}
+                                    >
+
+                                        {columnContent.label}
+
+
+                                    </TableCell>)
+                                }
+
+
+
+
                                 )}
 
                                 <TableCell
@@ -292,7 +313,7 @@ const ProductsTable = ({
                                             <CardMedia className={classes.rootCardMedia}
                                                 component="img"
                                                 height="70"
-                                                image='https://res.cloudinary.com/cosmeticv1/image/upload/v1653237466/cosmetic/products/Product17_2.webp'
+
                                                 alt="green iguana"
                                             />
                                         )}

@@ -17,7 +17,7 @@ const DeleteProductModal = ({
     openDeleteProductModal,
     setOpenDeleteProductModal,
     setIsActionButton,
-    setUserDeleteID,
+
     userDeleteID
 }) => {
 

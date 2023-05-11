@@ -11,7 +11,7 @@ export const fetchAsyncSignIn = createAsyncThunk(
     "auth/fetchAsyncSignIn",
     async (data, { rejectWithValue }) => {
         try {
-            const response = await CallApiByBody("auth/sign-in.php", "post", data)
+            const response = await CallApiByBody("auth/sign-in-admin.php", "post", data)
             return response.data;
         } catch (error) {
             throw rejectWithValue(error.response.data);

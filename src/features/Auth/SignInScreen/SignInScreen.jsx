@@ -21,6 +21,7 @@ import FormikTextField from "components/FormElements/FormikTextField/FormikTextF
 import { initLoginFormValue } from "utils/FormValidate";
 import { useDispatch } from "react-redux";
 import { fetchAsyncSignIn } from "redux/slices/UserSlice";
+import { Toast } from "utils/Toast";
 
 
 
@@ -32,20 +33,24 @@ const SignInScreen = () => {
     const navigate = useNavigate()
 
     const [showPassword, setShowPassword] = useState(false);
+    const [isError, setIsError] = useState(false)
     const handleClickShowPassword = () => setShowPassword(!showPassword);
-
+    const changeError = () => {
+        setIsError(false)
+    }
     const theme = useTheme();
 
 
     const handleSubmit = async (value) => {
         try {
             await dispatch(fetchAsyncSignIn(value)).unwrap()
+            Toast("success", "Đăng nhập thành công!")
             navigate("/dashboard")
 
         }
         catch (err) {
-
-
+            setIsError(true)
+            Toast("error", "Lỗi!")
         }
     }
 
@@ -113,6 +118,7 @@ const SignInScreen = () => {
                                     variant="outlined"
                                     id="email"
                                     label="Email"
+                                    onClick={changeError}
                                     name="email"
                                     placeholder="Examle@gmail.com"
                                     onBlur={e => {
@@ -127,6 +133,7 @@ const SignInScreen = () => {
                                     variant="outlined"
                                     name="password"
                                     label="Mật khẩu"
+                                    onClick={changeError}
                                     id="password"
                                     type={showPassword ? "text" : "password"}
                                     InputProps={{
@@ -146,7 +153,7 @@ const SignInScreen = () => {
                                         ),
                                     }}
                                 />
-
+                                {isError ? <Typography color="error">Email hoặc mật khẩu chưa đúng</Typography> : null}
 
 
                                 <Button

@@ -9,7 +9,7 @@ import { useDispatch } from 'react-redux';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { fetchAsyncGetProduct } from 'redux/slices/ProductSlice';
 import { fetchAsyncGetSize, fetchAsyncUpdateSize } from 'redux/slices/SizeSlice';
-import { initEditSize } from 'utils/FormValidate';
+import { initEditSize, updateSizeSchema } from 'utils/FormValidate';
 import { Toast } from 'utils/Toast';
 
 const EditSizeScreen = () => {
@@ -173,6 +173,7 @@ const EditSizeScreen = () => {
             </Box>
             <Formik
                 initialValues={initEditSize}
+                validationSchema={updateSizeSchema}
                 onSubmit={(values, { setFieldError }) => {
                     submitHandle(values, setFieldError);
                 }}
@@ -285,6 +286,7 @@ const EditSizeScreen = () => {
                                 sx={{ minWidth: "100px" }}
                                 size="large"
                                 variant="contained"
+                                onClick={() => navigate(-1)}
                             >
                                 Hủy
                             </Button>
@@ -295,7 +297,7 @@ const EditSizeScreen = () => {
                                 variant="contained"
                                 color="signature"
                                 type="submit"
-                                disabled={!dirty}
+                                disabled={!dirty || !isValid}
                             >
                                 Lưu
                             </Button>

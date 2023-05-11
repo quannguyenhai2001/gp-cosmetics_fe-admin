@@ -13,14 +13,15 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { fetchAsyncGetAllCategories } from 'redux/slices/CategorySlice';
 import { fetchAsyncGetManufacturers } from 'redux/slices/ManufacturerSlice';
-import { initCreateProducts } from 'utils/FormValidate';
+import { createProductSchema, initCreateProducts } from 'utils/FormValidate';
 import { Toast } from 'utils/Toast';
 import "./CreateProductScreen.css"
 import { fetchAsyncCreateProduct } from 'redux/slices/ProductSlice';
+import { useStyles } from "./CreateProductScreen.styles";
 const CreateProductScreen = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate()
-
+    const classes = useStyles();
     const [childCategoriesOptions, setChildCategoriesOptions] = useState([[
         {
             value: 0,
@@ -114,7 +115,7 @@ const CreateProductScreen = () => {
     }
 
     const submitHandle = async (values) => {
-        console.log(values)
+
         try {
             const payload = {
                 ...values,
@@ -122,10 +123,9 @@ const CreateProductScreen = () => {
                 ingredients,
                 usageInstructions
             }
-            console.log(payload)
             await dispatch(fetchAsyncCreateProduct(payload))
             Toast('success', "Tạo sản phẩm thành công!");
-            // navigate("/dashboard/products")
+            navigate("/dashboard/products")
 
         } catch (err) {
             Toast('warning', "Lỗi!");
@@ -139,6 +139,7 @@ const CreateProductScreen = () => {
             </Typography>
             <Formik
                 initialValues={initCreateProducts}
+                validationSchema={createProductSchema}
                 onSubmit={(values, { setFieldError }) => {
                     submitHandle(values, setFieldError);
                 }}
@@ -377,19 +378,20 @@ const CreateProductScreen = () => {
                                             <FormControl sx={{ width: "100%" }}>
                                                 <FormGroup>
                                                     {values.sizes.map((size, sizeIndex) => (
-                                                        <Box key={size.id}>
+                                                        <Box key={size.id} mb="1rem">
                                                             <Grid
                                                                 container
                                                                 alignItems="center"
                                                                 mb={15}
                                                                 spacing="10"
+
                                                             >
                                                                 <Grid item xs={2}>
                                                                     <Typography required>
                                                                         Phân loại {sizeIndex + 1}
                                                                     </Typography>
                                                                 </Grid>
-                                                                <Grid item xs={3} sm={3} md={3} lg={3} xl={3}>
+                                                                <Grid sx={{ position: "relative" }} item xs={3} sm={3} md={3} lg={3} xl={3}>
                                                                     <FormikTextField
                                                                         size="small"
                                                                         variant="outlined"
@@ -405,10 +407,13 @@ const CreateProductScreen = () => {
                                                                             );
                                                                         }}
                                                                         fullWidth
+                                                                        FormHelperTextProps={{
+                                                                            className: classes.helperText,
+                                                                        }}
                                                                     />
                                                                 </Grid>
 
-                                                                <Grid item xs={3} sm={3} md={3} lg={3} xl={3}>
+                                                                <Grid sx={{ position: "relative" }} item xs={3} sm={3} md={3} lg={3} xl={3}>
                                                                     <FormikTextField
                                                                         size="small"
                                                                         variant="outlined"
@@ -424,9 +429,12 @@ const CreateProductScreen = () => {
                                                                             );
                                                                         }}
                                                                         fullWidth
+                                                                        FormHelperTextProps={{
+                                                                            className: classes.helperText,
+                                                                        }}
                                                                     />
                                                                 </Grid>
-                                                                <Grid item xs={3} sm={3} md={3} lg={3} xl={3}>
+                                                                <Grid sx={{ position: "relative" }} item xs={3} sm={3} md={3} lg={3} xl={3}>
                                                                     <FormikTextField
                                                                         size="small"
                                                                         variant="outlined"
@@ -442,6 +450,9 @@ const CreateProductScreen = () => {
                                                                             );
                                                                         }}
                                                                         fullWidth
+                                                                        FormHelperTextProps={{
+                                                                            className: classes.helperText,
+                                                                        }}
                                                                     />
                                                                 </Grid>
                                                                 <Grid item xs={1}>
@@ -499,6 +510,7 @@ const CreateProductScreen = () => {
                                 sx={{ minWidth: "100px" }}
                                 size="large"
                                 variant="contained"
+                                onClick={() => navigate(-1)}
                             >
                                 Hủy
                             </Button>
@@ -509,7 +521,7 @@ const CreateProductScreen = () => {
                                 variant="contained"
                                 color="signature"
                                 type="submit"
-                                disabled={!dirty}
+                                disabled={!dirty || !isValid}
                             >
                                 Lưu
                             </Button>

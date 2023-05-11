@@ -11,14 +11,17 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { initCreateSizes } from 'utils/FormValidate';
+import { createSizeSchema, initCreateSizes } from 'utils/FormValidate';
 import { Toast } from 'utils/Toast';
 import "./CreateProductScreen.css"
 import { fetchAsyncGetProducts } from 'redux/slices/ProductSlice';
 import { fetchAsyncCreateSize } from 'redux/slices/SizeSlice';
+import { useStyles } from "./CreateProductScreen.styles";
+
 const CreateSizeScreen = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate()
+    const classes = useStyles();
 
 
     const [productOptions, setProductOptions] = useState([[
@@ -60,9 +63,7 @@ const CreateSizeScreen = () => {
         try {
             const payload = {
                 ...values,
-
             }
-
             await dispatch(fetchAsyncCreateSize(payload))
             Toast('success', "Tạo phân loại hàng thành công!");
             navigate("/dashboard/sizes")
@@ -79,6 +80,7 @@ const CreateSizeScreen = () => {
             </Typography>
             <Formik
                 initialValues={initCreateSizes}
+                validationSchema={createSizeSchema}
                 onSubmit={(values, { setFieldError }) => {
                     submitHandle(values, setFieldError);
                 }}
@@ -157,6 +159,9 @@ const CreateSizeScreen = () => {
                                                                             );
                                                                         }}
                                                                         fullWidth
+                                                                        FormHelperTextProps={{
+                                                                            className: classes.helperText,
+                                                                        }}
                                                                     />
                                                                 </Grid>
 
@@ -176,6 +181,9 @@ const CreateSizeScreen = () => {
                                                                             );
                                                                         }}
                                                                         fullWidth
+                                                                        FormHelperTextProps={{
+                                                                            className: classes.helperText,
+                                                                        }}
                                                                     />
                                                                 </Grid>
                                                                 <Grid item xs={3} sm={3} md={3} lg={3} xl={3}>
@@ -194,6 +202,9 @@ const CreateSizeScreen = () => {
                                                                             );
                                                                         }}
                                                                         fullWidth
+                                                                        FormHelperTextProps={{
+                                                                            className: classes.helperText,
+                                                                        }}
                                                                     />
                                                                 </Grid>
                                                                 <Grid item xs={1}>
@@ -251,6 +262,7 @@ const CreateSizeScreen = () => {
                                 sx={{ minWidth: "100px" }}
                                 size="large"
                                 variant="contained"
+                                onClick={() => navigate(-1)}
                             >
                                 Hủy
                             </Button>
@@ -261,7 +273,7 @@ const CreateSizeScreen = () => {
                                 variant="contained"
                                 color="signature"
                                 type="submit"
-                                disabled={!dirty}
+                                disabled={!dirty || !isValid}
                             >
                                 Lưu
                             </Button>

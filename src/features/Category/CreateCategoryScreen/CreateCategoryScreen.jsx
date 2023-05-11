@@ -8,7 +8,7 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { fetchAsyncCreateCategory, fetchAsyncGetAllCategories } from 'redux/slices/CategorySlice';
-import { initCreateCategories } from 'utils/FormValidate';
+import { createCateSchema, initCreateCategories } from 'utils/FormValidate';
 import { Toast } from 'utils/Toast';
 
 const CreateCategoryScreen = () => {
@@ -58,6 +58,7 @@ const CreateCategoryScreen = () => {
             </Typography>
             <Formik
                 initialValues={initCreateCategories}
+                validationSchema={createCateSchema}
                 onSubmit={(values, { setFieldError }) => {
                     submitHandle(values, setFieldError);
                 }}
@@ -131,8 +132,7 @@ const CreateCategoryScreen = () => {
                                 sx={{ minWidth: "100px" }}
                                 size="large"
                                 variant="contained"
-
-
+                                onClick={() => navigate(-1)}
                             >
                                 Hủy
                             </Button>
@@ -143,6 +143,7 @@ const CreateCategoryScreen = () => {
                                 variant="contained"
                                 color="signature"
                                 type="submit"
+                                disabled={!dirty || !isValid}
                             >
                                 Lưu
                             </Button>

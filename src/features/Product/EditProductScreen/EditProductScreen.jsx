@@ -14,15 +14,17 @@ import { useDispatch } from 'react-redux';
 
 import { fetchAsyncGetAllCategories } from 'redux/slices/CategorySlice';
 import { fetchAsyncGetManufacturers } from 'redux/slices/ManufacturerSlice';
-import { initUpdateProducts } from 'utils/FormValidate';
+import { initUpdateProducts, updateProductSchema } from 'utils/FormValidate';
 import { Toast } from 'utils/Toast';
 import "./CreateProductScreen.css"
 import { fetchAsyncGetProduct, fetchAsyncUpdateProduct } from 'redux/slices/ProductSlice';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useStyles } from "./CreateProductScreen.styles";
 const EditProductScreen = () => {
     const dispatch = useDispatch();
     const { id } = useParams();
-    console.log(id)
+    const navigate = useNavigate()
+    const classes = useStyles();
     const [childCategoriesOptions, setChildCategoriesOptions] = useState([[
         {
             value: 0,
@@ -72,16 +74,22 @@ const EditProductScreen = () => {
                 initUpdateProducts.manufacturer_id = productData.data.manufacturer_id
                 initUpdateProducts.category_id = productData.data.category_id
                 setThumbnail(productData.data.thumbnail_url)
-                setGalleryImages(JSON.parse(productData.data.gallery_image_urls))
+                if (productData.data.gallery_image_urls) {
+                    setGalleryImages(JSON.parse(productData.data.gallery_image_urls))
+                }
                 setProductInformation(productData.data.product_information)
                 setIngredients(productData.data.ingredients)
                 setUsageInstructions(productData.data.usage_instructions)
-                initUpdateProducts.sizes = productData.data.sizes || []
+                const clone = productData.data.sizes.map(item => ({ ...item, size_id: "" }))
+                initUpdateProducts.sizes = clone || []
                 productData.data.sizes.forEach((size, index) => {
+                    console.log(size.id)
                     initUpdateProducts.sizes[index].id = index + 1
                     initUpdateProducts.sizes[index].size_name = size.name
                     initUpdateProducts.sizes[index].size_additional_price = size.additional_price
                     initUpdateProducts.sizes[index].quantity = size.quantity
+                    initUpdateProducts.sizes[index].size_id = size.id
+
                 })
 
                 const categoriesOptions = categoriesData.data.filter(category => Number(category.father_category_id) !== 0)
@@ -106,7 +114,7 @@ const EditProductScreen = () => {
             }
         })();
     }, [dispatch, id]);
-
+    console.log(initUpdateProducts)
     async function getBase64(files, type) {
 
         if (type === "multiple") {
@@ -138,7 +146,7 @@ const EditProductScreen = () => {
     }
 
     const submitHandle = async (values) => {
-        console.log(values)
+
         try {
             const payload = {
                 ...values,
@@ -147,11 +155,11 @@ const EditProductScreen = () => {
                 ingredients,
                 usageInstructions
             }
-            console.log(values)
+
             await dispatch(fetchAsyncUpdateProduct(payload))
 
             Toast('success', "Sửa sản phẩm thành công!");
-            // navigate("/dashboard/products")
+            navigate("/dashboard/products")
 
         } catch (err) {
             Toast('warning', "Lỗi!");
@@ -165,6 +173,7 @@ const EditProductScreen = () => {
             </Typography>
             <Formik
                 initialValues={initUpdateProducts}
+                validationSchema={updateProductSchema}
                 onSubmit={(values, { setFieldError }) => {
                     submitHandle(values, setFieldError);
                 }}
@@ -431,6 +440,9 @@ const EditProductScreen = () => {
                                                                             );
                                                                         }}
                                                                         fullWidth
+                                                                        FormHelperTextProps={{
+                                                                            className: classes.helperText,
+                                                                        }}
                                                                     />
                                                                 </Grid>
 
@@ -450,6 +462,9 @@ const EditProductScreen = () => {
                                                                             );
                                                                         }}
                                                                         fullWidth
+                                                                        FormHelperTextProps={{
+                                                                            className: classes.helperText,
+                                                                        }}
                                                                     />
                                                                 </Grid>
                                                                 <Grid item xs={3} sm={3} md={3} lg={3} xl={3}>
@@ -468,6 +483,9 @@ const EditProductScreen = () => {
                                                                             );
                                                                         }}
                                                                         fullWidth
+                                                                        FormHelperTextProps={{
+                                                                            className: classes.helperText,
+                                                                        }}
                                                                     />
                                                                 </Grid>
                                                                 <Grid item xs={1}>
@@ -525,6 +543,7 @@ const EditProductScreen = () => {
                                 sx={{ minWidth: "100px" }}
                                 size="large"
                                 variant="contained"
+                                onClick={() => navigate(-1)}
                             >
                                 Hủy
                             </Button>
@@ -535,7 +554,7 @@ const EditProductScreen = () => {
                                 variant="contained"
                                 color="signature"
                                 type="submit"
-                                disabled={!dirty}
+                                disabled={!dirty || !isValid}
                             >
                                 Lưu
                             </Button>

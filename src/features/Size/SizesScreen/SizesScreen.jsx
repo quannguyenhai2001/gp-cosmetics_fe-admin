@@ -35,6 +35,7 @@ const SizesScreen = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [isActionButton, setIsActionButton] = useState(false)
+    const [userDeleteID, setUserDeleteID] = useState("")
 
     const [openDeleteProductModal, setOpenDeleteProductModal] = useState(false);
 
@@ -221,6 +222,7 @@ const SizesScreen = () => {
                     <ProductsTable
                         products={products}
                         setProducts={setProducts}
+                        setUserDeleteID={setUserDeleteID}
                         pageInfo={pageInfo}
                         setOpenDeleteProductModal={setOpenDeleteProductModal}
 
@@ -228,6 +230,8 @@ const SizesScreen = () => {
                 </Box>
             </Stack >
             <DeleteProductModal
+                userDeleteID={userDeleteID}
+
                 products={products}
                 openDeleteProductModal={openDeleteProductModal}
                 setOpenDeleteProductModal={setOpenDeleteProductModal}

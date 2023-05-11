@@ -39,7 +39,7 @@ const errorResponseInterceptor = async error => {
         switch (error.response?.status) {
             case 401:
                 localStorage.clear();
-                window.location.assign("/sign-in");
+                window.location.assign("/");
                 break;
             case 404: // Page not found
                 window.location.assign("/404");

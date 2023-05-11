@@ -32,7 +32,8 @@ const ProductsTable = ({
     products,
     setProducts,
     pageInfo,
-    setOpenDeleteProductModal
+    setOpenDeleteProductModal,
+    setUserDeleteID,
 }) => {
     const theme = useTheme();
     const classes = useStyles();
@@ -116,7 +117,7 @@ const ProductsTable = ({
                         borderRadius: "5px",
                         boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
                         minWidth: 600,
-                        minHeight: products.length >= 5 ? 450 : (products.length + 1) * 65,
+                        minHeight: products.length >= 5 ? 350 : (products.length + 1) * 65,
                     }}
                 >
                     <Table
@@ -261,8 +262,10 @@ const ProductsTable = ({
                                             <AppTooltip title="Xóa">
                                                 <IconButton
                                                     disabled={isDisabledIcon(products)}
-                                                    onClick={() => setOpenDeleteProductModal(true)}
-
+                                                    onClick={() => {
+                                                        setOpenDeleteProductModal(true)
+                                                        setUserDeleteID(product.id)
+                                                    }}
                                                 >
                                                     <Delete />
                                                 </IconButton>

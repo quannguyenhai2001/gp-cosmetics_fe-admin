@@ -15,7 +15,8 @@ const DeleteProductModal = ({
     products,
     openDeleteProductModal,
     setOpenDeleteProductModal,
-    setIsActionButton
+    setIsActionButton,
+    userDeleteID
 }) => {
 
 
@@ -40,7 +41,9 @@ const DeleteProductModal = ({
     const handleConfirmModalDeleteIntern = async () => {
         try {
             const internsID = selectedInterns.map(intern => intern.id);
-            const requestValues = {
+            const requestValues = userDeleteID ? {
+                ids: [userDeleteID]
+            } : {
                 ids: internsID
             }
             await dispatch(fetchAsyncDeleteSize(requestValues)).unwrap();

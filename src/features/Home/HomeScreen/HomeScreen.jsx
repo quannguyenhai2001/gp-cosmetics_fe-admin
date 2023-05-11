@@ -17,6 +17,7 @@ import json2csv from 'json2csv';
 import fileDownload from 'js-file-download';
 import DownloadIcon from '@mui/icons-material/Download';
 import { Buffer } from 'buffer';
+import { v4 as uuidv4 } from 'uuid';
 const HomeScreen = () => {
     const dispatch = useDispatch();
     const [totalRecords, setTotalRecords] = useState({})
@@ -257,9 +258,9 @@ const HomeScreen = () => {
 
                     </Box>
                 </Grid>
-                <Grid item md={5} sx={{ overflowY: "scroll", backgroundColor: "#f1f4f9", borderRadius: "15px", maxHeight: "300px" }}>
+                <Grid item md={5} sx={{ overflowY: "scroll", backgroundColor: "#f1f4f9", borderRadius: "15px", maxHeight: "500px" }}>
                     <Box>
-                        <Box sx={{ borderBottom: "2px solid gray", margin: "1rem", pb: "1rem" }}>
+                        <Box sx={{ borderBottom: "3px solid gray", margin: "1rem", pb: "1rem" }}>
                             <Typography
                                 variant="h5"
                                 fontWeight="bold"
@@ -285,7 +286,7 @@ const HomeScreen = () => {
                                         variant="h5"
                                         fontWeight="600"
                                     >
-                                        {transaction.id}
+                                        {uuidv4().substr(0, 4) + transaction.id}
                                     </Typography>
                                     <Typography >
                                         {transaction.username}
