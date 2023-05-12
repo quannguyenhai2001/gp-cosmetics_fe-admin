@@ -1,4 +1,4 @@
-import { CallApiByParams } from "api/configApi";
+import instanceApi, { CallApiByParams } from "api/configApi";
 
 
 const { createSlice, createAsyncThunk } = require("@reduxjs/toolkit");
@@ -11,6 +11,7 @@ export const fetchAsyncGetMonthlyRevenueList = createAsyncThunk(
     "statistical/fetchAsyncGetMonthlyRevenueList",
     async (data, { rejectWithValue }) => {
         try {
+            instanceApi.defaults.headers["Content-Type"] = "application/json; charset=UTF-8"
             const response = await CallApiByParams("statistical/get-monthly-revenue-list.php", "get", data)
             return response.data
         } catch (error) {
@@ -22,6 +23,7 @@ export const fetchAsyncGetTotalRecords = createAsyncThunk(
     "statistical/fetchAsyncGetTotalRecords",
     async (data, { rejectWithValue }) => {
         try {
+            instanceApi.defaults.headers["Content-Type"] = "application/json; charset=UTF-8"
             const response = await CallApiByParams("statistical/total-records.php", "get", data)
             return response.data
         } catch (error) {
@@ -33,6 +35,7 @@ export const fetchAsyncGetRecentTransactions = createAsyncThunk(
     "statistical/fetchAsyncGetRecentTransactions",
     async (data, { rejectWithValue }) => {
         try {
+            instanceApi.defaults.headers["Content-Type"] = "application/json; charset=UTF-8"
             const response = await CallApiByParams("statistical/get-recent-transactions.php", "get", data)
             return response.data
         } catch (error) {

@@ -1,4 +1,4 @@
-import { CallApiByBody, CallApiByParams } from "api/configApi";
+import instanceApi, { CallApiByBody, CallApiByParams } from "api/configApi";
 
 
 const { createSlice, createAsyncThunk } = require("@reduxjs/toolkit");
@@ -10,6 +10,7 @@ export const fetchAsyncGetBill = createAsyncThunk(
     "bills/fetchAsyncGetBill",
     async (data, { rejectWithValue }) => {
         try {
+            instanceApi.defaults.headers["Content-Type"] = "application/json; charset=UTF-8"
             const response = await CallApiByParams("bills/get-bill.php", "get", data)
             return response.data
         } catch (error) {
@@ -21,6 +22,7 @@ export const fetchAsyncGetBills = createAsyncThunk(
     "bills/fetchAsyncGetBills",
     async (data, { rejectWithValue }) => {
         try {
+            instanceApi.defaults.headers["Content-Type"] = "application/json; charset=UTF-8"
             const response = await CallApiByParams("bills/get-all-bills.php", "get", data)
             return response.data
         } catch (error) {
@@ -32,6 +34,7 @@ export const fetchAsyncUpdateBill = createAsyncThunk(
     "bills/fetchAsyncUpdateBill",
     async (data, { rejectWithValue }) => {
         try {
+            instanceApi.defaults.headers["Content-Type"] = "application/json; charset=UTF-8"
             const response = await CallApiByBody("bills/update-bill.php", "PUT", data)
             return response.data
         } catch (error) {
@@ -43,6 +46,7 @@ export const fetchAsyncGetAllBillDetails = createAsyncThunk(
     "bills/fetchAsyncGetAllBillDetails",
     async (arg, { rejectWithValue }) => {
         try {
+            instanceApi.defaults.headers["Content-Type"] = "application/json; charset=UTF-8"
             const response = await CallApiByParams("bill-details/get-all-bill-details.php", "get", arg)
             return response.data
         } catch (error) {

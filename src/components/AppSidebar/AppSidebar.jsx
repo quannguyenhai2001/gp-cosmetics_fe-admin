@@ -34,6 +34,7 @@ import "./AppSidebar.styles.scss";
 import { useStyles, StyledBadge } from "./AppSidebar.styles";
 import { hasChildren } from "./helpers/AppSidebar.helpers";
 import { useDispatch, useSelector } from "react-redux";
+import { deleteUser } from "redux/slices/UserSlice";
 
 const MultiLevel = ({ item, isSidebarExpanded, isChildItem = false }) => {
     const classes = useStyles();
@@ -107,14 +108,14 @@ const MultiLevel = ({ item, isSidebarExpanded, isChildItem = false }) => {
     );
 };
 
-const SingleLevel = ({ item, isSidebarExpanded }) => {
+const SingleLevel = ({ item, isSidebarExpanded, setOpenCancelModal }) => {
     const classes = useStyles();
     const navigate = useNavigate();
     const location = useLocation();
     const redirectMenu = () => {
-        // if (!item.to || item.to === location.pathname) {
-        //     setOpenCancelModal(true);
-        // }
+        if (!item.to || item.to === location.pathname) {
+            setOpenCancelModal(true);
+        }
         navigate(item.to);
     };
 
@@ -191,7 +192,10 @@ const AppSidebar = () => {
         setOpenCancelModal(false);
     };
     const handleConfirmCancel = async () => {
+        await dispatch(deleteUser())
+        localStorage.removeItem('access_token');
 
+        navigate('/');
     };
     return (
         <Box
@@ -282,7 +286,7 @@ const AppSidebar = () => {
                             <MenuItem
                                 key={item.title}
                                 item={item}
-                                // setOpenCancelModal={setOpenCancelModal}
+                                setOpenCancelModal={setOpenCancelModal}
                                 isExpand={isExpand}
                             />
                         </Box>

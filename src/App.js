@@ -1,7 +1,7 @@
 import CssBaseline from "@mui/material/CssBaseline";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import 'react-quill/dist/quill.snow.css';
 import { BrowserRouter } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
@@ -15,7 +15,7 @@ import { fetchAsyncGetUser } from "redux/slices/UserSlice";
 
 const theme = createTheme(themeMainOptions);
 function App() {
-
+  const user = useSelector(state => state.user.userInfo)
   const dispatch = useDispatch()
   useEffect(() => {
     const token = localStorage.getItem('access_token');

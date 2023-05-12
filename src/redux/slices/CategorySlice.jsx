@@ -1,4 +1,4 @@
-import { CallApiByBody, CallApiByParams } from "api/configApi";
+import instanceApi, { CallApiByBody, CallApiByParams } from "api/configApi";
 
 
 const { createSlice, createAsyncThunk } = require("@reduxjs/toolkit");
@@ -11,6 +11,7 @@ export const fetchAsyncGetCategory = createAsyncThunk(
     "categories/fetchAsyncGetCategory",
     async (data, { rejectWithValue }) => {
         try {
+            instanceApi.defaults.headers["Content-Type"] = "application/json; charset=UTF-8"
             const response = await CallApiByParams("categories/get-category.php", "get", data)
             return response.data
         } catch (error) {
@@ -22,6 +23,7 @@ export const fetchAsyncGetAllCategories = createAsyncThunk(
     "categories/fetchAsyncGetAllCategories",
     async (data, { rejectWithValue }) => {
         try {
+            instanceApi.defaults.headers["Content-Type"] = "application/json; charset=UTF-8"
             const response = await CallApiByParams("categories/get-all-categories.php", "get", data)
             return response.data
         } catch (error) {
@@ -33,6 +35,7 @@ export const fetchAsyncDeleteCategories = createAsyncThunk(
     "categories/fetchAsyncDeleteCategories",
     async (data, { rejectWithValue }) => {
         try {
+            instanceApi.defaults.headers["Content-Type"] = "application/json; charset=UTF-8"
             const response = await CallApiByBody("categories/delete-category.php", "delete", data)
             return response.data
         } catch (error) {
@@ -44,6 +47,7 @@ export const fetchAsyncCreateCategory = createAsyncThunk(
     "categories/fetchAsyncCreateCategory",
     async (data, { rejectWithValue }) => {
         try {
+            instanceApi.defaults.headers["Content-Type"] = "application/json; charset=UTF-8"
             const response = await CallApiByBody("categories/create-category.php", "post", data)
             return response.data
         } catch (error) {
@@ -55,6 +59,7 @@ export const fetchAsyncUpdateCategory = createAsyncThunk(
     "categories/fetchAsyncUpdateCategory",
     async (data, { rejectWithValue }) => {
         try {
+            instanceApi.defaults.headers["Content-Type"] = "application/json; charset=UTF-8"
             const response = await CallApiByBody("categories/update-category.php", "put", data)
             return response.data
         } catch (error) {

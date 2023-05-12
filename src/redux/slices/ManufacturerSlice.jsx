@@ -1,4 +1,4 @@
-import { CallApiByBody, CallApiByParams } from "api/configApi";
+import instanceApi, { CallApiByBody, CallApiByParams } from "api/configApi";
 
 
 const { createSlice, createAsyncThunk } = require("@reduxjs/toolkit");
@@ -10,6 +10,7 @@ export const fetchAsyncGetManufacturer = createAsyncThunk(
     "manufacturers/fetchAsyncGetManufacturer",
     async (data, { rejectWithValue }) => {
         try {
+            instanceApi.defaults.headers["Content-Type"] = "application/json; charset=UTF-8"
             const response = await CallApiByParams("manufacturers/get-manufacturer.php", "get", data)
             return response.data
         } catch (error) {
@@ -21,6 +22,7 @@ export const fetchAsyncGetManufacturers = createAsyncThunk(
     "manufacturers/fetchAsyncGetManufacturers",
     async (data, { rejectWithValue }) => {
         try {
+            instanceApi.defaults.headers["Content-Type"] = "application/json; charset=UTF-8"
             const response = await CallApiByParams("manufacturers/get-all-manufacturers.php", "get", data)
             return response.data
         } catch (error) {
@@ -32,6 +34,7 @@ export const fetchAsyncDeleteManufacturers = createAsyncThunk(
     "manufacturers/fetchAsyncDeleteManufacturers",
     async (data, { rejectWithValue }) => {
         try {
+            instanceApi.defaults.headers["Content-Type"] = "application/json; charset=UTF-8"
             const response = await CallApiByBody("manufacturers/delete-manufacturer.php", "delete", data)
             return response.data
         } catch (error) {
@@ -43,6 +46,7 @@ export const fetchAsyncCreateManufacturer = createAsyncThunk(
     "manufacturers/fetchAsyncCreateManufacturer",
     async (data, { rejectWithValue }) => {
         try {
+            instanceApi.defaults.headers["Content-Type"] = "application/json; charset=UTF-8"
             const response = await CallApiByBody("manufacturers/create-manufacturer.php", "post", data)
             return response.data
         } catch (error) {
@@ -54,6 +58,7 @@ export const fetchAsyncUpdateManufacturer = createAsyncThunk(
     "manufacturers/fetchAsyncUpdateManufacturer",
     async (data, { rejectWithValue }) => {
         try {
+            instanceApi.defaults.headers["Content-Type"] = "application/json; charset=UTF-8"
             const response = await CallApiByBody("manufacturers/update-manufacturer.php", "put", data)
             return response.data
         } catch (error) {

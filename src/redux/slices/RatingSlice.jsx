@@ -1,4 +1,4 @@
-import { CallApiByBody, CallApiByParams } from "api/configApi";
+import instanceApi, { CallApiByBody, CallApiByParams } from "api/configApi";
 
 const { createSlice, createAsyncThunk } = require("@reduxjs/toolkit");
 
@@ -10,6 +10,7 @@ export const fetchAsyncGetAllRatings = createAsyncThunk(
     "rating/fetchAsyncGetAllRatings",
     async (data, { rejectWithValue }) => {
         try {
+            instanceApi.defaults.headers["Content-Type"] = "application/json; charset=UTF-8"
             const response = await CallApiByParams("ratings/get-all-ratings.php", "get", data)
             return response.data;
         } catch (error) {
@@ -21,6 +22,7 @@ export const fetchAsyncDeleteRating = createAsyncThunk(
     "rating/fetchAsyncDeleteRating",
     async (data, { rejectWithValue }) => {
         try {
+            instanceApi.defaults.headers["Content-Type"] = "application/json; charset=UTF-8"
             const response = await CallApiByBody("ratings/delete-rating.php", "delete", data)
             return response.data
         } catch (error) {

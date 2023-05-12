@@ -1,8 +1,5 @@
 import BlankLayout from "layouts/BlankLayout/BlankLayout";
 import DefaultLayout from "layouts/DefaultLayout/DefaultLayout";
-
-
-
 import ProductsScreen from "features/Product/ProductsScreen/ProductsScreen";
 import SignInScreen from "features/Auth/SignInScreen/SignInScreen";
 import HomeScreen from "features/Home/HomeScreen/HomeScreen";
