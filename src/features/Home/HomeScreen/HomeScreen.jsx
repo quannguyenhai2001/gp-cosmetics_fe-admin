@@ -1,9 +1,9 @@
 
-import { Box, Button, Grid, Tooltip, Typography } from '@mui/material';
+import { Box, Button, Grid, MenuItem, Select, Tooltip, Typography } from '@mui/material';
 import React, { useRef } from 'react';
 import { useState } from 'react';
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useStore } from 'react-redux';
 import { fetchAsyncGetMonthlyRevenueList, fetchAsyncGetRecentTransactions, fetchAsyncGetTotalRecords } from 'redux/slices/StatisticalSlice';
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
@@ -18,6 +18,10 @@ import fileDownload from 'js-file-download';
 import DownloadIcon from '@mui/icons-material/Download';
 import { Buffer } from 'buffer';
 import { v4 as uuidv4 } from 'uuid';
+import WarehouseIcon from '@mui/icons-material/Warehouse';
+import InventoryIcon from '@mui/icons-material/Inventory';
+import BillRecent from './BillRecent';
+
 const HomeScreen = () => {
     const dispatch = useDispatch();
     const [totalRecords, setTotalRecords] = useState({})
@@ -50,20 +54,33 @@ const HomeScreen = () => {
             },
         ],
     });
+    const currentYear = new Date().getFullYear();
+    const years = Array.from(new Array(currentYear - 1899), (_, index) => currentYear - index);
+    const [year, setYear] = useState(new Date().getFullYear())
+    useEffect(() => {
+        (async () => {
+            try {
+                const res2 = await dispatch(
+                    fetchAsyncGetRecentTransactions()
+                ).unwrap();
+                setRecentTransactions(res2.data)
+            } catch (e) {
+                Toast('warning', "Lỗi!");
+            }
+        })();
+    }, [dispatch])
     useEffect(() => {
         (async () => {
             try {
                 const res = await dispatch(
-                    fetchAsyncGetMonthlyRevenueList()
+                    fetchAsyncGetMonthlyRevenueList({ year })
                 ).unwrap();
                 const res1 = await dispatch(
                     fetchAsyncGetTotalRecords()
                 ).unwrap();
-                const res2 = await dispatch(
-                    fetchAsyncGetRecentTransactions()
-                ).unwrap();
+
                 setTotalRecords(res1.data)
-                setRecentTransactions(res2.data)
+
                 const { data } = res;
                 setRevenueStatic(data)
                 const categories = data.map(item => `${item.month}/${item.year}`);
@@ -96,7 +113,7 @@ const HomeScreen = () => {
                 Toast('warning', "Lỗi!");
             }
         })();
-    }, [dispatch]);
+    }, [dispatch, year]);
 
 
 
@@ -106,6 +123,10 @@ const HomeScreen = () => {
         const csvData = json2csv.parse(revenueStatic, opts);
         const csvBuffer = Buffer.from(csvData, 'utf-8');
         fileDownload(csvBuffer, 'revenue.csv');
+    }
+
+    const handleChangeSelect = (e) => {
+        setYear(e.target.value)
     }
     return (
         <Box>
@@ -164,6 +185,7 @@ const HomeScreen = () => {
                                     <Typography color="white" component="span" sx={{ display: "inline-block", transform: "TranslateY(-1.8px)" }} >&uarr;</Typography> {totalRecords.users.new_users_last_month / totalRecords.users.total_users * 100}%
                                 </Typography>
                             </Box>
+
                         </Box>
 
                     </Box>
@@ -215,8 +237,75 @@ const HomeScreen = () => {
                         </Box>
                     </Box>
 
+                    <Box
+                        gridColumn="span 3"
+                        backgroundColor="#6e6e6e"
+                        borderRadius="15px"
+                        display="flex"
+                        alignItems="center"
+                        justifyContent="center"
+                    >
+                        <Box width="100%" m="0 30px">
+                            <Box display="flex" justifyContent="space-between" >
+                                <Box>
+                                    <InventoryIcon
+                                        sx={{ fontSize: "30px", color: "white" }}
+                                    />
+                                    <Typography
+                                        variant="h4"
+                                        fontWeight="bold"
+                                        color="white"
 
+                                    >
+                                        {totalRecords.products.total_quantity}
+                                    </Typography>
+                                </Box>
 
+                            </Box>
+                            <Box display="flex" justifyContent="space-between" mt="2px">
+                                <Typography fontWeight="bold"
+                                    color="white">
+                                    Sản phẩm
+                                </Typography>
+
+                            </Box>
+                        </Box>
+                    </Box>
+
+                    <Box
+                        gridColumn="span 3"
+                        backgroundColor="#af2424"
+                        borderRadius="15px"
+                        display="flex"
+                        alignItems="center"
+                        justifyContent="center"
+                    >
+                        <Box width="100%" m="0 30px">
+                            <Box display="flex" justifyContent="space-between" >
+                                <Box>
+                                    <WarehouseIcon
+                                        sx={{ fontSize: "30px", color: "white" }}
+                                    />
+                                    <Typography
+                                        variant="h4"
+                                        fontWeight="bold"
+                                        color="white"
+
+                                    >
+                                        {totalRecords.manufacturers.total_manu}
+                                    </Typography>
+                                </Box>
+
+                            </Box>
+                            <Box display="flex" justifyContent="space-between" mt="2px">
+                                <Typography fontWeight="bold"
+                                    color="white">
+                                    Nhà cung cấp
+                                </Typography>
+
+                            </Box>
+                        </Box>
+                    </Box>
                 </Box>
             }
 
@@ -225,6 +314,7 @@ const HomeScreen = () => {
                     <Box sx={{ padding: "1rem" }}>
                         <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                             <Box sx={{ mb: "1rem" }}>
+
                                 <Typography
                                     variant="h5"
                                     fontWeight="bold"
@@ -239,6 +329,17 @@ const HomeScreen = () => {
                                 >
                                     {convertToVND(totalRecords?.revenue?.total_revenue)}
                                 </Typography>
+                            </Box>
+                            <Box sx={{ display: "flex", alignItems: "center", gap: "10px", transform: "translateX(-40px)" }}>
+                                <Typography>Năm: </Typography>
+                                <Select size='small' defaultValue={currentYear} labelId="demo-simple-select-label"
+                                    id="demo-simple-select" onChange={handleChangeSelect} >
+                                    {years.map((year) => (
+                                        <MenuItem key={year} value={year}>
+                                            {year}
+                                        </MenuItem>
+                                    ))}
+                                </Select>
                             </Box>
                             <Tooltip title="Xuất doanh thu" arrow placement="top">
                                 <Button onClick={exportCSV} sx={{
@@ -259,52 +360,7 @@ const HomeScreen = () => {
                     </Box>
                 </Grid>
                 <Grid item md={5} sx={{ overflowY: "scroll", backgroundColor: "#f1f4f9", borderRadius: "15px", maxHeight: "500px" }}>
-                    <Box>
-                        <Box sx={{ borderBottom: "3px solid gray", margin: "1rem", pb: "1rem" }}>
-                            <Typography
-                                variant="h5"
-                                fontWeight="bold"
-
-                            >
-                                Giao dịch gần đây
-                            </Typography>
-                        </Box>
-
-                        {recentTransactions.length > 0 ? recentTransactions.map(transaction => (
-                            <Box
-                                key={transaction.username}
-                                display="flex"
-                                justifyContent="space-between"
-                                alignItems="center"
-                                borderBottom="2px solid gray"
-                                m="15px"
-                                pb="1rem"
-                            >
-                                <Box>
-                                    <Typography
-
-                                        variant="h5"
-                                        fontWeight="600"
-                                    >
-                                        {uuidv4().substr(0, 4) + transaction.id}
-                                    </Typography>
-                                    <Typography >
-                                        {transaction.username}
-                                    </Typography>
-                                </Box>
-                                <Box >{transaction.create_at}</Box>
-                                <Box
-
-                                    p="5px 10px"
-                                    borderRadius="4px"
-                                >
-                                    {convertToVND(transaction.total_price)}
-                                </Box>
-                            </Box>
-                        )) : <Typography>Không có giao dịch nào gần đây</Typography>
-
-                        }
-                    </Box>
+                    <BillRecent recentTransactions={recentTransactions} />
                 </Grid >
             </Grid >
 

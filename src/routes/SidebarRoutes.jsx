@@ -7,9 +7,9 @@ import HomeIcon from "@mui/icons-material/Home";
 import PermDataSettingIcon from "@mui/icons-material/PermDataSetting";
 import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
 import SettingsSuggestIcon from "@mui/icons-material/SettingsSuggest";
-
-
-
+import ProductionQuantityLimitsIcon from '@mui/icons-material/ProductionQuantityLimits';
+import StarHalfIcon from '@mui/icons-material/StarHalf';
+import InventoryIcon from '@mui/icons-material/Inventory';
 export const sidebarMenuItems = [
     {
         icon: <HomeIcon />,
@@ -22,7 +22,7 @@ export const sidebarMenuItems = [
         to: "/dashboard/users",
     },
     {
-        icon: <PersonAddAlt1Icon />,
+        icon: <InventoryIcon />,
         title: "Quản lý sản phẩm",
         items: [
             {
@@ -48,12 +48,12 @@ export const sidebarMenuItems = [
 
     },
     {
-        icon: <SettingsSuggestIcon />,
+        icon: <ProductionQuantityLimitsIcon />,
         title: "Quản lý hóa đơn",
         to: "/dashboard/bills",
     },
     {
-        icon: <SettingsSuggestIcon />,
+        icon: <StarHalfIcon />,
         title: "Quản lý đánh giá",
         to: "/dashboard/ratings",
     },
