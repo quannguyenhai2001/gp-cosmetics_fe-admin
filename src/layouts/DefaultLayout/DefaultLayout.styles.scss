@@ -1,0 +1,12 @@
+.wrapper-main {
+    padding-left: 280px;
+    transition: all 0.3s ease;
+    &:has(.sidebar-collapsed) {
+        padding-left: 80px;
+        transition: padding-left 0.3s ease;
+    }
+}
+
+.wrapper-sidebar {
+    transition: 0.3s ease;
+}
